@@ -1,0 +1,62 @@
+{
+ "species": "walnut",
+ "mc_swing": 4,
+ "parts": {
+  "^MiterKey_": {
+   "role": "insert"
+  },
+  "^Door_Board_": {
+   "grain": "z",
+   "cut": "rift"
+  },
+  "^Door_Breadboard_": {
+   "grain": "x"
+  },
+  "^Side_(Left|Right)$": {
+   "grain": "z"
+  },
+  "^Divider$": {
+   "grain": "z"
+  },
+  "^Shelf$": {
+   "grain": "x"
+  },
+  "^Drawer_Bottom$": {
+   "grain": "x",
+   "species": "cedar",
+   "cut": "flat"
+  },
+  "^Door_Spline$": {
+   "role": "ignore"
+  }
+ },
+ "movement_ok": [
+  [
+   "^Bottom$",
+   "^Rail_(Left|Right)$",
+   "case sits on the stand, held with wood buttons"
+  ]
+ ],
+ "allow": [
+  [
+   "^(Leg|Rail)_",
+   "^(Side_|Back_|Bottom$)",
+   "case sits on the stand with a reveal"
+  ],
+  [
+   "^Back_",
+   "^Shelf$",
+   "back frame sits behind the shelf, not glued to it"
+  ],
+  [
+   "^Drawer_",
+   "^(Shelf|Bottom|Divider|Side_)",
+   "drawer slides"
+  ],
+  [
+   "^Hinge",
+   "^(Hinge|HScrew)",
+   "hinge leaves and knuckles"
+  ]
+ ]
+}

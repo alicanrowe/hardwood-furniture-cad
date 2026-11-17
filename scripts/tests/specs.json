@@ -1,0 +1,13 @@
+{
+ "table_good": {"species": "walnut"},
+ "table_bad":  {"species": "walnut"},
+ "chair_good": {"species": "white oak"},
+ "chair_bad":  {"species": "white oak"},
+ "chest_good": {"species": "cherry", "movement_ok": [["^Runner_", "^Side_", "runner glued in the front 2 in only, slotted screw at the back"]]},
+ "chest_bad":  {"species": "cherry", "parts": {"^Back$": {"grain": "z"}, "^Drawer_Bottom$": {"grain": "y"}},
+                "movement_ok": [["^Runner_", "^Side_", "runner glued in the front 2 in only, slotted screw at the back"]]},
+ "door_good":  {"species": "red oak"},
+ "door_bad":   {"species": "red oak"},
+ "bed_good":   {"species": "hard maple"},
+ "bed_bad":    {"species": "hard maple"}
+}

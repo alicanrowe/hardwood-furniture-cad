@@ -1,0 +1,1322 @@
+{
+ "about": "Hinge dimensions for fine furniture. Inches unless units says mm. Confidence 'maker chart'/'retailer page' came from the maker's or seller's own page; 'secondary' came from search summaries of those pages and must be checked against the hinge in hand before cutting. Always fit mortised hardware to the actual hinge.",
+ "hinges": [
+  {
+   "id": "whitechapel-205hg1",
+   "maker": "Whitechapel",
+   "model": "205HG1",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 4.0,
+   "open_width": 3.0,
+   "leaf_thickness": 0.1562,
+   "barrel_dia": 0.4375,
+   "screw": "#8",
+   "load_lb_per_pair": 40,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-205hd1",
+   "maker": "Whitechapel",
+   "model": "205HD1",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 4.0,
+   "open_width": 2.625,
+   "leaf_thickness": 0.1562,
+   "barrel_dia": 0.375,
+   "screw": "#8",
+   "load_lb_per_pair": 30,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-205hs1",
+   "maker": "Whitechapel",
+   "model": "205HS1",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 3.0,
+   "open_width": 2.0,
+   "leaf_thickness": 0.125,
+   "barrel_dia": 0.3125,
+   "screw": "#8",
+   "load_lb_per_pair": 30,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-205h1",
+   "maker": "Whitechapel",
+   "model": "205H1",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 3.0,
+   "open_width": 1.625,
+   "leaf_thickness": 0.0938,
+   "barrel_dia": 0.25,
+   "screw": "#8",
+   "load_lb_per_pair": 16,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-205h63",
+   "maker": "Whitechapel",
+   "model": "205H63",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 2.5,
+   "open_width": 2.0,
+   "leaf_thickness": 0.0938,
+   "barrel_dia": 0.25,
+   "screw": "#8",
+   "load_lb_per_pair": 16,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-206h40",
+   "maker": "Whitechapel",
+   "model": "206H40",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 2.5,
+   "open_width": 1.5,
+   "leaf_thickness": 0.0938,
+   "barrel_dia": 0.25,
+   "screw": "#8",
+   "load_lb_per_pair": 16,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-206h2",
+   "maker": "Whitechapel",
+   "model": "206H2",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 2.5,
+   "open_width": 1.375,
+   "leaf_thickness": 0.0781,
+   "barrel_dia": 0.2188,
+   "screw": "#6",
+   "load_lb_per_pair": 11,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-206h3",
+   "maker": "Whitechapel",
+   "model": "206H3",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 2.5,
+   "open_width": 1.125,
+   "leaf_thickness": 0.0781,
+   "barrel_dia": 0.1875,
+   "screw": "#4",
+   "load_lb_per_pair": 9,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-206h5",
+   "maker": "Whitechapel",
+   "model": "206H5",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 2.0,
+   "open_width": 1.5,
+   "leaf_thickness": 0.0938,
+   "barrel_dia": 0.25,
+   "screw": "#6",
+   "load_lb_per_pair": 16,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-206h6",
+   "maker": "Whitechapel",
+   "model": "206H6",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 2.0,
+   "open_width": 1.25,
+   "leaf_thickness": 0.0781,
+   "barrel_dia": 0.2188,
+   "screw": "#6",
+   "load_lb_per_pair": 11,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-206h7",
+   "maker": "Whitechapel",
+   "model": "206H7",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 2.0,
+   "open_width": 1.125,
+   "leaf_thickness": 0.0781,
+   "barrel_dia": 0.1875,
+   "screw": "#4",
+   "load_lb_per_pair": 9,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-206h8",
+   "maker": "Whitechapel",
+   "model": "206H8",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 2.0,
+   "open_width": 0.875,
+   "leaf_thickness": 0.0625,
+   "barrel_dia": 0.1562,
+   "screw": "#4",
+   "load_lb_per_pair": 7,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-206h11",
+   "maker": "Whitechapel",
+   "model": "206H11",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 1.5,
+   "open_width": 0.875,
+   "leaf_thickness": 0.0625,
+   "barrel_dia": 0.1562,
+   "screw": "#4",
+   "load_lb_per_pair": 7,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-206h12",
+   "maker": "Whitechapel",
+   "model": "206H12",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 1.5,
+   "open_width": 0.75,
+   "leaf_thickness": 0.0625,
+   "barrel_dia": 0.1562,
+   "screw": "#3",
+   "load_lb_per_pair": 7,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "whitechapel-206h14",
+   "maker": "Whitechapel",
+   "model": "206H14",
+   "type": "butt",
+   "material": "extruded brass, English pattern",
+   "length": 1.0,
+   "open_width": 0.625,
+   "leaf_thickness": 0.0469,
+   "barrel_dia": 0.1406,
+   "screw": "#2",
+   "load_lb_per_pair": 6,
+   "source": {
+    "name": "Whitechapel Ltd. Cabinet Hinge Specs chart",
+    "url": "https://www.whitechapel-ltd.com/hinges/cabinet-hinge-specs",
+    "confidence": "maker chart"
+   },
+   "notes": "load rating is the maker's conservative figure; leaf may be tapered (thicker at the knuckle)",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-00d0201",
+   "maker": "Lee Valley",
+   "model": "00D0201",
+   "type": "butt",
+   "material": "extruded brass, fixed pin",
+   "length": 2.0,
+   "open_width": 1.125,
+   "screw": "#4",
+   "source": {
+    "name": "Lee Valley 00D0201 Extruded Brass Fixed-Pin Butt Hinges page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "screws not included; leaf thickness not stated on the page",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-00d0203",
+   "maker": "Lee Valley",
+   "model": "00D0203",
+   "type": "butt",
+   "material": "extruded brass, fixed pin",
+   "length": 2.5,
+   "open_width": 1.375,
+   "screw": "#6",
+   "source": {
+    "name": "Lee Valley 00D0201 Extruded Brass Fixed-Pin Butt Hinges page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "screws not included; leaf thickness not stated on the page",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-00d0204",
+   "maker": "Lee Valley",
+   "model": "00D0204",
+   "type": "butt",
+   "material": "extruded brass, fixed pin",
+   "length": 3.0,
+   "open_width": 1.6875,
+   "screw": "#8",
+   "source": {
+    "name": "Lee Valley 00D0201 Extruded Brass Fixed-Pin Butt Hinges page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "screws not included; leaf thickness not stated on the page",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-00d0304",
+   "maker": "Lee Valley",
+   "model": "00D0304",
+   "type": "butt",
+   "material": "extruded brass, fixed pin",
+   "length": 3.0,
+   "open_width": 2.0,
+   "screw": "#8",
+   "source": {
+    "name": "Lee Valley 00D0201 Extruded Brass Fixed-Pin Butt Hinges page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "screws not included; leaf thickness not stated on the page",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-00d0303",
+   "maker": "Lee Valley",
+   "model": "00D0303",
+   "type": "butt",
+   "material": "extruded brass, fixed pin",
+   "length": 2.5,
+   "open_width": 1.5,
+   "screw": "#8",
+   "source": {
+    "name": "Lee Valley 00D0201 Extruded Brass Fixed-Pin Butt Hinges page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "screws not included; leaf thickness not stated on the page",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-00d0302",
+   "maker": "Lee Valley",
+   "model": "00D0302",
+   "type": "butt",
+   "material": "extruded brass, fixed pin",
+   "length": 2.0,
+   "open_width": 1.25,
+   "screw": "#6",
+   "source": {
+    "name": "Lee Valley 00D0201 Extruded Brass Fixed-Pin Butt Hinges page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "screws not included; leaf thickness not stated on the page",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-knife-5-16",
+   "maker": "Lee Valley",
+   "model": "05H0105 (brass) / 05H0125 (stainless)",
+   "type": "knife_straight",
+   "material": "solid brass or stainless",
+   "length": 1.5,
+   "leaf_width": 0.3125,
+   "leaf_thickness": 0.0938,
+   "screw": "#5",
+   "min_door_thickness": 0.4375,
+   "source": {
+    "name": "Lee Valley straight knife hinges 05H0105/05H0106 page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "door at least 1/8 in thicker than the leaf width; sold in pairs, screws not included",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-knife-3-8",
+   "maker": "Lee Valley",
+   "model": "05H0106 (brass) / 05H0126 (stainless)",
+   "type": "knife_straight",
+   "material": "solid brass or stainless",
+   "length": 1.75,
+   "leaf_width": 0.375,
+   "leaf_thickness": 0.125,
+   "screw": "#5",
+   "min_door_thickness": 0.5,
+   "source": {
+    "name": "Lee Valley straight knife hinges 05H0105/05H0106 page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "door at least 1/8 in thicker than the leaf width; sold in pairs, screws not included",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-knife-7-16",
+   "maker": "Lee Valley",
+   "model": "straight knife 7/16",
+   "type": "knife_straight",
+   "material": "solid brass or stainless",
+   "length": 1.875,
+   "leaf_width": 0.4375,
+   "leaf_thickness": 0.125,
+   "min_door_thickness": 0.5625,
+   "source": {
+    "name": "Lee Valley straight knife hinges 05H0105/05H0106 page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "door at least 1/8 in thicker than the leaf width; sold in pairs, screws not included",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-knife-1-2",
+   "maker": "Lee Valley",
+   "model": "straight knife 1/2",
+   "type": "knife_straight",
+   "material": "solid brass or stainless",
+   "length": 2.0,
+   "leaf_width": 0.5,
+   "leaf_thickness": 0.1875,
+   "min_door_thickness": 0.625,
+   "source": {
+    "name": "Lee Valley straight knife hinges 05H0105/05H0106 page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "door at least 1/8 in thicker than the leaf width; sold in pairs, screws not included",
+   "units": "in"
+  },
+  {
+   "id": "leevalley-05h0135",
+   "maker": "Lee Valley",
+   "model": "05H0135",
+   "type": "knife_double_offset",
+   "material": "brass",
+   "leaf_width": 0.625,
+   "length": 1.5,
+   "leaf_thickness": 0.0938,
+   "source": {
+    "name": "Lee Valley Brusso double offset knife hinges 01B1405 page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "pivot outside both door and case; opens to about 270 degrees",
+   "units": "in"
+  },
+  {
+   "id": "brusso-dbl-offset-01b1405",
+   "maker": "Brusso",
+   "model": "01B1405 (Lee Valley no.)",
+   "type": "knife_double_offset",
+   "material": "solid brass",
+   "offset": 0.625,
+   "length": 1.375,
+   "min_door_thickness": 0.75,
+   "source": {
+    "name": "Lee Valley Brusso double offset knife hinges 01B1405 page",
+    "url": "https://www.leevalley.com/en-us/shop/hardware/hinges",
+    "confidence": "retailer page"
+   },
+   "notes": "size given as offset x length; door at least 1/8 in thicker than the offset; opens to 270 degrees",
+   "units": "in"
+  },
+  {
+   "id": "brusso-l-23",
+   "maker": "Brusso",
+   "model": "L-23",
+   "type": "knife_offset",
+   "material": "solid brass, machined",
+   "length": 1.375,
+   "leaf_width": 0.3125,
+   "leaf_thickness": 0.125,
+   "min_door_thickness": 0.4375,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "offset (L) knife: pivot just outside the case so the door swings clear",
+   "units": "in"
+  },
+  {
+   "id": "brusso-l-37",
+   "maker": "Brusso",
+   "model": "L-37",
+   "type": "knife_offset",
+   "material": "solid brass, machined",
+   "length": 1.75,
+   "leaf_width": 0.375,
+   "leaf_thickness": 0.125,
+   "min_door_thickness": 0.5,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "offset (L) knife: pivot just outside the case so the door swings clear; for 5/8 in doors",
+   "units": "in"
+  },
+  {
+   "id": "brusso-l-39",
+   "maker": "Brusso",
+   "model": "L-39",
+   "type": "knife_offset",
+   "material": "solid brass, machined",
+   "length": 1.75,
+   "leaf_width": 0.375,
+   "leaf_thickness": 0.125,
+   "min_door_thickness": 0.5,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "offset (L) knife: pivot just outside the case so the door swings clear; extended knuckle, wider swing",
+   "units": "in"
+  },
+  {
+   "id": "brusso-l-87",
+   "maker": "Brusso",
+   "model": "L-87",
+   "type": "knife_offset",
+   "material": "solid brass, machined",
+   "length": 2.0,
+   "leaf_width": 0.5,
+   "leaf_thickness": 0.1875,
+   "min_door_thickness": 0.625,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "offset (L) knife: pivot just outside the case so the door swings clear",
+   "units": "in"
+  },
+  {
+   "id": "brusso-l-93",
+   "maker": "Brusso",
+   "model": "L-93",
+   "type": "knife_offset",
+   "material": "solid brass, machined",
+   "length": 2.5,
+   "leaf_width": 0.625,
+   "leaf_thickness": 0.25,
+   "min_door_thickness": 0.75,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "offset (L) knife: pivot just outside the case so the door swings clear",
+   "units": "in"
+  },
+  {
+   "id": "brusso-l-97",
+   "maker": "Brusso",
+   "model": "L-97",
+   "type": "knife_offset",
+   "material": "solid brass, machined",
+   "length": 3.25,
+   "leaf_width": 0.75,
+   "leaf_thickness": 0.3125,
+   "min_door_thickness": 0.875,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "offset (L) knife: pivot just outside the case so the door swings clear",
+   "units": "in"
+  },
+  {
+   "id": "brusso-l-19",
+   "maker": "Brusso",
+   "model": "L-19",
+   "type": "knife_offset",
+   "material": "solid brass, machined",
+   "length": 5.0,
+   "leaf_width": 0.75,
+   "leaf_thickness": 0.375,
+   "min_door_thickness": 0.875,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "offset (L) knife: pivot just outside the case so the door swings clear",
+   "units": "in"
+  },
+  {
+   "id": "brusso-st-12",
+   "maker": "Brusso",
+   "model": "ST-12",
+   "type": "knife_straight",
+   "material": "solid brass, machined",
+   "length": 1.375,
+   "leaf_width": 0.3125,
+   "leaf_thickness": 0.0938,
+   "min_door_thickness": 0.5625,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "center pivot; Brusso: width 1/4 in less than the door (1/8 in of wood each side)",
+   "units": "in"
+  },
+  {
+   "id": "brusso-st-18",
+   "maker": "Brusso",
+   "model": "ST-18",
+   "type": "knife_straight",
+   "material": "solid brass, machined",
+   "length": 1.5,
+   "leaf_width": 0.375,
+   "leaf_thickness": 0.125,
+   "min_door_thickness": 0.625,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "center pivot; Brusso: width 1/4 in less than the door (1/8 in of wood each side)",
+   "units": "in"
+  },
+  {
+   "id": "brusso-st-80",
+   "maker": "Brusso",
+   "model": "ST-80",
+   "type": "knife_straight",
+   "material": "solid brass, machined",
+   "length": 2.0,
+   "leaf_width": 0.5,
+   "leaf_thickness": 0.1875,
+   "min_door_thickness": 0.75,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "center pivot; Brusso: width 1/4 in less than the door (1/8 in of wood each side)",
+   "units": "in"
+  },
+  {
+   "id": "brusso-st-93",
+   "maker": "Brusso",
+   "model": "ST-93",
+   "type": "knife_straight",
+   "material": "solid brass, machined",
+   "length": 2.5,
+   "leaf_width": 0.625,
+   "leaf_thickness": 0.25,
+   "min_door_thickness": 0.875,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "center pivot; Brusso: width 1/4 in less than the door (1/8 in of wood each side)",
+   "units": "in"
+  },
+  {
+   "id": "brusso-st-97",
+   "maker": "Brusso",
+   "model": "ST-97",
+   "type": "knife_straight",
+   "material": "solid brass, machined",
+   "length": 3.25,
+   "leaf_width": 0.75,
+   "leaf_thickness": 0.3125,
+   "min_door_thickness": 1.0,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "center pivot; Brusso: width 1/4 in less than the door (1/8 in of wood each side)",
+   "units": "in"
+  },
+  {
+   "id": "brusso-st-19",
+   "maker": "Brusso",
+   "model": "ST-19",
+   "type": "knife_straight",
+   "material": "solid brass, machined",
+   "length": 5.0,
+   "leaf_width": 0.75,
+   "leaf_thickness": 0.375,
+   "min_door_thickness": 1.0,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "center pivot; Brusso: width 1/4 in less than the door (1/8 in of wood each side)",
+   "units": "in"
+  },
+  {
+   "id": "brusso-cb-301",
+   "maker": "Brusso",
+   "model": "CB-301",
+   "type": "butt",
+   "material": "solid brass, machined",
+   "length": 0.75,
+   "open_width": 0.8125,
+   "leaf_thickness": 0.085,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "full mortise box hinge; flat leaves",
+   "units": "in"
+  },
+  {
+   "id": "brusso-cb-302",
+   "maker": "Brusso",
+   "model": "CB-302",
+   "type": "butt",
+   "material": "solid brass, machined",
+   "length": 1.25,
+   "open_width": 0.8125,
+   "leaf_thickness": 0.085,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "full mortise box hinge; flat leaves",
+   "units": "in"
+  },
+  {
+   "id": "brusso-cb-303",
+   "maker": "Brusso",
+   "model": "CB-303",
+   "type": "butt",
+   "material": "solid brass, machined",
+   "length": 1.25,
+   "open_width": 1.0625,
+   "leaf_thickness": 0.085,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "full mortise box hinge; flat leaves",
+   "units": "in"
+  },
+  {
+   "id": "brusso-cb-407",
+   "maker": "Brusso",
+   "model": "CB-407",
+   "type": "butt",
+   "material": "solid brass, machined",
+   "length": 2.0,
+   "open_width": 1.5,
+   "leaf_thickness": 0.085,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "full mortise box hinge; flat leaves",
+   "units": "in"
+  },
+  {
+   "id": "brusso-jb-101",
+   "maker": "Brusso",
+   "model": "JB-101",
+   "type": "stop",
+   "material": "solid brass, machined",
+   "length": 0.75,
+   "open_width": 0.5,
+   "closed_thickness": 0.1875,
+   "leaf_thickness": 0.086,
+   "opens_to_deg": 95,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "stop machined into the knuckle holds the lid at 95 degrees; full mortise; JB-102/103 widths may be closed widths, verify",
+   "units": "in"
+  },
+  {
+   "id": "brusso-jb-102",
+   "maker": "Brusso",
+   "model": "JB-102",
+   "type": "stop",
+   "material": "solid brass, machined",
+   "length": 1.25,
+   "open_width": 0.5,
+   "opens_to_deg": 95,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "stop machined into the knuckle holds the lid at 95 degrees; full mortise; JB-102/103 widths may be closed widths, verify",
+   "units": "in"
+  },
+  {
+   "id": "brusso-jb-103",
+   "maker": "Brusso",
+   "model": "JB-103",
+   "type": "stop",
+   "material": "solid brass, machined",
+   "length": 1.25,
+   "open_width": 0.625,
+   "opens_to_deg": 95,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "stop machined into the knuckle holds the lid at 95 degrees; full mortise; JB-102/103 widths may be closed widths, verify",
+   "units": "in"
+  },
+  {
+   "id": "brusso-jb-107",
+   "maker": "Brusso",
+   "model": "JB-107",
+   "type": "stop",
+   "material": "solid brass, machined",
+   "length": 2.0,
+   "open_width": 0.875,
+   "opens_to_deg": 95,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "stop machined into the knuckle holds the lid at 95 degrees; full mortise; JB-102/103 widths may be closed widths, verify",
+   "units": "in"
+  },
+  {
+   "id": "brusso-lh-201",
+   "maker": "Brusso",
+   "model": "LH-201",
+   "type": "lift_off",
+   "material": "solid brass",
+   "length": 2.5,
+   "open_width": 1.75,
+   "leaf_thickness": 0.0938,
+   "source": {
+    "name": "Brusso catalogue figures via retailer listings (web search summary)",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify on the maker's sheet"
+   },
+   "notes": "leaves separate so the door lifts off the pin",
+   "units": "in"
+  },
+  {
+   "id": "brusso-quadrant-small",
+   "maker": "Brusso",
+   "model": "quadrant 1 x 5/16",
+   "type": "quadrant",
+   "material": "solid brass",
+   "length": 1.0,
+   "leaf_width": 0.3125,
+   "stay_mortise_depth": 0.75,
+   "min_wall": 0.375,
+   "opens_to_deg": 95,
+   "source": {
+    "name": "Lee Valley Brusso quadrant hinge listing (web search summary)",
+    "url": "https://www.leevalley.com",
+    "confidence": "secondary: verify"
+   },
+   "units": "in"
+  },
+  {
+   "id": "brusso-quadrant-large",
+   "maker": "Brusso",
+   "model": "quadrant 1 1/2 x 1/2",
+   "type": "quadrant",
+   "material": "solid brass",
+   "length": 1.5,
+   "leaf_width": 0.5,
+   "stay_mortise_depth": 1.03,
+   "min_wall": 0.625,
+   "opens_to_deg": 95,
+   "source": {
+    "name": "Lee Valley Brusso quadrant hinge listing (web search summary)",
+    "url": "https://www.leevalley.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "stay mortise just over 1 in deep",
+   "units": "in"
+  },
+  {
+   "id": "sugatsune-hes3d-90",
+   "maker": "Sugatsune",
+   "model": "HES3D-90",
+   "type": "concealed_barrel",
+   "material": "zinc alloy body, 3-way adjustable",
+   "length": 3.5433,
+   "body_width": 0.7087,
+   "body_depth": 1.378,
+   "min_door_thickness": 0.9055,
+   "load_lb_per_pair": 26.5,
+   "mortise_depth": 0.6299,
+   "source": {
+    "name": "Sugatsune HES3D spec sheets (web search summary)",
+    "url": "https://www.sugatsune.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "invisible (Soss-type) 3D adjustable; depth here is the reference mortise depth",
+   "units": "in"
+  },
+  {
+   "id": "sugatsune-hes3d-120",
+   "maker": "Sugatsune",
+   "model": "HES3D-120",
+   "type": "concealed_barrel",
+   "material": "zinc alloy body, 3-way adjustable",
+   "length": 4.7244,
+   "body_width": 0.9843,
+   "body_depth": 1.7126,
+   "min_door_thickness": 1.1417,
+   "load_lb_per_pair": 66.1,
+   "mortise_depth": 0.8268,
+   "source": {
+    "name": "Sugatsune HES3D spec sheets (web search summary)",
+    "url": "https://www.sugatsune.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "invisible (Soss-type) 3D adjustable; depth here is the reference mortise depth",
+   "units": "in"
+  },
+  {
+   "id": "sugatsune-hes3d-160",
+   "maker": "Sugatsune",
+   "model": "HES3D-160",
+   "type": "concealed_barrel",
+   "material": "zinc alloy body, 3-way adjustable",
+   "length": 6.2992,
+   "body_width": 1.1811,
+   "body_depth": 1.9685,
+   "min_door_thickness": 1.378,
+   "mortise_depth": 0.9843,
+   "source": {
+    "name": "Sugatsune HES3D spec sheets (web search summary)",
+    "url": "https://www.sugatsune.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "invisible (Soss-type) 3D adjustable; depth here is the reference mortise depth",
+   "units": "in"
+  },
+  {
+   "id": "soss-101",
+   "maker": "SOSS",
+   "model": "101",
+   "type": "concealed_barrel",
+   "material": "zinc / steel",
+   "min_door_thickness": 0.5,
+   "outline_mortise_depth": 0.2188,
+   "mortise_depth": 0.5156,
+   "opens_to_deg": 180,
+   "source": {
+    "name": "SOSS installation charts (web search summary)",
+    "url": "https://www.soss.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "two-step mortise: shallow outline for the face plate, deep pocket for the body; use the SOSS template",
+   "units": "in"
+  },
+  {
+   "id": "soss-203",
+   "maker": "SOSS",
+   "model": "203",
+   "type": "concealed_barrel",
+   "material": "zinc / steel",
+   "min_door_thickness": 0.75,
+   "length": 1.75,
+   "body_width": 0.5,
+   "screw": "#6-40",
+   "opens_to_deg": 180,
+   "source": {
+    "name": "SOSS installation charts (web search summary)",
+    "url": "https://www.soss.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "two-step mortise: shallow outline for the face plate, deep pocket for the body; use the SOSS template",
+   "units": "in"
+  },
+  {
+   "id": "soss-204",
+   "maker": "SOSS",
+   "model": "204",
+   "type": "concealed_barrel",
+   "material": "zinc / steel",
+   "min_door_thickness": 0.75,
+   "length": 2.375,
+   "body_width": 0.5,
+   "screw": "#8-32",
+   "opens_to_deg": 180,
+   "source": {
+    "name": "SOSS installation charts (web search summary)",
+    "url": "https://www.soss.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "two-step mortise: shallow outline for the face plate, deep pocket for the body; use the SOSS template",
+   "units": "in"
+  },
+  {
+   "id": "soss-208",
+   "maker": "SOSS",
+   "model": "208",
+   "type": "concealed_barrel",
+   "material": "zinc / steel",
+   "min_door_thickness": 1.0,
+   "length": 2.75,
+   "body_width": 0.625,
+   "screw": "#8-32",
+   "opens_to_deg": 180,
+   "source": {
+    "name": "SOSS installation charts (web search summary)",
+    "url": "https://www.soss.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "two-step mortise: shallow outline for the face plate, deep pocket for the body; use the SOSS template",
+   "units": "in"
+  },
+  {
+   "id": "soss-216",
+   "maker": "SOSS",
+   "model": "216",
+   "type": "concealed_barrel",
+   "material": "zinc / steel",
+   "body_width": 0.7344,
+   "outline_mortise_depth": 0.4688,
+   "mortise_depth": 1.5,
+   "opens_to_deg": 180,
+   "source": {
+    "name": "SOSS installation charts (web search summary)",
+    "url": "https://www.soss.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "two-step mortise: shallow outline for the face plate, deep pocket for the body; use the SOSS template",
+   "units": "in"
+  },
+  {
+   "id": "soss-218",
+   "maker": "SOSS",
+   "model": "218",
+   "type": "concealed_barrel",
+   "material": "zinc / steel",
+   "body_width": 0.875,
+   "outline_mortise_depth": 0.4062,
+   "mortise_depth": 1.6562,
+   "opens_to_deg": 180,
+   "source": {
+    "name": "SOSS installation charts (web search summary)",
+    "url": "https://www.soss.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "two-step mortise: shallow outline for the face plate, deep pocket for the body; use the SOSS template",
+   "units": "in"
+  },
+  {
+   "id": "soss-220",
+   "maker": "SOSS",
+   "model": "220",
+   "type": "concealed_barrel",
+   "material": "zinc / steel",
+   "body_width": 1.0625,
+   "outline_mortise_depth": 0.4688,
+   "mortise_depth": 2.0625,
+   "opens_to_deg": 180,
+   "source": {
+    "name": "SOSS installation charts (web search summary)",
+    "url": "https://www.soss.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "two-step mortise: shallow outline for the face plate, deep pocket for the body; use the SOSS template",
+   "units": "in"
+  },
+  {
+   "id": "horton-2-in-cabinet-butt",
+   "maker": "Horton Brasses",
+   "model": "2 in cabinet butt",
+   "type": "butt",
+   "material": "brass",
+   "length": 2.0,
+   "open_width": 1.5,
+   "leaf_thickness": 0.0938,
+   "source": {
+    "name": "Horton Brasses product listings (web search summary)",
+    "url": "https://www.horton-brasses.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "ball or button tips available",
+   "units": "in"
+  },
+  {
+   "id": "horton-2-in-precision-butt",
+   "maker": "Horton Brasses",
+   "model": "2 in precision butt",
+   "type": "butt",
+   "material": "brass",
+   "length": 2.0,
+   "open_width": 1.75,
+   "leaf_thickness": 0.0938,
+   "source": {
+    "name": "Horton Brasses product listings (web search summary)",
+    "url": "https://www.horton-brasses.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "ball or button tips available",
+   "units": "in"
+  },
+  {
+   "id": "horton-2-1-2-in-butt",
+   "maker": "Horton Brasses",
+   "model": "2 1/2 in butt",
+   "type": "butt",
+   "material": "brass",
+   "length": 2.5,
+   "open_width": 1.5,
+   "leaf_thickness": 0.0938,
+   "source": {
+    "name": "Horton Brasses product listings (web search summary)",
+    "url": "https://www.horton-brasses.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "ball or button tips available",
+   "units": "in"
+  },
+  {
+   "id": "horton-2-1-2-in-butt,-wide",
+   "maker": "Horton Brasses",
+   "model": "2 1/2 in butt, wide",
+   "type": "butt",
+   "material": "brass",
+   "length": 2.5,
+   "open_width": 1.75,
+   "leaf_thickness": 0.0938,
+   "source": {
+    "name": "Horton Brasses product listings (web search summary)",
+    "url": "https://www.horton-brasses.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "ball or button tips available",
+   "units": "in"
+  },
+  {
+   "id": "horton-non-mortise-2-5",
+   "maker": "Horton Brasses",
+   "model": "2 1/2 in non-mortise, ball tip",
+   "type": "non_mortise",
+   "material": "brass",
+   "length": 2.5,
+   "door_thickness_range": [
+    0.75,
+    1.0
+   ],
+   "source": {
+    "name": "Horton Brasses product listings (web search summary)",
+    "url": "https://www.horton-brasses.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "leaves nest when closed so no mortise; needs a 2-3 degree back bevel on the hinge edge of the door",
+   "units": "in"
+  },
+  {
+   "id": "rockler-drop-leaf",
+   "maker": "Rockler",
+   "model": "drop-leaf hinge",
+   "type": "drop_leaf",
+   "material": "brass",
+   "open_width": 1.5,
+   "length": 3.1875,
+   "source": {
+    "name": "Rockler product listings (web search summary)",
+    "url": "https://www.rockler.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "asymmetric: long leaf on the drop leaf, short leaf on the fixed top; used with a rule joint",
+   "units": "in"
+  },
+  {
+   "id": "hafele-folding-table",
+   "maker": "Häfele",
+   "model": "folding/card table hinge",
+   "type": "card_table",
+   "material": "brass",
+   "recess_depth_by_panel_mm": {
+    "16": 14,
+    "18": 16,
+    "21": 19,
+    "25": 23,
+    "28": 25,
+    "30": 27,
+    "32": 29
+   },
+   "source": {
+    "name": "Häfele folding-table hinge data (web search summary)",
+    "url": "https://www.hafele.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "mortised into the edges of the two leaves; lie flat in both positions; recess depth set by top thickness",
+   "units": "in"
+  },
+  {
+   "id": "blum-cliptop-110",
+   "maker": "Blum",
+   "model": "CLIP top 110",
+   "type": "euro_cup",
+   "material": "steel",
+   "units": "mm",
+   "cup_dia": 35,
+   "cup_depth_min": 13,
+   "boring_distance_range": [
+    3,
+    7
+   ],
+   "screw_spacing": 45,
+   "screw_offset": 9.5,
+   "source": {
+    "name": "Blum CLIP top technical data (web search summary)",
+    "url": "https://www.blum.com",
+    "confidence": "secondary: verify"
+   },
+   "notes": "boring distance = door edge to the edge of the cup hole; overlay = X + B - H (X: hinge constant at 0 mm plate, B: boring distance, H: plate height); soft close with BLUMOTION"
+  },
+  {
+   "id": "leevalley-piano-steel",
+   "maker": "Lee Valley",
+   "model": "piano hinge, plated steel",
+   "type": "piano",
+   "material": "plated steel",
+   "leaf_thickness": 0.04,
+   "source": {
+    "name": "Lee Valley piano hinge listings (web search summary)",
+    "url": "https://www.leevalley.com",
+    "confidence": "secondary: verify"
+   },
+   "units": "in"
+  },
+  {
+   "id": "leevalley-piano-stainless",
+   "maker": "Lee Valley",
+   "model": "piano hinge, stainless",
+   "type": "piano",
+   "material": "stainless",
+   "leaf_thickness": 0.037,
+   "source": {
+    "name": "Lee Valley piano hinge listings (web search summary)",
+    "url": "https://www.leevalley.com",
+    "confidence": "secondary: verify"
+   },
+   "units": "in"
+  },
+  {
+   "id": "brusso-li-97",
+   "maker": "Brusso",
+   "model": "LI-97 (LI-97RH / LI-97LH)",
+   "type": "knife_intermediate",
+   "units": "in",
+   "material": "solid brass",
+   "length": 3.5,
+   "open_width": 1.125,
+   "handed": true,
+   "notes": "intermediate (middle) offset knife hinge for tall or heavy doors hung on L-97 top and bottom knife hinges; handed, a right-hand one can't simply be flipped; size 3 1/2 x 1 1/8 in (88.9 x 28.6 mm) from a dealer listing",
+   "source": {
+    "name": "Dealer listing (The Wood Works, AU) via an earlier sourcing search",
+    "url": "https://brusso.com",
+    "confidence": "secondary: verify"
+   }
+  }
+ ]
+}

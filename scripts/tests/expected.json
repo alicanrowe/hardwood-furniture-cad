@@ -1,0 +1,106 @@
+{
+ "table_good": [],
+ "table_bad": [
+  [
+   "end_grain",
+   "Apron_Front",
+   "Leg_FR"
+  ],
+  [
+   "through|empty_pocket",
+   "Leg_FL"
+  ],
+  [
+   "empty_pocket",
+   "Leg_BR"
+  ],
+  [
+   "cross_grain",
+   "Apron_L",
+   "Top"
+  ],
+  [
+   "cross_grain",
+   "Apron_R",
+   "Top"
+  ],
+  [
+   "near_miss",
+   "Leg_FL",
+   "Apron_Front"
+  ]
+ ],
+ "chair_good": [],
+ "chair_bad": [
+  [
+   "near_miss",
+   "Stretcher_L",
+   "Leg_FL"
+  ],
+  [
+   "empty_pocket",
+   "Leg_BL"
+  ],
+  [
+   "empty_pocket",
+   "Leg_BR"
+  ]
+ ],
+ "chest_good": [],
+ "chest_bad": [
+  [
+   "cross_grain",
+   "Back",
+   "Case_Top"
+  ],
+  [
+   "cross_grain",
+   "Back",
+   "Case_Bottom"
+  ],
+  [
+   "end_grain",
+   "Drawer_Front",
+   "Drawer_Side_L"
+  ],
+  [
+   "end_grain",
+   "Drawer_Front",
+   "Drawer_Side_R"
+  ],
+  [
+   "panel_room",
+   "Drawer_Bottom"
+  ]
+ ],
+ "door_good": [],
+ "door_bad": [
+  [
+   "panel_room",
+   "Panel"
+  ]
+ ],
+ "bed_good": [],
+ "bed_bad": [
+  [
+   "cross_grain",
+   "Headboard",
+   "Post_L"
+  ],
+  [
+   "cross_grain",
+   "Headboard",
+   "Post_R"
+  ],
+  [
+   "end_grain",
+   "Side_Rail_L",
+   "Post_L"
+  ],
+  [
+   "end_grain",
+   "Side_Rail_R",
+   "Post_R"
+  ]
+ ]
+}
