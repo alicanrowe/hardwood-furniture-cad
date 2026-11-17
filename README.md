@@ -1,5 +1,8 @@
 # Hardwood furniture CAD skill
 
+![A walnut cabinet on stand, modelled and checked with this skill: door open on brass butt hinges, drawer out](docs/pm-case-walnut.jpg)
+
+
 A Claude skill for designing solid hardwood furniture in CAD (Blender, build123d, CadQuery or anything that exports GLB/STL) and checking the model for the mistakes that make real furniture fail.
 
 ## What's in it
