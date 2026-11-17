@@ -1,6 +1,8 @@
 ---
 name: hardwood-furniture-cad
 description: Use when modelling, editing, exporting or drawing solid hardwood furniture in CAD (Blender, build123d, CadQuery, any GLB/STL): tables, chairs, stools, benches, casework, drawers, doors, beds, shelves. Gives sizes, joinery and wood-movement rules, and checks the model for joinery and wood-movement mistakes.
+metadata:
+  author: Alican Rowe (@alicanrowe)
 ---
 
 # Hardwood furniture CAD

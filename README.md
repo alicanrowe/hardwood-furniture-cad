@@ -48,5 +48,9 @@ The checker treats every face-to-face contact as glued unless a fastener, a floa
 
 Movement coefficients are approximate, from the USDA Forest Products Laboratory *Wood Handbook*.
 
+## Authors
+- **Alican Rowe** ([@alicanrowe](https://github.com/alicanrowe))
+- Claude (Anthropic)
+
 ## License
 MIT. See `LICENSE`.
