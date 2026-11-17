@@ -22,6 +22,7 @@ A Claude skill for designing solid hardwood furniture in CAD (Blender, build123d
   - butt joints with no joinery
   - panels without room to move, sized by species and moisture swing
 - **`references/hinges.md` + `hinges.json`**: a hinge library for fine furniture (71 hinges from Brusso, Lee Valley, Whitechapel, Sugatsune, SOSS, Horton Brasses, Rockler, Häfele and Blum): sizes, leaf and barrel thickness, screws, door-thickness rules, how each type works and how it's mortised. Every record names its source and how sure it is.
+- **`references/shop-profile-template.md`**: describe your machines (mortiser chisels, router bits, saw tilt and dado widths) so joinery is sized to what you can cut.
 - **`scripts/hinge.py`**: looks up a hinge and gives the mortise length, width and depth for your door and gap (`python3 scripts/hinge.py 205H1 --door 3/4 --gap 1/16`).
 - **`examples/`**: a worked example on a real walnut cabinet on stand: its spec, what the checker found, and what each flag meant.
 - **`scripts/tests/`**: builds a table, chair, chest of drawers, frame-and-panel door and bed, each once correctly and once with mistakes planted, and checks the checker against them. Current result: 19 of 19 mistakes caught, no false alarms.

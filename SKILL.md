@@ -8,7 +8,7 @@ description: Use when modelling, editing, exporting or drawing solid hardwood fu
 Design solid-wood furniture that can actually be built and won't crack, then check the model before calling it done.
 
 ## Before modelling
-1. Read `references/wood-movement.md`, the section of `references/furniture-types.md` for this kind of piece, `references/joinery-standards.md` and `references/modeling-rules.md`.
+1. Read `references/wood-movement.md`, the section of `references/furniture-types.md` for this kind of piece, `references/joinery-standards.md` and `references/modeling-rules.md`. If the user has a shop profile (see `references/shop-profile-template.md`), size every mortise, groove and rabbet to their tools, and flag anything they can't cut in one setup.
 2. Start a project page from `references/project-template.md` and write the piece's cadcheck spec (`<piece>.cadcheck.json`): species, moisture swing (4% for a heated, air-conditioned house; 6% without AC), grain for any part whose grain doesn't run along its longest side, and which joints are attached so they can move.
 3. Editing an existing piece: open the file the project page names as current and check its hash. Never build from remembered sizes.
 
