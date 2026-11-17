@@ -9,5 +9,7 @@
  "door_good":  {"species": "red oak"},
  "door_bad":   {"species": "red oak"},
  "bed_good":   {"species": "hard maple"},
- "bed_bad":    {"species": "hard maple"}
+ "bed_bad":    {"species": "hard maple"},
+ "corner_good": {"species": "ash"},
+ "corner_bad":  {"species": "ash"}
 }

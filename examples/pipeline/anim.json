@@ -1,0 +1,9 @@
+{"look": {"species": "walnut", "finish": "oil"},
+ "aspect": "16x9", "fps": 24,
+ "groups": [{"match": "^Leg_", "title": "Legs", "note": "mortised while still square"},
+            {"match": "^Apron_", "title": "Aprons", "note": "haunched tenons, mortises 1/2 in down"},
+            {"match": "^Button_", "title": "Buttons", "note": "hold the top and let it move"},
+            {"match": "^Top$", "title": "Top", "note": "never glued to the aprons"}],
+ "explode_title": "Joinery", "explode_note": "every joint, raw wood",
+ "finish_title": "Finish", "finish_note": "oil goes on now, and only now",
+ "seconds": {"group": 3.0, "explode": 4.0, "finish": 3.0, "turn": 4.0, "hold": 1.0}}

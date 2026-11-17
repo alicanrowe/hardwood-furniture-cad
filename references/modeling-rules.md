@@ -6,6 +6,9 @@
 - Never "fill" an old hole by adding a plug of geometry: rebuild the part without the cut.
 - Never leave booleans that create steps under 1/8 in except deliberate clearances.
 - When a design change removes a feature (dowels, lid, pins), remove its cuts from **every** mating part too.
+- When a joint changes, trim the old part back to the new seat (an old tenon or foot left running into solid wood shows up as `interference`). Never dismiss an overlap on an open mesh as an artefact: close the part first, then measure.
+- After a boolean rebuild (trimesh, manifold3d), copy each part's material back from the source file before export, and list materials per part in the version diff.
+- Export GLBs with split normals (`scripts/split_normals.py`) so flat faces don't streak in viewers.
 
 ## Units and axes
 - Source models: inches, Z up. GLB exports are **metres, Y up** (Blender's glTF export): pass `--units m` to cadcheck.

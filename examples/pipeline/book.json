@@ -1,0 +1,28 @@
+{
+ "title": "Walnut side table",
+ "subtitle": "shop drawings and build steps",
+ "maker": "Example built by the hardwood furniture CAD skill",
+ "cutlist": "out/cutlist.json",
+ "cover": "out/renders/hero.jpg",
+ "intro": "A small walnut table: four legs, four aprons tenoned into them, and a top held by wooden buttons so it can move with the seasons. Mill everything first, cut all the joinery while the legs are still square, dry-fit, then glue the base and fit the top last.",
+ "tools": ["hollow-chisel mortiser, 1/4 in chisel", "table saw with a tenoning jig", "router table, 1/4 in slot cutter for the button slots"],
+ "sections": [
+  {"title": "Stand", "steps": [
+   {"title": "Mortise the legs", "parts": ["A"],
+    "text": "Lay out every mortise from the top of the leg. Start each mortise about 1/2 in below the top so a solid cap of wood stays above it; the apron tenon gets a haunch to fill that space. Keep 1/4 in of wood between the two mortises in each leg.",
+    "image": "out/renders/process.jpg",
+    "check": "Each mortise starts at least 1/2 in from the top, with 1/4 in of wood between mortises."},
+   {"title": "Tenon the aprons", "parts": ["C", "D"],
+    "text": "Cut the cheeks, then the shoulders, then the haunch. Fit each tenon to its own mortise and number the pair.",
+    "image": "out/renders/exploded.jpg",
+    "check": "Shoulders seat all round with no light; the haunch fills the space above the mortise."}]},
+  {"title": "Top", "steps": [
+   {"title": "Fit the buttons", "parts": ["E"],
+    "text": "Cut the slots in the aprons, then fit the buttons so they pull the top down but can slide across the grain. Never glue the top to the aprons.",
+    "image": "",
+    "check": "Every button slides in its slot with the top in place."}]}
+ ],
+ "finishing": {"text": "Only now does the finish go on: an oil finish, wiped on and off in thin coats. The process pictures in this book are plain wood on purpose.", "image": "out/renders/hero.jpg"},
+ "sheets": ["out/fullsize_tiled.pdf", "out/fullsize_roll.pdf"],
+ "notes": ["Hardware is counted from the model. Check how it is sold before ordering: hinges such as Brusso's come by the pair."]
+}

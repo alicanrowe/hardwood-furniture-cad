@@ -19,6 +19,9 @@ Whitechapel's own advice holds for every record: "any hinge or other piece of mo
 - **Mortise depth matches the hinge, and the door gap comes out of the hinge.** It is not a separate offset.
 - **Screws** go in as `HScrew_*` parts, or as pilot holes sized for the gauge in the record.
 - **Allow the hinge in the spec, not each touch.** Add `["^Hinge", "^(Hinge|HScrew)", "hinge leaves and knuckles"]` to the spec's `allow` list. The hinge legitimately touches its mortises.
+- **Wood behind every screw and leaf.** Before choosing a hinge, cut a section at each screw: a mortise and a #4 to #6 screw want about 1/2 in of solid wood behind them. A knife-edge or steeply bevelled eave can leave 0.04 to 0.3 in, which strips. Move the hinge, thicken the edge, or pick a different hinge.
+- **Check the whole swing** after any change to the hinge or the edge it hangs on: step the lid or door through its full arc and test for collisions (a 5/16 in eave heel once hit the posts at 214 degrees, before the lid reached its stop at 221). Set the pin offset from that check.
+- **Ordering: count hinges, then check how they're sold.** Brusso sells its hinges by the pair (a CB-303 listing is 2 hinges), so 4 hinges on two lids = **2 pairs**. Whitechapel and Horton sell most butts by the pair too; Lee Valley mostly by the pair or as singles depending on the line. Write "N hinges = M pairs" on the cut list and in the build book.
 - **Two or more doors:** the hinge line must be a single straight axis. Check that knife-hinge mortises in the top and bottom line up on the same pivot axis.
 
 ## Types: how each works and how it's fitted

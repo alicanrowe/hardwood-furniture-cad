@@ -1,0 +1,6 @@
+{"species": "walnut", "finish": "oil",
+ "parts": {"Panel": {"figure": "cathedral"}},
+ "shots": [{"name": "hero", "finish": 1, "azimuth": 32, "elevation": 14},
+           {"name": "process", "finish": 0, "azimuth": -35, "elevation": 26},
+           {"name": "exploded", "finish": 0, "explode": 0.3, "azimuth": 32, "elevation": 22}],
+ "samples": 64, "size": [1600, 1100]}
