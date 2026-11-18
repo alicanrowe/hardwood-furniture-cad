@@ -165,8 +165,9 @@ The worked example in `examples/walnut-cabinet-on-stand.md` walks through its sp
 - **`references/`**
   - `joinery-standards.md`: fits, mortise and tenon, webs and necks, frame and panel, locating a case on a stand
   - `wood-movement.md`: seasonal movement for 25 woods and the rules for tops, panels, casework, drawer bottoms and backs
-  - `furniture-types.md`: sizes, default joinery and common failures for tables, chairs, casework, drawers, doors, beds and shelves; grain and figure
+  - `furniture-types.md`: sizes, default joinery and common failures for tables, chairs, stools, benches, casework, drawers, doors, beds and shelves; grain and figure
   - `drawings-and-printouts.md`: the sections reviewers ask for, house style, printouts, cut sheets, cut list, build book
+  - `rendering-wood.md`: getting grain right in renders (rift vs flat-sawn figure, end grain, ring scale per shot, imported-mesh pitfalls) and a grain audit to run before final renders
   - `renders-and-animation.md`: white backgrounds, matte wood, finish by shot type, split normals, animation rules
   - `laser-cut-metal.md`: plates, grilles and mockups
   - `hinges.md` + `hinges.json`: 71 hinges from Brusso, Lee Valley, Whitechapel, Sugatsune, SOSS, Horton Brasses, Rockler, Häfele and Blum, with screw-wood, swing and ordering checks

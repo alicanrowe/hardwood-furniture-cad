@@ -49,5 +49,10 @@ Design solid-wood furniture that can actually be built and won't crack, then che
    - build animation (finish only at the finishing step): `scripts/blender/animate_build.py`, then `scripts/overlay.py`
    - web viewer GLB: `python3 scripts/split_normals.py MODEL.glb MODEL_web.glb`
    `references/renders-and-animation.md` and `references/drawings-and-printouts.md` hold the house style: white backgrounds always, matte wood, labels in red with no box behind them. `assets/theme.json` holds the fonts and colours.
+6. Renders: before the step 5 renders go out, run the grain audit in `references/rendering-wood.md` and render a grain check sheet first.
+7. Second pass: render the changed area (assembled and exploded), look at it against the brief or sketch, write down every problem you see, fix them, and render again. Only the second, clean pass goes out.
+
+## Keep this skill improving
+Any problem found with a model, a drawing or a render that a rule here would have prevented gets written into the matching reference file (modelling, joinery, furniture types, wood movement, rendering) in the same session. If the checker should have caught it, add a planted test piece to `scripts/tests/` too. Then commit and push.
 
 After changing `scripts/cadcheck.py`, run `python3 scripts/tests/make_fixtures.py && python3 scripts/tests/run_tests.py`: all planted mistakes must be caught with no false alarms.
