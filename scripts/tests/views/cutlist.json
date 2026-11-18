@@ -1,0 +1,47 @@
+{
+ "parts": [
+  {
+   "letter": "A",
+   "label": "Leg",
+   "members": [
+    "Stand_Leg_FL",
+    "Stand_Leg_FR"
+   ]
+  },
+  {
+   "letter": "B",
+   "label": "Apron, front",
+   "members": [
+    "Stand_Apron_Front"
+   ]
+  },
+  {
+   "letter": "C",
+   "label": "Low apron, side",
+   "members": [
+    "Stand_Apron_Low_L"
+   ]
+  },
+  {
+   "letter": "D",
+   "label": "Drawer front",
+   "members": [
+    "Stand_Drawer_Front"
+   ]
+  },
+  {
+   "letter": "E",
+   "label": "Drawer side",
+   "members": [
+    "Stand_Drawer_Side_L"
+   ]
+  },
+  {
+   "letter": "F",
+   "label": "Runner",
+   "members": [
+    "Stand_Drawer_Runner_L"
+   ]
+  }
+ ]
+}

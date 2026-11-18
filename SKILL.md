@@ -50,10 +50,20 @@ Design solid-wood furniture that can actually be built and won't crack, then che
    - web viewer GLB: `python3 scripts/split_normals.py MODEL.glb MODEL_web.glb`
    `references/renders-and-animation.md` and `references/drawings-and-printouts.md` hold the house style: white backgrounds always, matte wood, labels in red with no box behind them. `assets/theme.json` holds the fonts and colours.
 6. Renders: before the step 5 renders go out, run the grain audit in `references/rendering-wood.md` and render a grain check sheet first.
+6b. **Every picture is current:** record what each figure draws when you render it (`python3 scripts/viewcheck.py record ...`), then run `python3 scripts/viewcheck.py check --views views.json --model MODEL.glb --cutlist build/cutlist.json --pdf build/Build_book.pdf`. It fails a figure that leaves out a part in its scope (a stand drawn without its drawer), draws a part that no longer exists (old stretchers) or a part that has since changed, and any book page whose picture has no record (a drawing carried over from an older version). Re-render every flagged figure from the current model; never patch a new version over an old drawing.
 7. Second pass: render the changed area as the three-view check sheet in `references/drawings.md` (assembled with the moving part out, a hatched section, and an exploded view of the joinery; `scripts/drawings/`), look at it against the brief or sketch, write down every problem you see, fix them, and render again. Only the second, clean pass goes out.
 
 8. Site: if the piece has a page on alicanrowe.com, export the viewer GLB, drawing and spec table from the same file and hash (`references/site-updates.md`), then publish them with the **website-publishing** skill, which owns the page layout (render, viewer and drawing inline with the spec table), image and GLB optimisation, the screenshot check loop and the PR.
 9. Final renders, site stills and animations only after the design is locked; previews until then (`references/rendering-wood.md`).
+
+## At the shop (build-day questions)
+- Answer from the project's own build book, cut list, milling plan and board log, never with generic milling advice. Find the step the user is on (which boards, which faces are done) and give the next operations for those boards.
+- Map the user's boards to parts by their sizes and marks, using the cut list's rough blank sizes (finished + 1 in long, + 1/4 in wide, short parts kept in 12 in or longer blanks for the jointer and planer). Ask only for a size you can't read from the photos, such as thickness.
+- **Caveman mode** is the default on the shop floor or whenever the user asks for short answers. No prose, one line per board or cut, in this form:
+  `A: chop at 23 1/2, 44. Bandsaw rip 1 1/4, 2. Parts: 4 posts (11), 2 top rails (10 7/32).`
+  `Glue: none today.` Measurements from one end, rips from the jointed edge. Give the full explanation only when they ask for it.
+- Only answer for what they say they are building today (for example the carcass only).
+- The build book carries a **board-by-board cut map** once boards are logged: each board's letter, chop positions from one end, rip widths, resaw thickness and the parts that come out, in the order they're cut (`references/drawings-and-printouts.md`).
 
 ## Keep this skill improving
 Any problem found with a model, a drawing or a render that a rule here would have prevented gets written into the matching reference file (modelling, joinery, furniture types, wood movement, rendering) in the same session. If the checker should have caught it, add a planted test piece to `scripts/tests/` too. Then commit and push.

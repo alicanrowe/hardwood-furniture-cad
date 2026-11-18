@@ -45,3 +45,9 @@ Cover with the hero render, about, tools, lettered parts list, milling plan, the
 parts, text, a red "Check:" line), finishing, and the sheet index. Process pictures are plain wood; only the
 cover and finishing pages show the finish. Every page's footer carries the model file and hash.
 Start one with `python3 scripts/build_book.py --init build/cutlist.json > book.json`.
+
+## Board-by-board cut map (build book, Part 1)
+
+Once the user's boards are logged (letter, length, width, thickness, defects), the book gets one line per board, in cutting order:
+`A (20 1/4 x 8 9/16 x 1 1/4): chop at -. Bandsaw rip 3 11/16, 3 11/16. Resaw in half (slice 9/16). Parts: 8 side panels.`
+Chop positions are measured from the labelled end, rips from the jointed edge, resaw slices 1/8 in over the finished thickness. Keep every blank that still goes over the jointer or planer at least 12 in long. Group the lines by what gets built that day (carcass, stand, roof), and list what gets glued that day, or "none".

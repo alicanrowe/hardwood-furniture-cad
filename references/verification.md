@@ -30,3 +30,15 @@ After any model change, check every cut-list row against the current GLB: for ea
 ## Build book scope
 
 When asked for a book of wood operations, leave out the fitting of metal parts (handles, pulls) but keep the wood cuts that receive them (their mortises), and say on the page that the metal part is not in the book.
+
+## Every figure shows the current model (viewcheck)
+
+A drawing that was right when it was made goes stale when the model changes. On the Moth, the stand's stretchers were replaced by low aprons and a drawer, and the book cover kept its old drawing: legs and stretchers, no drawer. cadcheck can't see this, because it checks the model, not the pictures.
+
+`scripts/viewcheck.py` keeps a record (views.json) for every figure: its page, its kind (assembly, exploded, detail, diagram), its scope (a part-name regex) and the parts it draws with their bounds. `record` writes it from the render_drawings.js jobs file. `check` compares it with the current model and cut list:
+- missing_part: a cut-list part inside an assembly or exploded figure's scope isn't drawn
+- unknown_part: the figure draws a part that is gone
+- moved_part: a drawn part has changed size or place
+- no_record (with --pdf): a page has a picture nobody recorded
+
+Planted case: `scripts/tests/views/` (the old cover). Run `python3 scripts/tests/test_viewcheck.py` after changing viewcheck.py.
