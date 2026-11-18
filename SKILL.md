@@ -35,7 +35,7 @@ Design solid-wood furniture that can actually be built and won't crack, then che
 4. Cut a section through every changed joint and look at it. The checker doesn't see glue, short grain in curved parts, shelf sag or racking strength.
 5. Regenerate the cut list, drawings and exports from the same file and note its hash on each.
 6. Renders: run the grain audit in `references/rendering-wood.md` before final renders, and render a grain check sheet first.
-7. Second pass: render the changed area (assembled and exploded), look at it against the brief or sketch, write down every problem you see, fix them, and render again. Only the second, clean pass goes out.
+7. Second pass: render the changed area as the three-view check sheet in `references/drawings.md` (assembled with the moving part out, a hatched section, and an exploded view of the joinery; `scripts/drawings/`), look at it against the brief or sketch, write down every problem you see, fix them, and render again. Only the second, clean pass goes out.
 
 ## Keep this skill improving
 Any problem found with a model, a drawing or a render that a rule here would have prevented gets written into the matching reference file (modelling, joinery, furniture types, wood movement, rendering) in the same session. If the checker should have caught it, add a planted test piece to `scripts/tests/` too. Then commit and push.

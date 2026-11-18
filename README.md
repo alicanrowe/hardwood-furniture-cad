@@ -11,6 +11,7 @@ A Claude skill for designing solid hardwood furniture in CAD (Blender, build123d
   - `wood-movement.md`: seasonal movement for 15 hardwoods and the rules for tops, panels, casework, drawer bottoms and backs
   - `furniture-types.md`: sizes, default joinery and common failures for tables, chairs, stools, benches, casework, drawers, doors, beds and shelves
   - `joinery-standards.md`, `modeling-rules.md`, `verification.md`, `project-template.md`
+  - `drawings.md`: the three-view check sheet and how to render it
   - `rendering-wood.md`: getting grain right in renders (rift vs flat-sawn figure, end grain, ring scale per shot, imported-mesh pitfalls) and a grain audit to run before final renders
 - **`scripts/cadcheck.py`**: a checker that reads a GLB/STL assembly (one mesh per part) and flags:
   - open or broken solids
@@ -22,6 +23,9 @@ A Claude skill for designing solid hardwood furniture in CAD (Blender, build123d
   - long grain glued across long grain over 4 in
   - butt joints with no joinery
   - panels without room to move, sized by species and moisture swing
+- **`references/drawings.md` + `scripts/drawings/`**: the check-drawing sheet (assembled with the drawer out, a hatched section, an exploded view of the joinery) rendered as clean line drawings from any GLB.
+
+  ![Drawer check drawing](docs/drawer-check-drawing.png)
 - **`references/hinges.md` + `hinges.json`**: a hinge library for fine furniture (71 hinges from Brusso, Lee Valley, Whitechapel, Sugatsune, SOSS, Horton Brasses, Rockler, Häfele and Blum): sizes, leaf and barrel thickness, screws, door-thickness rules, how each type works and how it's mortised. Every record names its source and how sure it is.
 - **`references/shop-profile-template.md`**: describe your machines (mortiser chisels, router bits, saw tilt and dado widths) so joinery is sized to what you can cut.
 - **`scripts/hinge.py`**: looks up a hinge and gives the mortise length, width and depth for your door and gap (`python3 scripts/hinge.py 205H1 --door 3/4 --gap 1/16`).
