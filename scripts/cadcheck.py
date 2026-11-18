@@ -13,6 +13,7 @@ Every part is one mesh node. Checks (all distances in inches):
   empty_pocket a recess in a part that no neighbour fills, bigger than a panel-float gap
                (min section > 0.2 in): leftover holes, unfilled mortises, stray features
   protrude     an inserted part (tenon, tang, spline, tongue, dowel, peg) sticks out of its host
+  one_sided    an inserted part touches only one part, so it holds nothing (a tang short of its pull)
   cross_grain  two solid-wood parts glued with crossing grain over more than --max-cross in (default 4):
                the joint will crack or split as the wider part moves. Fix: buttons/clips, slotted screws,
                breadboard glued in the middle only, floating panel, or declare it in the spec's movement_ok
@@ -274,6 +275,16 @@ def run(parts, near_lo=0.08, near_hi=0.30):
                 if area > 0.15:
                     flags.append(dict(check="near_miss", part=p, other=q,
                                       detail=f"{area:.2f} in^2 of face stands {np.median(d[hit]):.3f} in off {q}"))
+    # an inserted part (tenon, tang, spline, dowel...) has to bridge two parts: one that only touches its host
+    # holds nothing (a pull tang that stops short of the pull, a loose tenon with no mate)
+    for n in names:
+        if not INSERT_RE.search(n) or part_info(n, parts[n])[0] == "ignore" or M[n] is None:
+            continue
+        v = parts[n].vertices[:: max(1, len(parts[n].vertices) // 2000)]
+        touching = [o for o in nb[n] if trimesh.proximity.closest_point(parts[o], v)[1].min() < 0.01]
+        if len(touching) < 2:
+            flags.append(dict(check="one_sided", part=n,
+                              detail="touches only " + (", ".join(touching) or "nothing") + ": an insert has to reach the part it holds"))
     flags += wood_checks(parts, names, nb, M)
     # empty pockets and protrusions
     for n in names:

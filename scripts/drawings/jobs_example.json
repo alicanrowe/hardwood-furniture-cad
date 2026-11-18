@@ -1,0 +1,214 @@
+[
+ {
+  "id": "chk_drawer",
+  "title": "Drawer check",
+  "center": [
+   0,
+   -46.5,
+   4
+  ],
+  "R": 9,
+  "parts": [
+   {
+    "re": "Stand_Leg_.*",
+    "label": "A",
+    "key": "A",
+    "off": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "re": "Stand_Apron_Low_L|Stand_Apron_Low_R",
+    "label": "G",
+    "key": "G",
+    "off": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "re": "Stand_Apron_Low_Back",
+    "label": "H",
+    "key": "H",
+    "off": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "re": "Stand_Drawer_(Runner|Kicker)_.*",
+    "label": "K",
+    "key": "K",
+    "off": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Front",
+    "label": "L",
+    "key": "L",
+    "off": [
+     0,
+     0,
+     4
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Side_.*",
+    "label": "M",
+    "key": "M",
+    "off": [
+     0,
+     0,
+     4
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Back",
+    "label": "N",
+    "key": "N",
+    "off": [
+     0,
+     0,
+     4
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Bottom",
+    "label": "P",
+    "key": "P",
+    "off": [
+     0,
+     0,
+     4
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Pull_.*",
+    "label": "Q",
+    "key": "Q",
+    "off": [
+     0,
+     0,
+     4
+    ]
+   }
+  ],
+  "views": [
+   {
+    "title": "Drawer pulled out",
+    "dir": [
+     0.9,
+     0.5,
+     1.0
+    ]
+   },
+   {
+    "title": "Front",
+    "dir": [
+     0,
+     0.0001,
+     1
+    ]
+   }
+  ]
+ },
+ {
+  "id": "chk_dovetail",
+  "title": "Drawer joints",
+  "center": [
+   0,
+   -46.8,
+   0
+  ],
+  "R": 10,
+  "parts": [
+   {
+    "re": "Stand_Drawer_Front",
+    "label": "L",
+    "key": "L",
+    "off": [
+     0,
+     0,
+     2.0
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Side_L",
+    "label": "M",
+    "key": "M",
+    "off": [
+     -1.5,
+     0,
+     0
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Side_R",
+    "label": "M",
+    "key": "M",
+    "off": [
+     1.5,
+     0,
+     0
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Back",
+    "label": "N",
+    "key": "N",
+    "off": [
+     0,
+     0,
+     -2.0
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Bottom",
+    "label": "P",
+    "key": "P",
+    "off": [
+     0,
+     -2,
+     0
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Pull_(Bar|Foot)_.*",
+    "label": "Q",
+    "key": "Q",
+    "off": [
+     0,
+     0,
+     4.0
+    ]
+   },
+   {
+    "re": "Stand_Drawer_Pull_Tang_.*",
+    "label": "R",
+    "key": "R",
+    "off": [
+     0,
+     0,
+     3.0
+    ]
+   }
+  ],
+  "views": [
+   {
+    "title": "Exploded drawer",
+    "dir": [
+     0.9,
+     0.7,
+     1.0
+    ]
+   }
+  ]
+ }
+]

@@ -167,12 +167,15 @@ The worked example in `examples/walnut-cabinet-on-stand.md` walks through its sp
   - `wood-movement.md`: seasonal movement for 25 woods and the rules for tops, panels, casework, drawer bottoms and backs
   - `furniture-types.md`: sizes, default joinery and common failures for tables, chairs, stools, benches, casework, drawers, doors, beds and shelves; grain and figure
   - `drawings-and-printouts.md`: the sections reviewers ask for, house style, printouts, cut sheets, cut list, build book
+  - `drawings.md`: the three-view check sheet (assembled with the moving part out, a hatched section, an exploded view of the joinery) and how to render it
   - `rendering-wood.md`: getting grain right in renders (rift vs flat-sawn figure, end grain, ring scale per shot, imported-mesh pitfalls) and a grain audit to run before final renders
   - `renders-and-animation.md`: white backgrounds, matte wood, finish by shot type, split normals, animation rules
   - `laser-cut-metal.md`: plates, grilles and mockups
   - `hinges.md` + `hinges.json`: 71 hinges from Brusso, Lee Valley, Whitechapel, Sugatsune, SOSS, Horton Brasses, Rockler, Häfele and Blum, with screw-wood, swing and ordering checks
   - `modeling-rules.md`, `verification.md`, `project-template.md`, `shop-profile-template.md`
-- **`scripts/`**: `cadcheck.py`, `sheetcheck.py`, `hinge.py`, `cutlist.py`, `printouts.py`, `build_book.py`, `overlay.py`, `split_normals.py`, and `blender/` (`look.py`, `stills.py`, `animate_build.py`)
+- **`scripts/`**: `cadcheck.py`, `sheetcheck.py`, `hinge.py`, `cutlist.py`, `printouts.py`, `build_book.py`, `overlay.py`, `split_normals.py`, `blender/` (`look.py`, `stills.py`, `animate_build.py`) and `drawings/` (the check-drawing sheet as clean line drawings from any GLB)
+
+  ![Drawer check drawing](docs/drawer-check-drawing.png)
 - **`assets/`**: `theme.json` (fonts and colours every output uses) and the fonts (Newsreader, IBM Plex Mono; OFL)
 - **`docs/`**: the diagrams above (`make_diagrams.py` redraws them) and the gallery
 - **`examples/`**: the walnut cabinet case study and a runnable pipeline on the test table
