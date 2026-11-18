@@ -38,7 +38,7 @@ def init(cutlist_path):
         "cutlist": cutlist_path, "cover": "", "intro": "", "tools": [],
         "sections": [{"title": "Mill the stock", "steps": [
             {"title": f"Batch {i + 1}: {b['species']} at {F.frac(b['T'])}", "parts": sorted({c[0] for s in b['strips'] for c in s['cuts']}),
-             "text": f"Plane everything in this batch at one setting from {b['stock']}. Rip and cross-cut as the milling plan says.",
+             "text": f"Plane everything in this batch at one setting from {b['stock']}. Rip, joint and plane the strips while they are long, then cross-cut as the milling plan says.",
              "image": "", "check": "Every part in the batch measures the same thickness."} for i, b in enumerate(cl["milling"])]},
             {"title": "Joinery", "steps": [
                 {"title": f"{r['letter']}: {r['label']}", "parts": [r["letter"]], "text": "", "image": "", "check": ""} for r in wood]},
@@ -137,7 +137,7 @@ def build(book_path, out, theme_path=None):
         if hw:
             S += [Paragraph("HARDWARE", st["h2"])] + [Paragraph(f"· {r['label']} x{r['qty']}", st["body"]) for r in hw]
         S += [PageBreak(), Paragraph("MILLING PLAN", st["h1"]),
-              Paragraph("One batch per thickness: plane the whole batch at one setting so mating parts match. Rip each strip, then cross-cut longest first.", st["body"])]
+              Paragraph("One batch per thickness: plane the whole batch at one setting so mating parts match. Rip each strip and joint and plane it while it is still long; keep anything going over the jointer or planer at least 12 in. Only then cross-cut, longest first.", st["body"])]
         for i, b in enumerate(cl["milling"], 1):
             blk = [Paragraph(f"Batch {i}: {b['species']}, {F.frac(b['T'])} thick from {b['stock']}  ·  buy about {b['board_feet_buy']:.1f} bd ft", st["h2"])]
             rows = [["Strip", "Rip", "Cross-cuts, in order"]]

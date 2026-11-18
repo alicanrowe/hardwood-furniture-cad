@@ -252,7 +252,9 @@ def run(parts, near_lo=0.08, near_hi=0.30):
                     continue
                 cp, d, tri = trimesh.proximity.closest_point(qm, pts)
                 facing = np.einsum("ij,ij->i", pm.face_normals[fi], qm.face_normals[tri]) < -0.8
-                along = np.einsum("ij,ij->i", pm.face_normals[fi], cp - pts) > 0
+                # straight across only: a point beside the other face finds its edge at a slant (a drawer
+                # end running 1/64 past a tapered leg is not a 0.2 in gap)
+                along = np.einsum("ij,ij->i", pm.face_normals[fi], cp - pts) > 0.95 * d
                 hit = facing & along & (d > near_lo) & (d < near_hi)
                 if hit.any():   # a gap that a third part fills (crossing tenons in a leg) is not a miss
                     mid = (pts[hit] + cp[hit]) / 2

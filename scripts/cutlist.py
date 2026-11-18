@@ -120,7 +120,8 @@ def main():
         L.append(f"| {r['letter']} | {r['label']} | {r['qty']} | {F.frac(r['T'])} | {F.frac(r['W'])} | {F.frac(r['L'])} | {mat} | {r['role']} |")
     L += ["", "## Milling plan", "",
           f"One batch per species and finished thickness: plane the whole batch at one setting so mating parts match. "
-          f"Rip each strip {F.frac(a.width_allow)} wide, cross-cut longest first with {F.frac(a.len_allow)} extra on each length.", ""]
+          f"Rip each strip {F.frac(a.width_allow)} wide and joint and plane it while it is still long (keep anything going over the jointer or planer at least 12 in). "
+          f"Only then cross-cut, longest first, with {F.frac(a.len_allow)} extra on each length.", ""]
     tot = 0
     for i, b in enumerate(plan, 1):
         L.append(f"### Batch {i}: {b['species']}, {F.frac(b['T'])} thick from {b['stock']}")
