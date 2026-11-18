@@ -170,7 +170,7 @@ The worked example in `examples/walnut-cabinet-on-stand.md` walks through its sp
   - `drawings.md`: the three-view check sheet (assembled with the moving part out, a hatched section, an exploded view of the joinery) and how to render it
   - `rendering-wood.md`: getting grain right in renders (rift vs flat-sawn figure, end grain, ring scale per shot, imported-mesh pitfalls) and a grain audit to run before final renders, when to render (previews until the design is locked), and fixing hero renders that look like plastic
   - `renders-and-animation.md`: white backgrounds, matte wood, finish by shot type, split normals, animation rules
-  - `site-updates.md`: keeping a project site current with the model (viewer, drawings, spec table), with the viewer and dimension drawing inline
+  - `site-updates.md`: what a model change hands to the site (viewer GLB, drawings, spec table, all from the same file); the page work itself is in the [website-publishing](https://github.com/alicanrowe/website-publishing) skill
   - `laser-cut-metal.md`: plates, grilles and mockups
   - `hinges.md` + `hinges.json`: 71 hinges from Brusso, Lee Valley, Whitechapel, Sugatsune, SOSS, Horton Brasses, Rockler, Häfele and Blum, with screw-wood, swing and ordering checks
   - `modeling-rules.md`, `verification.md`, `project-template.md`, `shop-profile-template.md`
