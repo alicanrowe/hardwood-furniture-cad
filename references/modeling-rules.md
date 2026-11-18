@@ -6,6 +6,9 @@
 - Never "fill" an old hole by adding a plug of geometry: rebuild the part without the cut.
 - Never leave booleans that create steps under 1/8 in except deliberate clearances.
 - When a design change removes a feature (dowels, lid, pins), remove its cuts from **every** mating part too.
+- **Clearing old cuts with a convex hull:** hull only the run of the part that is prismatic (for example the tapered length of a leg below its apron joints), then union it back with the untouched part. Hulling the whole leg bridges from a plumb top block to the taper and silently adds wood. Afterwards, diff section areas at several heights outside the cleared zone; they must match the old part exactly.
+- **A rail that ends on a leg:** cut its ends to the leg face over the whole rail section. Trimming only by the leg solid (`rail - leg`) leaves an ear wherever the rail is deeper than the leg, behind or in front of it, and that ear runs into runners and kickers.
+- **Drawer side grooves** run through the front tails; the half-blind lap hides them. A groove that stops at the tail baseline makes the bottom crash into the tails.
 
 ## Units and axes
 - Source models: inches, Z up. GLB exports are **metres, Y up** (Blender's glTF export): pass `--units m` to cadcheck.

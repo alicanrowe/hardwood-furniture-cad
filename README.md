@@ -11,6 +11,7 @@ A Claude skill for designing solid hardwood furniture in CAD (Blender, build123d
   - `wood-movement.md`: seasonal movement for 15 hardwoods and the rules for tops, panels, casework, drawer bottoms and backs
   - `furniture-types.md`: sizes, default joinery and common failures for tables, chairs, stools, benches, casework, drawers, doors, beds and shelves
   - `joinery-standards.md`, `modeling-rules.md`, `verification.md`, `project-template.md`
+  - `rendering-wood.md`: getting grain right in renders (rift vs flat-sawn figure, end grain, ring scale per shot, imported-mesh pitfalls) and a grain audit to run before final renders
 - **`scripts/cadcheck.py`**: a checker that reads a GLB/STL assembly (one mesh per part) and flags:
   - open or broken solids
   - mortises that break through
