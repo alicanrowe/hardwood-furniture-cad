@@ -1,5 +1,5 @@
 {
- "_about": "House look for every drawing, sheet, book page, still and animation label the tools make. Edit this file (or pass --theme your.json) to change it. Defaults follow Alican Rowe's studio theme: white page, thin serif, grey ink, shop-drawing red for dimensions and labels.",
+ "_about": "House look for every drawing, sheet, book page, still and animation label the tools make. Edit this file (or pass --theme your.json) to change it. Defaults follow the author's studio theme: white page, thin serif, grey ink, shop-drawing red for dimensions and labels.",
  "page": "#FFFFFF",
  "ink": "#404040",
  "ink_heading": "#525252",

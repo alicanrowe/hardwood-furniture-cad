@@ -1,6 +1,6 @@
 # Worked example: walnut cabinet on stand
 
-A real piece: a walnut (and cherry) wall-style cabinet on a tall stand, built from a design by Philip Morley taught at the Center for Furniture Craftsmanship. The design and plans are Philip Morley's and aren't included here. This page shows only how the skill checked the 3D model.
+A real piece: a walnut (and cherry) wall-style cabinet on a tall stand, built from a design taught at the Center for Furniture Craftsmanship. The design and plans belong to its designer and aren't included here. This page shows only how the skill checked the 3D model.
 
 ## The piece
 - **Stand:** tapered legs with mortised aprons and shadow grooves.

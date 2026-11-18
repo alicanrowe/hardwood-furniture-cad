@@ -6,7 +6,7 @@
 <td width="50%"><img src="docs/gallery/moth-hero-charred.jpg" alt="Moth: a charred ash case on a tall stand, frame-and-panel walls with stainless tracery, rendered on white"></td>
 </tr>
 <tr>
-<td><sub>Walnut cabinet on stand (designed by Philip Morley; modelled, checked and animated with this skill)</sub></td>
+<td><sub>Walnut cabinet on stand (modelled, checked and animated with this skill)</sub></td>
 <td><sub>Moth: charred ash case on stand (hero render: finished, on white)</sub></td>
 </tr>
 </table>

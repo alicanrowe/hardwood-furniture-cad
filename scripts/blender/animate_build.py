@@ -25,6 +25,9 @@ The script writes MODEL.track.json next to the .blend: the frame range and scree
 label, for overlay.py.
 """
 import json, math, os, re, sys
+
+if sys.platform == "darwin" and not os.environ.get("ALLOW_LOCAL_RENDER"):   # never render on the owner's Mac
+    sys.exit("refusing to render on a Mac: run this on a cloud machine or a render farm (ALLOW_LOCAL_RENDER=1 only if the owner asked).")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bpy
 from mathutils import Vector

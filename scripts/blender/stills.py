@@ -17,6 +17,9 @@ shots are always plain wood. Every image is flattened onto pure white and saved 
 each part out from the piece's centre along the direction it sits in, so joints open toward the camera.
 """
 import json, math, os, re, sys
+
+if sys.platform == "darwin" and not os.environ.get("ALLOW_LOCAL_RENDER"):   # never render on the owner's Mac
+    sys.exit("refusing to render on a Mac: run this on a cloud machine or a render farm (ALLOW_LOCAL_RENDER=1 only if the owner asked).")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bpy
 from mathutils import Vector

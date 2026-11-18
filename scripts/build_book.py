@@ -145,6 +145,18 @@ def build(book_path, out, theme_path=None):
                 rows.append([F.frac(s["W"]), F.frac(s["rip"]), Paragraph(", ".join(f"<font color='{T['red']}'>{c[0]}</font> {c[1]} {F.frac(c[2])}" for c in s["cuts"]), st["mono"])])
             blk.append(tbl(rows, [0.8 * inch, 0.8 * inch, W - 1.6 * inch]))
             S.append(KeepTogether(blk))
+    cm = B.get("cutmap")
+    if cm:                       # board-by-board cut map from scripts/cutmap.py (the user's own logged boards)
+        cmd = json.load(open(cm if os.path.isabs(cm) else os.path.join(os.path.dirname(os.path.abspath(book_path)), cm)))
+        S += [PageBreak(), Paragraph("BOARD-BY-BOARD CUT MAP", st["h1"]),
+              Paragraph("One line per board, in cutting order. Chops are measured from the board's labelled end, rips from the jointed edge, "
+                        "widest rip first so the fence only moves one way. Mill anything that goes over the jointer or planer while it is "
+                        "still 12 in or longer, then cross-cut.", st["body"])]
+        if cmd["meta"].get("only"):
+            S.append(Paragraph("Today: " + cmd["meta"]["only"], st["mono"]))
+        S += [Paragraph(l, st["mono"]) for l in cmd["lines"]]
+        if cmd.get("need"):
+            S.append(Paragraph("Need more wood: " + ", ".join(f"{x['letter']} {x['label']}" for x in cmd["need"]), st["check"]))
     n = 0
     for sec in B.get("sections", []):
         S += [PageBreak(), Paragraph(sec["title"].upper(), st["h1"])]
