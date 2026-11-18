@@ -17,6 +17,8 @@ Design solid-wood furniture that can actually be built and won't crack, then che
 
 Hardware and ornament (handles, pulls, feet, hinges, inlay motifs) are design work: build them from motifs already on the piece, and check them against the client's Design taste list (dark and gothic over pretty, never a literal insect, no generic ornament) in the sculpted-metal-casting skill's `references/style-rules.md`. A taste remark from the client is written there the same day.
 
+Modelling an existing carved or sculpted piece from photos (no cut list, "make the CAD match the pictures"): follow `references/photo-matched-carving.md` instead of the joinery steps; its make-and-check loop renders from cameras solved from the photos and compares side by side.
+
 ## While modelling
 - Plain boxes with box cuts; one part = one closed solid; never fill an old hole, rebuild the part.
 - Shoulders square and seated (cut to the leg's angle on raked or tapered legs); blind mortises keep at least 1/8 in to the far face; tenon height = mortise height.
