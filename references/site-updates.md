@@ -2,15 +2,13 @@
 
 Every model change that alters what a visitor sees is also a site update. Do it in the same session as the model change, from the same file and hash.
 
-## What to update
-- **3D viewer:** export the viewer GLB from the current model (decimated if needed), with the same materials as the renders. A viewer still showing removed parts (old stretchers, old fittings) is the most common miss.
-- **Dimension drawings:** regenerate the elevation, plan and section from the same model. Note the hash on each.
-- **Spec table:** sizes, species, finish and hardware from the current cut list.
-- **Images:** replace stills only after the design is locked (see rendering-wood.md, When to render).
+This file covers what the furniture model hands to the site. How the page is laid out, how media is sized, how it's checked and how it goes live is in the **website-publishing** skill (https://github.com/alicanrowe/website-publishing): use it for the page itself.
 
-## Layout
-- Put the 3D viewer and its dimension drawing inline, side by side on wide screens and stacked on phones, so the viewer and the drawing are read together. Don't put them in separate sections.
-- Use the site's own theme (fonts, colours) for drawings and captions.
+## What to export from the model
+- **Viewer GLB:** from the current model, with the same materials as the renders. Remove parts a visitor never sees (screws inside, hidden faces), decimate if needed. A viewer still showing removed parts (old stretchers, old fittings) is the most common miss.
+- **Dimension drawings:** elevation, plan and section regenerated from the same model, as SVG. Note the hash on each.
+- **Spec table:** sizes, species and cut, joinery, hardware (maker and model), finish, from the current cut list. Add the model version and hash.
+- **Images:** final stills only after the design is locked (see rendering-wood.md, When to render); previews until then.
 
-## Check before publishing
-Open the page and compare viewer, drawing and spec table against each other and against the model: same parts, same sizes, same version.
+## Then
+Hand these to the website-publishing skill: its inline layout puts the render, 3D viewer and dimension drawing side by side with the spec table, and its check loop compares them against each other before the PR. Viewer, drawing and spec table must agree: same parts, same sizes, same version.

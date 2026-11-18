@@ -37,7 +37,7 @@ Design solid-wood furniture that can actually be built and won't crack, then che
 6. Renders: run the grain audit in `references/rendering-wood.md` before final renders, and render a grain check sheet first.
 7. Second pass: render the changed area as the three-view check sheet in `references/drawings.md` (assembled with the moving part out, a hatched section, and an exploded view of the joinery; `scripts/drawings/`), look at it against the brief or sketch, write down every problem you see, fix them, and render again. Only the second, clean pass goes out.
 
-8. Site: if the piece has a project site, update the viewer, drawings and spec table from the same file, viewer and drawing inline (`references/site-updates.md`).
+8. Site: if the piece has a page on alicanrowe.com, export the viewer GLB, drawing and spec table from the same file and hash (`references/site-updates.md`), then publish them with the **website-publishing** skill, which owns the page layout (render, viewer and drawing inline with the spec table), image and GLB optimisation, the screenshot check loop and the PR.
 9. Final renders, site stills and animations only after the design is locked; previews until then (`references/rendering-wood.md`).
 
 ## Keep this skill improving
