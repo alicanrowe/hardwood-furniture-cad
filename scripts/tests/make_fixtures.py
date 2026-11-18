@@ -30,7 +30,7 @@ def table(bad):
     L, W, H, S = 36.0, 20.0, 29.25, 1.75     # base footprint, leg height, leg section
     T, AH, AT = 0.75, 4.0, 0.75               # top thickness, apron height, apron thickness
     inset = 0.25                              # apron face set back from leg face
-    tl, tt, th = 1.0, 0.25, 3.0               # tenon length, thickness, height
+    tl, tt, th = (1.0 if bad else 0.6875), 0.25, 3.0   # tenon length; good: short enough that the two mortises in a leg keep 1/4 in apart. BAD: 1 in, the mortises meet
     p = {}
     legs = {"FL": (0, 0), "FR": (L - S, 0), "BL": (0, W - S), "BR": (L - S, W - S)}
     mort = []
@@ -86,6 +86,7 @@ def table(bad):
 def chair(bad):
     W, D, S = 18.0, 16.0, 1.5
     p = {}
+    CT = 0.40                                  # tenon length: two mortises in a 1.5 in leg keep about 1/4 in of wood between them
     morts = {k: [] for k in ("FL", "FR", "BL", "BR")}
     legpos = {"FL": (0, 0, 17.5), "FR": (W - S, 0, 17.5), "BL": (0, D - S, 36), "BR": (W - S, D - S, 36)}
 
@@ -96,18 +97,18 @@ def chair(bad):
             y0 = fixed
             r = box(S, W - S - gap_b, y0, y0 + t, z0, z0 + h)
             yc = y0 + t / 2
-            r = r + box(S - 0.6, S, yc - 0.125, yc + 0.125, z0 + 0.375, z0 + 0.375 + ten_h)
-            r = r + box(W - S - gap_b, W - S + 0.6, yc - 0.125, yc + 0.125, z0 + 0.375, z0 + 0.375 + ten_h)
-            morts[a_leg].append(box(S - 0.6 - 1 / 32, S, yc - 0.125, yc + 0.125, z0 + 0.375, z0 + 0.375 + mt_h))
-            morts[b_leg].append(box(W - S, W - S + 0.6 + 1 / 32, yc - 0.125, yc + 0.125, z0 + 0.375, z0 + 0.375 + mt_h))
+            r = r + box(S - CT, S, yc - 0.125, yc + 0.125, z0 + 0.375, z0 + 0.375 + ten_h)
+            r = r + box(W - S - gap_b, W - S + CT, yc - 0.125, yc + 0.125, z0 + 0.375, z0 + 0.375 + ten_h)
+            morts[a_leg].append(box(S - CT - 1 / 32, S, yc - 0.125, yc + 0.125, z0 + 0.375, z0 + 0.375 + mt_h))
+            morts[b_leg].append(box(W - S, W - S + CT + 1 / 32, yc - 0.125, yc + 0.125, z0 + 0.375, z0 + 0.375 + mt_h))
         else:
             x0 = fixed
             r = box(x0, x0 + t, S + gap_b, D - S, z0, z0 + h)
             xc = x0 + t / 2
-            r = r + box(xc - 0.125, xc + 0.125, S - 0.6, S + gap_b, z0 + 0.375, z0 + 0.375 + ten_h)
-            r = r + box(xc - 0.125, xc + 0.125, D - S, D - S + 0.6, z0 + 0.375, z0 + 0.375 + ten_h)
-            morts[a_leg].append(box(xc - 0.125, xc + 0.125, S - 0.6 - 1 / 32, S, z0 + 0.375, z0 + 0.375 + mt_h))
-            morts[b_leg].append(box(xc - 0.125, xc + 0.125, D - S, D - S + 0.6 + 1 / 32, z0 + 0.375, z0 + 0.375 + mt_h))
+            r = r + box(xc - 0.125, xc + 0.125, S - CT, S + gap_b, z0 + 0.375, z0 + 0.375 + ten_h)
+            r = r + box(xc - 0.125, xc + 0.125, D - S, D - S + CT, z0 + 0.375, z0 + 0.375 + ten_h)
+            morts[a_leg].append(box(xc - 0.125, xc + 0.125, S - CT - 1 / 32, S, z0 + 0.375, z0 + 0.375 + mt_h))
+            morts[b_leg].append(box(xc - 0.125, xc + 0.125, D - S, D - S + CT + 1 / 32, z0 + 0.375, z0 + 0.375 + mt_h))
         p[name] = r
 
     rail("Rail_Front", "x", 0.375, 14.5, 3, 0.75, "FL", "FR")
@@ -216,6 +217,37 @@ def door(bad):
     return p
 
 
+# ---------------------------------------------------------------- case corner (frame-and-panel casework)
+def corner(bad):
+    """One corner post of a frame-and-panel case with a panel in each wall, and the case's bottom rail.
+    BAD: 3/8 deep grooves 1/4 in from the outside leave a 0.18 in neck between them in the post, and the
+    rail's panel groove sits 1/8 in above a second groove for the case bottom.
+    GOOD: grooves 5/16 deep and 3/16 from the outside (0.35 in neck); the bottom sits in a rabbet on the
+    rail's inside lower edge, leaving a 1/4 in web and a solid inside cheek."""
+    H = 11.0
+    d, off = (0.375, 0.25) if bad else (0.3125, 0.1875)
+    p = {}
+    post = box(0, 1, 0, 1, 0, H)
+    post = post - box(1 - d, 1, off, off + 0.25, 0, H)          # front wall groove (front face y=0)
+    post = post - box(off, off + 0.25, 1 - d, 1, 0, H)          # side wall groove (left face x=0)
+    p["Post_FL"] = post
+    room = 0.0625
+    p["Front_Panel"] = box(1 - d + room, 9, off, off + 0.25, 1.25 - 0.375 + 0.0625, H)
+    p["Side_Panel"] = box(off, off + 0.25, 1 - d + room, 7, 0, H)
+    # bottom rail of the front wall, 1 x 1 1/4, running along x from the post; its own panel groove on top
+    t = 1.0
+    rail = box(1, 9, 0, t, 0, 1.25) + box(1 - d, 1, off, off + 0.25, 0, 1.25 - 0.375)   # tenon in the post groove
+    rail = rail - box(1, 9, off, off + 0.25, 1.25 - 0.375, 1.25)
+    if bad:
+        rail = rail - box(1, 9, 0.5, t, 0.5, 0.75)               # bottom groove: 1/8 web under the panel groove
+        p["Case_Bottom_Ply"] = box(1, 9, 0.5, 6, 0.5, 0.75)
+    else:
+        rail = rail - box(1, 9, 0.5, t, 0, 0.625)                # rabbet on the inside lower edge
+        p["Case_Bottom_Ply"] = box(1, 9, 0.5, 6, 0.25, 0.625)
+    p["Rail_Front_Bot"] = rail
+    return p
+
+
 # ---------------------------------------------------------------- bed (headboard end + rails)
 def bed(bad):
     W, P, L = 60.0, 3.0, 40.0
@@ -252,7 +284,7 @@ def bed(bad):
 
 
 if __name__ == "__main__":
-    for fn in (table, chair, chest, door, bed):
+    for fn in (table, chair, chest, door, bed, corner):
         for bad in (False, True):
             save(f"{fn.__name__}_{'bad' if bad else 'good'}", fn(bad))
             print("wrote", fn.__name__, "bad" if bad else "good")

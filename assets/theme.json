@@ -1,0 +1,24 @@
+{
+ "_about": "House look for every drawing, sheet, book page, still and animation label the tools make. Edit this file (or pass --theme your.json) to change it. Defaults follow Alican Rowe's studio theme: white page, thin serif, grey ink, shop-drawing red for dimensions and labels.",
+ "page": "#FFFFFF",
+ "ink": "#404040",
+ "ink_heading": "#525252",
+ "muted": "#8C8C8C",
+ "rule": "#C8C8C8",
+ "red": "#A02A1E",
+ "wood_fill": "#EDE3CF",
+ "wood_fill_end": "#E2D5BB",
+ "hatch": "#C9B994",
+ "fonts": {
+  "serif_light": "fonts/Newsreader-200-opsz13.ttf",
+  "serif": "fonts/Newsreader-300-opsz13.ttf",
+  "serif_display": "fonts/Newsreader-300-opsz21.ttf",
+  "mono": "fonts/IBMPlexMono-Regular.ttf"
+ },
+ "rules": [
+  "Solid white background on every image. Never a transparent PNG, never a dark backdrop, never a keyed cut-out.",
+  "Titles and labels in the serif, uppercase for titles; dimensions and small facts in the mono.",
+  "Dimensions, part labels and cut outlines in red, straight on the page: no white boxes, plates or scrims behind text.",
+  "No boxes, cards, shadows, gradients or rounded corners on sheets and book pages."
+ ]
+}

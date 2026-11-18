@@ -28,6 +28,18 @@
    "near_miss",
    "Leg_FL",
    "Apron_Front"
+  ],
+  [
+   "thin_web",
+   "Leg_FL"
+  ],
+  [
+   "thin_web",
+   "Leg_BL"
+  ],
+  [
+   "thin_web",
+   "Leg_BR"
   ]
  ],
  "chair_good": [],
@@ -101,6 +113,17 @@
    "end_grain",
    "Side_Rail_R",
    "Post_R"
+  ]
+ ],
+ "corner_good": [],
+ "corner_bad": [
+  [
+   "thin_web",
+   "Post_FL"
+  ],
+  [
+   "thin_web",
+   "Rail_Front_Bot"
   ]
  ]
 }

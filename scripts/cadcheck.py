@@ -22,6 +22,10 @@ Every part is one mesh node. Checks (all distances in inches):
   panel_room   a floating panel (or drawer bottom, slat) has less room in its groove across the grain than
                the wood will move: width x coefficient x MC swing (tangential for flatsawn, radial for
                quartersawn, their mean for rift; a ripped-and-flipped glue-up moves the same total amount)
+  thin_web     (with --min-web, default 1/4 in) a solid-wood part whose body is held together by a web or
+               neck thinner than about 0.8 x min-web: two grooves meeting at a corner post, a panel groove
+               over a rabbet, a mortise breaking into a groove. Found by eroding a voxel copy of the part and
+               looking for a split; the reported thickness is approximate, so confirm with a section
   grain        (info, with --grain) the grain direction assumed for each wood part
 Wood parts: grain = longest axis unless the spec says otherwise. Parts named like hardware (screw, bolt,
 hinge, steel, brass, sheet, plate, pin) and plywood/MDF are left out of the wood-movement checks.
@@ -33,7 +37,8 @@ Spec file (--spec project.json), all keys optional:
                        "species": "cedar ... (per part)", "cut": "flat|rift|quarter"}},
    "movement_ok": [["REGEX_A", "REGEX_B", "why: e.g. slotted screws at the back"]],
    "allow": [["REGEX_A", "REGEX_B", "why the gap is intended"]],
-   "skip": "REGEX of parts to leave out"}
+   "skip": "REGEX of parts to leave out",
+   "min_web": 0.25}           (thinnest web for thin_web; also per part, e.g. 1/8 for small box parts, 0 = off)
 Exit code 1 if anything is flagged. Requires: trimesh, manifold3d, numpy, scipy, rtree, networkx.
 """
 import argparse, json, re, sys, warnings, logging
@@ -494,6 +499,103 @@ def touches_hull_boundary_only(c, part):
         return False
 
 
+def voxelize(m, pitch):
+    """Solid voxel grid of a closed mesh by casting one ray per column along its longest axis and filling
+    between entry and exit hits. Returns (bool array indexed x, y, z, origin of voxel [0,0,0] centre)."""
+    lo, hi = m.bounds
+    ax = int(np.argmax(hi - lo)); o1, o2 = [i for i in range(3) if i != ax]
+    j = pitch * 0.0137                                       # stay off exact edges and vertices
+    origin = lo + pitch / 2 + j
+    n = np.maximum(1, np.ceil((hi - lo) / pitch).astype(int))
+    g1, g2 = np.meshgrid(np.arange(n[o1]), np.arange(n[o2]), indexing="ij")
+    starts = np.zeros((g1.size, 3))
+    starts[:, o1] = origin[o1] + g1.ravel() * pitch
+    starts[:, o2] = origin[o2] + g2.ravel() * pitch
+    starts[:, ax] = lo[ax] - 1.0
+    dirs = np.zeros_like(starts); dirs[:, ax] = 1.0
+    loc, ri, _ = m.ray.intersects_location(starts, dirs, multiple_hits=True)
+    grid = np.zeros(tuple(n), bool)
+    if len(ri) == 0:
+        return grid, origin
+    order = np.lexsort((loc[:, ax], ri)); ri, t = ri[order], loc[order, ax]
+    zc = origin[ax] + np.arange(n[ax]) * pitch
+    for r in np.unique(ri):
+        h = t[ri == r]
+        h = h[np.concatenate(([True], np.diff(h) > 1e-7))]   # drop duplicate hits on shared edges
+        col = np.zeros(n[ax], bool)
+        for a, b in zip(h[0::2], h[1::2]):
+            col |= (zc >= a) & (zc <= b)
+        i1, i2 = np.unravel_index(r, (n[o1], n[o2]))
+        idx = [slice(None)] * 3; idx[o1] = i1; idx[o2] = i2
+        grid[tuple(idx)] = col
+    return grid, origin
+
+
+def thin_webs(parts, min_web=0.25, factor=0.8, slab=1.0):
+    """Erode each solid-wood part by factor*min_web/2 and look, one 1 in slab at a time along its length,
+    for material that comes loose: anything thinner than about factor*min_web was holding it on.
+    Working in slabs finds necks that only run part of the length (stopped grooves, a mortise breaking
+    into a groove) as well as full-length ones."""
+    from scipy import ndimage
+    from scipy.spatial import cKDTree
+    flags = []
+    st = np.ones((3, 3, 3))
+    default = min_web
+    for n in sorted(parts):
+        m = parts[n]
+        role, _ = part_info(n, m)
+        min_web = float(part_spec(n, "min_web", default) or 0)
+        if role != "wood" or not min_web or not m.is_watertight or m.volume <= 0:
+            continue
+        r = factor * min_web / 2
+        pitch = min_web / 12
+        while np.prod(m.extents / pitch) > 8e6:
+            pitch *= 1.25
+        try:
+            grid, origin = voxelize(m, pitch)
+        except Exception:
+            continue
+        solid = np.pad(grid, 1)
+        dist = ndimage.distance_transform_edt(solid) * pitch - pitch / 2
+        core = dist > r
+        ax = int(np.argmax(core.shape))
+        L = core.shape[ax]
+        w = max(4, int(round(slab / pitch)))
+        keep = 0.004 * slab
+        hits = []
+        for s0 in range(0, max(1, L - w // 2), w // 2):
+            sl = [slice(None)] * 3; sl[ax] = slice(s0, min(L, s0 + w))
+            sub = core[tuple(sl)]
+            if not sub.any():
+                continue
+            lab, k = ndimage.label(sub, structure=st)
+            if k < 2:
+                continue
+            sizes = ndimage.sum(sub, lab, range(1, k + 1)) * pitch ** 3
+            big = [i + 1 for i in np.argsort(sizes)[::-1] if sizes[i] >= keep]
+            if len(big) < 2:
+                continue
+            a = np.argwhere(lab == big[0]); b = np.argwhere(lab == big[1])
+            rng = np.random.default_rng(0)
+            if len(a) > 20000: a = a[rng.choice(len(a), 20000, replace=False)]
+            d, j = cKDTree(b).query(a)
+            i = int(np.argmin(d)); pa, pb = a[i], b[j[i]]
+            off = np.zeros(3, int); off[ax] = s0
+            pa, pb = pa + off, pb + off
+            seg = np.rint(pa[None] + (pb - pa)[None] * np.linspace(0, 1, 25)[:, None]).astype(int)
+            vals = [dist[tuple(q)] for q in seg if solid[tuple(q)]]
+            neck = 2 * max(0.0, float(min(vals))) if vals else 0.0
+            hits.append((neck, origin + ((pa + pb) / 2 - 1) * pitch, s0))
+        if not hits:
+            continue
+        neck, where, _ = min(hits, key=lambda h: h[0])
+        span = (len(hits) * (w // 2) + w // 2) * pitch
+        flags.append(dict(check="thin_web", part=n,
+                          detail=f"a web or neck about {neck:.2f} in thick (target {min_web:g} in) holds part of the "
+                                 f"section on, near {where.round(2).tolist()}, over about {span:.1f} in of length; cut a section there"))
+    return flags
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("model")
@@ -505,6 +607,7 @@ def main():
     ap.add_argument("--spec", help="project spec JSON: species, grain overrides, roles, movement_ok, allow")
     ap.add_argument("--species")
     ap.add_argument("--grain", action="store_true", help="print the grain direction assumed for each part")
+    ap.add_argument("--min-web", type=float, default=0.25, help="thinnest web or neck allowed in a solid-wood part, inches (0 turns the check off)")
     ap.add_argument("--up", choices=["x", "y", "z", "auto"], default="auto", help="vertical axis; auto = y for glb/gltf, z otherwise")
     a = ap.parse_args()
     up = a.up if a.up != "auto" else ("y" if a.model.lower().endswith((".glb", ".gltf")) else "z")
@@ -526,6 +629,9 @@ def main():
     if a.grain:
         grain_report(parts)
     flags = run(parts)
+    mw = SPEC.get("min_web", a.min_web)
+    if mw:
+        flags += [f for f in thin_webs(parts, mw) if not any(re.search(x[0], f["part"]) and x[1] in ("thin_web", "*") for x in ALLOW)]
     print(f"{len(parts)} parts checked, {len(flags)} flag(s)")
     for f in flags:
         o = f" vs {f['other']}" if "other" in f else ""
