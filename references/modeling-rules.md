@@ -23,3 +23,7 @@
 - Before editing, open the file the project page names as current and check its hash. If the hash doesn't match, stop and find out why.
 - Keep the previous version next to the new one; never overwrite in place.
 - After the export, the cut list, drawings, renders and any other copies must be regenerated from the same file, and the project page says which hash each was made from.
+
+## Decoration and joint lines
+- A carved, cut or inlaid motif that sits on a glued-up or framed surface is centred on the board joint (glue line, rail line or panel edge) behind it, so its centreline and the wood's line read as one. Check this in a straight-on elevation with the joint lines drawn before rendering.
+- When a design change takes over a job (a drawer replaces in-case storage, for example), remove the parts that did that job and every cut they made in mating parts, rather than leaving both.

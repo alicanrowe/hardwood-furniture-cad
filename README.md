@@ -168,8 +168,9 @@ The worked example in `examples/walnut-cabinet-on-stand.md` walks through its sp
   - `furniture-types.md`: sizes, default joinery and common failures for tables, chairs, stools, benches, casework, drawers, doors, beds and shelves; grain and figure
   - `drawings-and-printouts.md`: the sections reviewers ask for, house style, printouts, cut sheets, cut list, build book
   - `drawings.md`: the three-view check sheet (assembled with the moving part out, a hatched section, an exploded view of the joinery) and how to render it
-  - `rendering-wood.md`: getting grain right in renders (rift vs flat-sawn figure, end grain, ring scale per shot, imported-mesh pitfalls) and a grain audit to run before final renders
+  - `rendering-wood.md`: getting grain right in renders (rift vs flat-sawn figure, end grain, ring scale per shot, imported-mesh pitfalls) and a grain audit to run before final renders, when to render (previews until the design is locked), and fixing hero renders that look like plastic
   - `renders-and-animation.md`: white backgrounds, matte wood, finish by shot type, split normals, animation rules
+  - `site-updates.md`: keeping a project site current with the model (viewer, drawings, spec table), with the viewer and dimension drawing inline
   - `laser-cut-metal.md`: plates, grilles and mockups
   - `hinges.md` + `hinges.json`: 71 hinges from Brusso, Lee Valley, Whitechapel, Sugatsune, SOSS, Horton Brasses, Rockler, Häfele and Blum, with screw-wood, swing and ordering checks
   - `modeling-rules.md`, `verification.md`, `project-template.md`, `shop-profile-template.md`

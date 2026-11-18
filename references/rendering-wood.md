@@ -28,3 +28,16 @@ Fix the flagged parts, then render a check sheet before re-rendering finals: the
 - Raw or oil-finished wood: no clearcoat, little anisotropy, specular around 0.3 to 0.4, roughness driven by the grain (the latewood a bit smoother). A grain bump breaks up the highlight.
 - **Scale the ring pattern to the shot's pixel density**, not only to real inches. Rings that read well on a wide shot of a long board blur into flat streaks in a close-up. Aim for roughly 15 to 25 px between rings on screen; use a finer procedural on close-ups and a coarser one on wide shots.
 - Don't stack scene lights on top of a bright world: it washes the grain out and flattens the figure.
+
+## When to render, and where
+- **Preview only until the design is locked.** While parts, motifs or hardware are still changing, use cheap previews (viewport or low-sample cloud renders, line drawings). Final stills, site images and animations are rendered once, after the client signs off the design. Stop any final render the moment a design change makes it obsolete.
+- Render on cloud machines, never on the client's own computer. Use a paid farm only for big jobs (animations), and only with the client's go on the cost.
+
+## Hero renders that look fake
+Shiny plastic is the usual complaint. Before showing a hero, put it beside two or three real photographs of comparable finished pieces (same species and finish) and check:
+- the finish: no clearcoat on oiled or charred wood, broad soft highlights, roughness 0.45 to 0.7 driven by the grain;
+- charred or blackened wood (shou sugi ban) is matte and textured, with brushed raised grain, never a glossy black;
+- normals: flat faces stay flat (see Imported meshes), edges get a small real bevel so they catch light;
+- lighting: one large soft key, a fill, a dark flag for edge contrast, a real floor with contact shadow;
+- grain scale is right for the shot (15 to 25 px between rings).
+Fix what doesn't match, re-render, and repeat. Show only the pass that holds up next to the photos.
