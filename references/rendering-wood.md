@@ -41,3 +41,13 @@ Shiny plastic is the usual complaint. Before showing a hero, put it beside two o
 - lighting: one large soft key, a fill, a dark flag for edge contrast, a real floor with contact shadow;
 - grain scale is right for the shot (15 to 25 px between rings).
 Fix what doesn't match, re-render, and repeat. Show only the pass that holds up next to the photos.
+
+## Matching a photographer's studio look
+When the owner names a maker or photographer whose pictures the renders should match, measure their pictures before changing anything, and loop until the numbers agree (Studio Shrine Bench, Nov 2026, six rounds):
+- Pick 4 to 6 of their images per setting (paper sweep, room, curtain). Measure the median and 10th/90th percentile colour of the wood pixels (r - b > 35, r < 200, g < 0.85 r) and the background at the top and bottom of the frame. Measure your renders the same way after every round and write both down.
+- Catalogue sweeps are flatter than you think: one large soft source high and to the side (aimed at the piece from about 45 degrees up), a real fill at a quarter of it, exposure set so the paper reads about 220 not 240. Side light at seat height makes the near faces glare.
+- A white sweep reflects into the wood and greys it: keep specular low (0.15 IOR level, roughness 0.6, no coat) for oiled walnut, or the median goes milky and the blue channel climbs.
+- AgX lifts mid tones a lot: an upholstery albedo of 0.24 rendered as a white card. Upholstery around 0.08 to 0.13 reads as mid-tone cloth. Tint Blender 4's sheen with the yarn colour; the default white sheen whitens cloth.
+- Tonal variation for walls and floors comes from a grey noise (Fac), never the noise's Color output, which shifts the hue (green walls, camouflage rugs). A sisal or jute rug is fine noise bump at about 900 per metre; a wave texture moirés into corduroy at a distance.
+- Make the backdrop wider than any lens you'll use sees: a long diagonal shot ran past the curtain and cyc ends.
+- Keep the look knobs (specular, roughness, tint, exposure per setting) in one block at the top of the render script, so each round changes numbers, not code.

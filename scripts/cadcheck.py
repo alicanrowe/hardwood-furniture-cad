@@ -137,12 +137,24 @@ def part_info(n, mesh):
     return role, grain
 
 
+def closest_point(mesh, pts, chunk=256):
+    """trimesh.proximity.closest_point in chunks. Trimesh builds a candidate list per query point from
+    the nearest vertex distance; on parts with long sliver faces (turned discs, cylinder caps, rings)
+    that list can reach tens of millions of rows and run a 16 GB machine out of memory (Studio Shrine
+    Bench, 18 Nov). Chunking keeps the peak bounded and gives the same answer."""
+    pts = np.asarray(pts)
+    if len(pts) <= chunk:
+        return trimesh.proximity.closest_point(mesh, pts)
+    out = [trimesh.proximity.closest_point(mesh, pts[i:i + chunk]) for i in range(0, len(pts), chunk)]
+    return np.vstack([o[0] for o in out]), np.concatenate([o[1] for o in out]), np.concatenate([o[2] for o in out])
+
+
 def contact(pm, qm, n=6000, tol=0.004):
     """points on pm that touch qm face to face, with pm's outward normals there"""
     pts, fi = trimesh.sample.sample_surface_even(pm, n, seed=3)
     if len(pts) == 0:
         return np.zeros((0, 3)), np.zeros((0, 3)), 0.0
-    cp, d, tri = trimesh.proximity.closest_point(qm, pts)
+    cp, d, tri = closest_point(qm, pts)
     nrm = pm.face_normals[fi]
     ok = (d < tol) & (np.einsum("ij,ij->i", nrm, qm.face_normals[tri]) < -0.9)
     return pts[ok], nrm[ok], pm.area * ok.mean()
@@ -243,7 +255,7 @@ def run(parts, near_lo=0.08, near_hi=0.30):
             if PANEL_RE.search(a) or PANEL_RE.search(b) or allowed(a, b) \
                     or HARDWARE_RE.search(a) or HARDWARE_RE.search(b):
                 continue
-            _, dmin, _ = trimesh.proximity.closest_point(parts[b], parts[a].vertices[:: max(1, len(parts[a].vertices) // 3000)])
+            _, dmin, _ = closest_point(parts[b], parts[a].vertices[:: max(1, len(parts[a].vertices) // 3000)])
             if dmin.min() > 0.02:
                 continue
             for p, q in ((a, b), (b, a)):
@@ -251,7 +263,7 @@ def run(parts, near_lo=0.08, near_hi=0.30):
                 pts, fi = trimesh.sample.sample_surface_even(pm, 4000, seed=1) if pm.area > 0 else (None, None)
                 if pts is None or len(pts) == 0:
                     continue
-                cp, d, tri = trimesh.proximity.closest_point(qm, pts)
+                cp, d, tri = closest_point(qm, pts)
                 facing = np.einsum("ij,ij->i", pm.face_normals[fi], qm.face_normals[tri]) < -0.8
                 # straight across only: a point beside the other face finds its edge at a slant (a drawer
                 # end running 1/64 past a tapered leg is not a 0.2 in gap)
@@ -281,7 +293,10 @@ def run(parts, near_lo=0.08, near_hi=0.30):
         if not INSERT_RE.search(n) or part_info(n, parts[n])[0] == "ignore" or M[n] is None:
             continue
         v = parts[n].vertices[:: max(1, len(parts[n].vertices) // 2000)]
-        touching = [o for o in nb[n] if trimesh.proximity.closest_point(parts[o], v)[1].min() < 0.01]
+        # plus points on the faces: a box insert has only 8 corners, and a key through a peg touches it
+        # mid-face, nowhere near a corner (Studio Shrine Bench pivot key, 18 Nov)
+        v = np.vstack([v, trimesh.sample.sample_surface_even(parts[n], 1500, seed=5)[0]])
+        touching = [o for o in nb[n] if closest_point(parts[o], v)[1].min() < 0.01]
         if len(touching) < 2:
             flags.append(dict(check="one_sided", part=n,
                               detail="touches only " + (", ".join(touching) or "nothing") + ": an insert has to reach the part it holds"))
@@ -316,7 +331,7 @@ def run(parts, near_lo=0.08, near_hi=0.30):
         floaters = [parts[o] for o in nb[n] if PANEL_RE.search(o) or part_info(o, parts[o])[0] == "floating"]
         for comp in cav.decompose():
             c = from_manifold(comp)
-            if floaters and any(trimesh.proximity.closest_point(f, c.vertices)[1].max() < 0.3 for f in floaters):
+            if floaters and any(closest_point(f, c.vertices)[1].max() < 0.3 for f in floaters):
                 continue   # just the expansion room around a floating panel
             t_eff = 2 * abs(c.volume) / max(c.area, 1e-9)   # effective thickness: thin leftover gaps are clearances
             if abs(c.volume) > 0.02 and min_section(c) > 0.2 and t_eff > 0.08 and not touches_hull_boundary_only(c, parts[n]):
@@ -493,7 +508,7 @@ def touches_hull_boundary_only(c, part):
     such regions have less than 60% of their surface lying on the part itself."""
     try:
         pts, _ = trimesh.sample.sample_surface_even(c, 600, seed=2)
-        _, d, _ = trimesh.proximity.closest_point(part, pts)
+        _, d, _ = closest_point(part, pts)
         return (d < 1e-3).mean() < 0.6
     except Exception:
         return False
