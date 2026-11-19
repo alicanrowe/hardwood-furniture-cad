@@ -20,6 +20,9 @@ For each wood part, list its bounding-box dims, the world direction of its grain
 
 Fix the flagged parts, then render a check sheet before re-rendering finals: the whole piece from two 3/4 angles, plus close-ups of a leg top, a post top, a case corner, a gable or panel and a drawer or box corner.
 
+## Web and exported GLBs
+The audit above covers Blender renders. A GLB for the web carries its grain in UVs, not in a procedural shader, so check it separately with `scripts/glb_grain_check.py` (texture grain axis compared with each part's long axis, face by face). Fix with `scripts/glb_regrain.py`.
+
 ## Imported meshes (GLB, OBJ)
 - Procedural grain driven by object coordinates breaks when a part arrives in different units or a different axis order. Check each part's grain origin, pith and direction after every import, and convert units (inches vs metres, Y vs Z up).
 - Clear custom split normals on flat boards and use smooth-by-angle (about 30°). Smooth normals bent across a flat board give a soft, even, plastic sheen and broad diagonal bands.
