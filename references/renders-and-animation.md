@@ -47,3 +47,11 @@ white, with no boxes behind them.
   in and out (0.6 s). No boxes or plates. For a 9:16 reel keep text out of the top 220 px and bottom 380 px.
 - Render frames as RGBA PNG; `overlay.py` flattens them onto white, adds labels and encodes H.264.
   Long jobs go to a render farm from the saved .blend; the overlay step runs on the frames that come back.
+
+## Stones
+A stone's colour comes from the project spec (`materials.gem.colors` in the piece's spec JSON, linear RGB), never from whatever material an imported asset brought with it. The Moth v7f lancet drops came in with near-white "clear glass" tints and four had no material at all, so every hero and the animation showed milky stones while the gable stones were right; the web viewer was fine only because its exporter remaps stones by name.
+- `scripts/gemcheck.py` checks every part named after a stone: hue within 20 degrees, saturation at least 0.6x and value within 0.25 of the spec colour. It reads a GLB, or runs inside Blender on the render scene itself. A texture-driven colour is reported as unchecked; look at those by eye.
+- Before delivery, crop one of each setting (here: a lancet drop, a gable stone, the handle and pull stones) at 100% and compare with the spec swatch.
+
+## Captions on video
+Captions follow the site theme (`assets/theme.json`): titles in the title role (caps), notes in the light serif, the site's inks. No plates, halos, glows or shadows. Keep one fixed place per format, picked from a model-coverage map of the caption frames, and only change opacity (0.65 s fades). Leader lines end on a ray-cast point on the part's visible surface, projected through the render camera on every frame. Check them by casting a ray through every tracked pixel; 0 misses, then read the overlay's contrast report and look at a preview sheet before encoding.
