@@ -158,11 +158,6 @@ Run the whole chain on the test table with `examples/pipeline/run.sh`.
 <img src="docs/gallery/pm-walnut-raw.jpg" alt="The walnut cabinet in matte, unfinished wood: book-matched cathedrals on the two doors, straight grain on the apron and legs, brass hinges" width="50%">
 <sub>Matte walnut: book-matched cathedrals centred on the doors, straight grain on the apron and legs</sub>
 
-<img src="docs/gallery/pm-walnut-animation.jpg" alt="Twelve frames from the walnut cabinet build animation, each with a joint label: plain-sawn board, three-board glue-up, plywood L-tenons, lapped dovetails, sliding tapered dovetail, paneled back, drawer bottom, rabbet, breadboard door, brass butt hinges, shadow groove, and the finished cabinet in Rubio Monocoat oil.">
-<sub>Build animation: parts arrive in shop order, every joint gets a label that moves to stay clear of the parts, and the oil goes on only at the end</sub>
-
-Watch it: [16:9 (1920x1080)](docs/gallery/walnut-cabinet-animation-16x9.mp4) or [9:16 (1080x1920)](docs/gallery/walnut-cabinet-animation-9x16.mp4), 90 s each with sound.
-
 The worked example in `examples/walnut-cabinet-on-stand.md` walks through its spec, what the checker found, and what each flag meant.
 
 ## What's in it
