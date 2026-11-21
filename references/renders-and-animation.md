@@ -47,24 +47,3 @@ white, with no boxes behind them.
   in and out (0.6 s). No boxes or plates. For a 9:16 reel keep text out of the top 220 px and bottom 380 px.
 - Render frames as RGBA PNG; `overlay.py` flattens them onto white, adds labels and encodes H.264.
   Long jobs go to a render farm from the saved .blend; the overlay step runs on the frames that come back.
-
-## Encoding on the owner's Mac (no ffmpeg there)
-The owner's Mac has no ffmpeg and no Homebrew, and Blender must not run while they use it. Encode with the Mac's own hardware H.264 (VideoToolbox) instead: `scripts/vtenc.swift` writes H.264 High, 40 Mbps, keyframe every 48, 24 fps with each 12 fps source frame held twice, moov at the front. Feed it the overlay's `o#####.jpg` folder.
-```bash
-SDK=/Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk   # newest SDK can be ahead of the installed swiftc; pick one that builds
-swiftc -O -sdk $SDK scripts/vtenc.swift -o vtenc && swiftc -O -sdk $SDK scripts/vcheck.swift -o vcheck
-nice -n 19 ./vtenc OVERLAY_DIR OUT.mp4
-nice -n 19 ./vcheck OUT.mp4 STILLS_DIR 16x9 2535:join 2965:moth_in_cell   # frames, duration, size; stills by source frame
-```
-It costs under a minute per film (1728 frames at 2560x1440 took 0.8 min); the caption overlay is the slow part. Read back frame count (source frames x 2), duration and size with `vcheck`, and check `moov` comes before `mdat` in the first bytes.
-- "Error: this SDK is not supported by the compiler" means the default SDK is newer than `swiftc`; pass an older `-sdk` from `/Library/Developer/CommandLineTools/SDKs/`.
-- Pull named stills (joins, a landing, a hinge) from the **encoded file**, not the frames, so they prove the video. Pick them from a contact sheet: the first moth-in-cell pick had the moth half behind the wall.
-
-## Stones
-A stone's colour comes from the project spec (`materials.gem.colors` in the piece's spec JSON, linear RGB), never from whatever material an imported asset brought with it. The Moth v7f lancet drops came in with near-white "clear glass" tints and four had no material at all, so every hero and the animation showed milky stones while the gable stones were right; the web viewer was fine only because its exporter remaps stones by name.
-- `scripts/gemcheck.py` checks every part named after a stone: hue within 20 degrees, saturation at least 0.6x and value within 0.25 of the spec colour. It reads a GLB, or runs inside Blender on the render scene itself. A texture-driven colour is reported as unchecked; look at those by eye.
-- Before delivery, crop one of each setting (here: a lancet drop, a gable stone, the handle and pull stones) at 100% and compare with the spec swatch.
-
-## Captions on video
-Captions follow the site theme (`assets/theme.json`): titles in the title role (caps), notes in the light serif, the site's inks. No plates, halos, glows or shadows. Keep one fixed place per format, picked from a model-coverage map of the caption frames, and only change opacity (0.65 s fades). Leader lines end on a ray-cast point on the part's visible surface, projected through the render camera on every frame. Check them by casting a ray through every tracked pixel; 0 misses, then read the overlay's contrast report and look at a preview sheet before encoding.
-- On the preview sheet, check every caption has its leader (Moth v8: the 9:16 HANDLE and both MOTH captions had none) and that no note runs over the model in 9:16, where the top slot is narrow ("slots in the end rails" and "tall stand" overlapped the piece). Fix the track before encoding, not after.
