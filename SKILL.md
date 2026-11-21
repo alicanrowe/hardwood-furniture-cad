@@ -75,6 +75,16 @@ Modelling an existing carved or sculpted piece from photos (no cut list, "make t
 - Only answer for what they say they are building today (for example the carcass only).
 - The build book carries a **board-by-board cut map** once boards are logged: each board's letter, chop positions from one end, rip widths, resaw thickness and the parts that come out, in the order they're cut (`references/drawings-and-printouts.md`).
 
+## Excuses that don't count
+Each of these is a shortcut that ends in a broken result. If you catch yourself thinking the left column, do the right column.
+
+| The excuse | What to do instead |
+|---|---|
+| "The joint looks right in the viewport" | Run the interference/clipping check; parts passing through each other fail. |
+| "Grain direction doesn't matter in a render" | Grain runs along every part. Check it before any render or GLB ships. |
+| "The sizes are fine, nobody sits on it in CAD" | Run seating-load-check on anything people sit on. |
+| "While I'm in here I'll also tidy/refactor this other bit" | Change only what the task needs. Smallest diff that works; no new options, helpers or files nobody asked for. Note other ideas for later instead. |
+
 ## Keep this skill improving
 Any problem found with a model, a drawing or a render that a rule here would have prevented gets written into the matching reference file (modelling, joinery, furniture types, wood movement, rendering) in the same session. If the checker should have caught it, add a planted test piece to `scripts/tests/` too. Then commit and push.
 
