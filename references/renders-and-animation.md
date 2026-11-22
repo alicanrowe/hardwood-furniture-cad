@@ -15,6 +15,12 @@ rules. Each rule below came from images that had to be redone.
 - **Smooth where it should be smooth.** Raise subdivision on curved metal and blades, shade smooth, and
   check close-ups for facets and jagged tips before sending.
 
+## Pieces in a built world (reels, room scenes)
+White backgrounds stay the rule for product images. When the client asks for a piece in a scene (a room, a landscape,
+a reel world), follow the environment rules in the sculpted-metal-casting skill (`references/environments.md`
+there): one aimed key with a pool of light that falls off, a satin floor that mirrors the piece but not the lamp
+(light linking), ground-hugging mist only, a low 28 to 35 mm camera, and the film finish (`env_grade.py` in the sculpted-metal-casting skill).
+
 ## Materials
 - **Matte PBR wood:** principled BSDF, roughness about 0.65 raw and 0.45 oiled, specular about 0.35, no
   clearcoat, no coat or sheen. Glossy wood reads as plastic.
