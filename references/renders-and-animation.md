@@ -53,3 +53,17 @@ white, with no boxes behind them.
   in and out (0.6 s). No boxes or plates. For a 9:16 reel keep text out of the top 220 px and bottom 380 px.
 - Render frames as RGBA PNG; `overlay.py` flattens them onto white, adds labels and encodes H.264.
   Long jobs go to a render farm from the saved .blend; the overlay step runs on the frames that come back.
+
+## Joinery reels (exploded, cut to a beat)
+- **Every part moves only along its real assembly path**, or the reel shows joints that couldn't go together:
+  tenons along their own axis, floating panels in-plane along their grooves, dovetailed drawer sides across the
+  face of the tail board (never pulled straight back through a housing), a drawer bottom along its grooves,
+  lids and roofs about their hinge pins. A tray dropped in from below hit the leg pockets in testing, so check
+  each path before you pick the direction.
+- **Run an animation clipping check** before any farm upload: world matrices every second frame, mesh
+  intersection for each moving pair, flagged only above the at-rest overlap. Zero new clips is the gate.
+- **Pacing check** on the animatic: mean frame difference per half second. Any stretch over about 2 s with
+  little change is a dead hold. Give it a callout on the beat (one per tool in a tool rack) or a camera push.
+- Overlays come from a per-frame track file (projected bounding boxes plus the camera), so tags and leaders
+  follow the parts through the moves.
+

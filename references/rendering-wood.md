@@ -20,6 +20,19 @@ For each wood part, list its bounding-box dims, the world direction of its grain
 
 Fix the flagged parts, then render a check sheet before re-rendering finals: the whole piece from two 3/4 angles, plus close-ups of a leg top, a post top, a case corner, a gable or panel and a drawer or box corner.
 
+## Wood shader that reads as real ash or oak
+- Give each part its own grain frame from PCA of its vertices (long axis = grain), not world axes, or tilted roof
+  and gable parts get grain across them.
+- Rift parts put the pith 35 to 55 degrees off a corner; flat-sawn panels put it a few inches off the face, with a
+  slight cone so cathedral figure shows.
+- Ring-porous species need earlywood pores stretched along the grain, a latewood colour gradient, fibre and
+  streak noise and a darker end grain. Without them the wood reads as pine, and flat colour bands posterise at 100%.
+
+## Dark-room key light with polished metal
+- The world is black to the camera and to diffuse rays. Only glossy rays see a couple of soft strip boxes, so
+  rhodium and brass have something to reflect instead of rendering black or grey.
+- Set the floor's specular to 0, or it mirrors the strips and flattens the light pool.
+
 ## Imported meshes (GLB, OBJ)
 - Procedural grain driven by object coordinates breaks when a part arrives in different units or a different axis order. Check each part's grain origin, pith and direction after every import, and convert units (inches vs metres, Y vs Z up).
 - Clear custom split normals on flat boards and use smooth-by-angle (about 30°). Smooth normals bent across a flat board give a soft, even, plastic sheen and broad diagonal bands.
