@@ -64,3 +64,9 @@ When the owner names a maker or photographer whose pictures the renders should m
 - Tonal variation for walls and floors comes from a grey noise (Fac), never the noise's Color output, which shifts the hue (green walls, camouflage rugs). A sisal or jute rug is fine noise bump at about 900 per metre; a wave texture moirés into corduroy at a distance.
 - Make the backdrop wider than any lens you'll use sees: a long diagonal shot ran past the curtain and cyc ends.
 - Keep the look knobs (specular, roughness, tint, exposure per setting) in one block at the top of the render script, so each round changes numbers, not code.
+
+## Web viewer GLBs (2026-11-23)
+The PM case preview on the site went out with swirly contour-map figure on its panels, a cathedral image as its "end grain" and diagonal grain on the legs, twice. Causes: a texture named "flat" was exempt from the straight-grain check, anything named "end" was skipped, and all 55 parts were merged into six meshes by material, so the per-part check saw two "parts" and passed; the old regrain also used each part's longest side and ignored the spec, so case sides ran front to back.
+- Build viewer GLBs only with `scripts/web_glb.py`; it writes each part's grain axis into the GLB.
+- `scripts/web_grain_check.py` must pass: per part (merged meshes are split and checked piece by piece), grain along the part, end grain only on ends, and every long-grain texture straight, whatever its name.
+- No flat-sawn, cathedral or figured image goes in a web GLB. Real figure belongs in the Blender renders, where it's procedural and checked by eye.
