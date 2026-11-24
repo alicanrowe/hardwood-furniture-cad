@@ -18,7 +18,9 @@ longest side won over the spec). This script does it one way:
   python3 scripts/web_glb.py MODEL.blend|MODEL.glb OUT.glb --spec PIECE.cadcheck.json --units in --up z \
       [--pose pose.json] [--drop 'REGEX'] [--repeat 0.45]
 
---units/--up describe the source model (a Blender GLB is m / y; most CAD-in-inches blends are in / z).
+--units/--up describe the source model (a GLB is m, and Blender's glTF importer already turns it Z up, so
+--up is ignored for a .glb; most CAD-in-inches blends are in / z). Shrine bench, 24 Nov: --up y on a GLB laid every
+wood part on its back in the viewer while the grain check still passed.
 --pose moves parts before export, in source units, Z up, e.g. an open door and a pulled drawer:
   [{"match": "^(Door_|Hinge_|HScrew_D_)", "rotate_deg": -100, "axis": "z", "point": [-8.31, -7.07, 0]},
    {"match": "^Drawer_", "translate": [0, -5.9, 0]}]
@@ -110,6 +112,8 @@ def main():
         bpy.ops.wm.open_mainfile(filepath=a.src)
     else:
         bpy.ops.wm.read_factory_settings(use_empty=True); bpy.ops.import_scene.gltf(filepath=a.src)
+    if not a.src.endswith('.blend') and a.up != 'z':
+        print('note: a GLB comes in Z up from the importer; ignoring --up', a.up); a.up = 'z'
     scale = {'m': 1.0, 'mm': 0.001, 'in': 0.0254}[a.units]
     obs = [o for o in bpy.context.scene.objects if o.type == 'MESH' and o.visible_get()]
     if a.drop: obs = [o for o in obs if not re.search(a.drop, o.name)]
