@@ -28,6 +28,15 @@ Fix the flagged parts, then render a check sheet before re-rendering finals: the
 - Ring-porous species need earlywood pores stretched along the grain, a latewood colour gradient, fibre and
   streak noise and a darker end grain. Without them the wood reads as pine, and flat colour bands posterise at 100%.
 
+## Laminated, staved and glued-up parts (2026-11-24)
+The Studio Shrine Bench went out with one straight walnut grain running over its whole stack-laminated plank and its staved drums, so the twist read as one board bent into a ribbon. The client: "the grain wouldnt look like that because they are multiple pieces laminated not a single board being bent".
+- Shade every glued-up part with `scripts/blender/laminated_wood.py` (Cycles OSL): `stack` for horizontal stack laminations, `stave` for coopered drums and curved backs, `panel` for edge-glued tops and discs, `solid` for single boards.
+- Match the shader to the real build: layer thickness and a layer boundary from the cut list, stave count and centre from the model. Keep the boundaries out of a show face (face the top layer down a little, so no glue line lies in the seat).
+- Each board gets its own pith, ring spacing and tone. Keep the tone spread to about +-20 % in shader units (it reads as +-10 % on screen) so the piece stays one tone; the figure breaking at every seam is what shows the lamination.
+- Where a faired surface cuts the stack at a slant, the layer rings show as contour bands; on a vertical face of a stack they read as level stripes one layer apart. Check both in a close-up before the finals.
+- End grain shows on real ends only (darker, open pores); in a stave or stack it comes out of the same per-board rings.
+- Web viewer GLBs still carry one straight grain per part (`web_glb.py` has no lamination mode yet). Until it does, say so if the viewer is the only view of a laminated piece.
+
 ## Dark-room key light with polished metal
 - The world is black to the camera and to diffuse rays. Only glossy rays see a couple of soft strip boxes, so
   rhodium and brass have something to reflect instead of rendering black or grey.
