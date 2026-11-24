@@ -44,6 +44,19 @@ renderer with the walnut material, `camera_from_photo.py`).
 - Scoops that lower the top surface also make bowls shallower; raise the blank height to compensate.
 - Floors and wood blow out under bright area lights with clearcoat: keep floor coat 0.15 to 0.35, add roughness
   variation, lower exposure; walnut base colour around (0.06, 0.03, 0.015) with low ring contrast.
+- Channels laid out by rule (concentric lanes that part round each pocket, one common wave) read as machine
+  knurling and failed a blind review. Start each stream at a random point on the rim, pull it toward the pockets
+  and bowls (inverse-square sinks plus a little swirl), taper width and depth as it goes, and stop it at a polished
+  collar round the pocket. Seed a second set inside the field so nothing between the pockets is left blank.
+  Even, evenly spaced grooves on a rim edge also read as knurling: leave the edge plain.
+- A handle grown out of a carved slab: smooth-union the slab with the handle SDF (k about 24 mm), cap the
+  collar a few mm above the top, then cut the socket as `max(F, -(handle_sdf - gap))`. The gap is subtracted:
+  `handle_sdf + gap` makes the socket smaller than the tenon (a clash that grows as the gap grows).
+- Grip ends: the clearance cut that keeps a grip off a curved body shaves the last section into a frayed shell
+  if the centreline ends inside it. End the centreline one section radius outside the clearance surface, and
+  stop scoop lanes and pierced slots short of a thin end (lanes to about 0.8 of the length).
+- Check every assembly with exact solid booleans (manifold3d, intersection volume over 0.02 mm3 = clash), not
+  ray tests; it finds lug, liner, seat and tenon clashes a render hides.
 
 ## Outputs
 Render pairs (photo | CAD) on a brand comparison sheet, a `.blend` built from decimated meshes (about 30 MB), a web
