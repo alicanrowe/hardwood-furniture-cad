@@ -27,3 +27,6 @@
 ## Decoration and joint lines
 - A carved, cut or inlaid motif that sits on a glued-up or framed surface is centred on the board joint (glue line, rail line or panel edge) behind it, so its centreline and the wood's line read as one. Check this in a straight-on elevation with the joint lines drawn before rendering.
 - When a design change takes over a job (a drawer replaces in-case storage, for example), remove the parts that did that job and every cut they made in mating parts, rather than leaving both.
+
+## Grain direction on handles and loops
+A closed loop or C-handle cut from a horizontal stack lamination has short grain across its uprights and snaps where the hand squeezes. Before rendering any handle, say which way the grain runs through its thinnest section. Acceptable: a bent lamination with plies running around the curve, staves running along the load (a coopered wall rising into a grip), or a solid part with the grain along the handle. Never a stack across it. The laminated shader shows the truth here, so if the render shows rings crossing a thin neck, the part is wrong, not the shader.
