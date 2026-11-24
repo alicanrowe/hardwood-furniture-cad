@@ -82,6 +82,8 @@ Each of these is a shortcut that ends in a broken result. If you catch yourself 
 
 | The excuse | What to do instead |
 |---|---|
+| "It's photoreal enough, it's just CAD on white" | A cut-out on 255 white never reads as a photo. For hero/Instagram stills use `scripts/blender/photoreal.py` and run the check in `references/photoreal.md`. |
+| "The close-up is fine, the rod just goes into the block" | Rods and stays end in modelled clevises, pins and nuts before any close-up. The clip check must not exempt hardware. |
 | "The joint looks right in the viewport" | Run the interference/clipping check; parts passing through each other fail. |
 | "Grain direction doesn't matter in a render" | Grain runs along every part. Check it before any render or GLB ships. |
 | "It's only the small 3D preview" / "the texture is named flat, so figure is expected" | The preview is what most people see. Build it with `web_glb.py` and pass `web_grain_check.py`; no name exempts a texture from the straight-grain check. |

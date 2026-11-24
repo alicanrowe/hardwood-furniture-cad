@@ -15,6 +15,13 @@ rules. Each rule below came from images that had to be redone.
 - **Smooth where it should be smooth.** Raise subdivision on curved metal and blades, shade smooth, and
   check close-ups for facets and jagged tips before sending.
 
+## Photoreal hero stills (room, real light)
+White cut-outs are for product squares and drawings. When a piece needs to read as a photograph (hero stills,
+Instagram, press), use `scripts/blender/photoreal.py` and follow `references/photoreal.md`: a real concrete room
+("gallery" light or "pool" dark), one key with falloff, strip reflectors light-linked to the piece only, worn metal
+with streaks, smudges and bevelled edges, a 50/85 mm lens with depth of field, AgX and the film grade. It came from
+the client asking why an all-CAD account looked like photos and ours didn't (24 Nov 2026).
+
 ## Pieces in a built world (reels, room scenes)
 White backgrounds stay the rule for product images. When the client asks for a piece in a scene (a room, a landscape,
 a reel world), follow the environment rules in the sculpted-metal-casting skill (`references/environments.md`
