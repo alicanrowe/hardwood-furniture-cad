@@ -35,7 +35,7 @@ The Studio Shrine Bench went out with one straight walnut grain running over its
 - Each board gets its own pith, ring spacing and tone. Keep the tone spread to about +-20 % in shader units (it reads as +-10 % on screen) so the piece stays one tone; the figure breaking at every seam is what shows the lamination.
 - Where a faired surface cuts the stack at a slant, the layer rings show as contour bands; on a vertical face of a stack they read as level stripes one layer apart. Check both in a close-up before the finals.
 - End grain shows on real ends only (darker, open pores); in a stave or stack it comes out of the same per-board rings.
-- Web viewer GLBs still carry one straight grain per part (`web_glb.py` has no lamination mode yet). Until it does, say so if the viewer is the only view of a laminated piece.
+- Web viewer GLBs: glued-up and curved parts are baked in 3D by `scripts/web_laminate.py` from the same lamination parameters as the render (spec `"lamination"`), so the 3D preview shows the same boards and contour bands (25 Nov 2026).
 
 ## Dark-room key light with polished metal
 - The world is black to the camera and to diffuse rays. Only glossy rays see a couple of soft strip boxes, so
@@ -78,6 +78,8 @@ When the owner names a maker or photographer whose pictures the renders should m
 The PM case preview on the site went out with swirly contour-map figure on its panels, a cathedral image as its "end grain" and diagonal grain on the legs, twice. Causes: a texture named "flat" was exempt from the straight-grain check, anything named "end" was skipped, and all 55 parts were merged into six meshes by material, so the per-part check saw two "parts" and passed; the old regrain also used each part's longest side and ignored the spec, so case sides ran front to back.
 - Build viewer GLBs only with `scripts/web_glb.py`; it writes each part's grain axis into the GLB.
 - `scripts/web_grain_check.py` must pass: per part (merged meshes are split and checked piece by piece), grain along the part, end grain only on ends, and every long-grain texture straight, whatever its name.
+- `curved` (25 Nov 2026, Shrine bench plank: "grain is wrong again"): a 2D texture on a surface that twists, sweeps or bends along its grain follows the surface like one board bent into shape, even when its lines run along the part. Wood is a solid: bake such parts with `scripts/web_laminate.py` (stack / stave / panel / solid, `--auto` for unnamed turned or carved parts) and the check re-evaluates the bake (`bake`). Turning round the grain (dowels, handles, roundovers) is fine as 2D. Only a real steam-bent board or bent lamination is `"bent": true`.
+- Site GLBs are meshopt + quantized: the check decodes and dequantizes them itself (trimesh misreads quantized normals and UVs).
 - No flat-sawn, cathedral or figured image goes in a web GLB. Real figure belongs in the Blender renders, where it's procedural and checked by eye.
 
 ## When laminated_wood.py can't run (25 Nov 2026)
