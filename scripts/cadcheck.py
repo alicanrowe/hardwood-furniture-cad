@@ -229,8 +229,6 @@ def run(parts, near_lo=0.08, near_hi=0.30):
         if M[n] is None or not m.is_watertight or m.volume <= 0:
             flags.append(dict(check="hygiene", part=n, detail="not a closed solid (open edges or bad normals)"))
             continue
-        # genus from Euler characteristic of each closed shell
-        g = M[n].genus()
         bodies = len(M[n].decompose())
         if bodies > 1:
             flags.append(dict(check="hygiene", part=n, detail=f"{bodies} separate bodies in one part; split it or confirm"))
