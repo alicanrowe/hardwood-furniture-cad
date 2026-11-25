@@ -1,3 +1,5 @@
+![Hardwood furniture CAD: Model solid-wood furniture that can really be built: joinery, wood movement, drawings and renders from one file.](.github/banner.png)
+
 # Hardwood furniture CAD skill
 
 <table>
