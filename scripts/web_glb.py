@@ -174,7 +174,7 @@ def main():
         sp = ps.get('species', base_species)
         long_m, end_m = wood_mats(sp)
         me.materials.append(long_m); me.materials.append(end_m)
-        P = np.array([v.co[:] for v in me.vertices]); ext = np.ptp(P, 0)
+        P = np.array([v.co[:] for v in me.vertices])
         g_ax = ps.get('grain')
         if g_ax in ('x', 'y', 'z'):
             g = mathutils.Matrix(n['pose_rot']) @ mathutils.Vector([1.0 if g_ax == c else 0.0 for c in 'xyz'])
