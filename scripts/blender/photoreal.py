@@ -254,7 +254,6 @@ def link_strips(obs):
 def room(kind, ctr, size):
     """gallery: pale concrete floor, pale walls, one big overhead softbox (light room, keeps the site's white).
     pool: dark room, one overhead spot throwing a pool on the floor that dies off before the frame edge."""
-    s = bpy.context.scene
     if kind == "gallery":
         fl = _plane("Floor", (30, 30), (ctr.x, ctr.y, 0), mat=floor_concrete("Floor", (0.50, 0.495, 0.485), (0.30, 0.68)))
         wall = matte("Wall", (0.80, 0.80, 0.79), 0.92)
