@@ -62,7 +62,6 @@ def plan(rows, strips=None, rx=None, kerf=0.125):
         out.append(f'   {frac(T)} thick: anything wider than {frac(W)}, rip to {frac(W)} -> {", ".join(names)}.')
     out.append('3. CROSSCUT LAST (square one end, stop block for repeats)')
     for (T, W, L, n), v in sorted(g.items(), key=lambda kv: (-kv[0][1], -kv[0][2])):
-        per = lambda s: int((s + kerf) // (L + kerf))
         out.append(f'   {n} ({frac(T)} x {frac(W)}): {v["qty"]} at {frac(L)}.'
                    f' Two per strip needs {frac(2 * L + kerf)}+; three needs {frac(3 * L + 2 * kerf)}+.')
     if strips:
