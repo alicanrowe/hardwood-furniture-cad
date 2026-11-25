@@ -34,14 +34,12 @@ def project(m, c, R, view):
     P = (m.vertices - c) @ R            # columns L, W, T
     ax = {"face": (0, 1, 2), "edge": (0, 2, 1), "end": (1, 2, 0)}[view]
     xy = P[:, [ax[0], ax[1]]]
-    depth = P[:, ax[2]]
     tris = [Polygon(xy[f]) for f in m.faces]
     tris = [t for t in tris if t.is_valid and t.area > 1e-9]
     sil = unary_union(tris).buffer(0)
     # visible sharp edges: midpoints not hidden behind other faces (ray toward the viewer)
     lines = []
     try:
-        adj = m.face_adjacency
         ang = m.face_adjacency_angles
         edges = m.face_adjacency_edges[ang > math.radians(20)]
         if len(edges):
