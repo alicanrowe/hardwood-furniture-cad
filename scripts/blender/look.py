@@ -109,7 +109,6 @@ def obb_axes(o):
     c = vs.mean(0)
     w, V = np.linalg.eigh(np.cov((vs - c).T))
     ax = [Vector(V[:, i]) for i in np.argsort(w)[::-1]]
-    ext = [float(np.ptp((vs - c) @ np.array(a))) for a in ax]
     return ax[0], ax[1], ax[2], Vector(c)
 
 
