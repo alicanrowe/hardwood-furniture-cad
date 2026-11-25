@@ -79,3 +79,11 @@ The PM case preview on the site went out with swirly contour-map figure on its p
 - Build viewer GLBs only with `scripts/web_glb.py`; it writes each part's grain axis into the GLB.
 - `scripts/web_grain_check.py` must pass: per part (merged meshes are split and checked piece by piece), grain along the part, end grain only on ends, and every long-grain texture straight, whatever its name.
 - No flat-sawn, cathedral or figured image goes in a web GLB. Real figure belongs in the Blender renders, where it's procedural and checked by eye.
+
+## When laminated_wood.py can't run (25 Nov 2026)
+The pip `bpy` build has no OSL compiler (`No module named 'oslquery'`, then `key "Pos" not found`), so `laminated_wood.py`
+fails there. Either render with a downloaded Blender binary, or split the glue-up into one object per layer and use a
+node shader whose ring coordinate is offset by a per-object `seed` property: every layer then gets its own figure, and
+parts cut out of a layer (a drawer front) can share its seed so the figure runs on. Add the glue line from world position
+(pingpong of y / layer thickness). Keep bump Distance tiny (about 0.00015 m); the default 1 m turns pores into ridges.
+Worked example: a `mat_cherry()` node tree built this way (TexCoord Object x 39.37, ring distance from a pith offset by the seed, noise wander, stretched pore noise, per-seed tone).
