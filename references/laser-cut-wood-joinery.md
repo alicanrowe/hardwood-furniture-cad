@@ -26,3 +26,16 @@ The laser cuts only straight through the sheet, so every joint is drawn in the p
 - Feet: cut a shallow segmental arch under each wall rather than a square notch.
 - Nest by searching box mixes and keeping the fullest one that fits; bounding-box nesting of these parts reaches about 75 to
   80 % of the sheet.
+
+## Stack-laminated pieces from the sheet (PERRON boot podium, 25 Nov 2026)
+- A piece glued up from many laser-cut layers face to face: cut each layer to the larger of its two faces and fair the
+  stack by hand after glue-up (a quarter-ellipse roundover over the outer layers). Left stepped, the ends read as a
+  serrated staircase; the client wants laminations faired smooth (design-taste B10).
+- A drawer front can be the piece the laser cuts out of the face layers: the figure runs on unbroken and the kerf
+  (about 0.008 in) is the piston-fit gap. Square the bottom corners of the opening so the drawer sides run on the full floor.
+- Registration keys through a bowed or terraced stack: run them through the core layers only and keep 1/4 in of wood
+  to the end face and to the arch at the narrowest core layer (check it in 2D for every layer, not one).
+- cadcheck `thin_web` on 1/4 in sheet parts: the erosion at the default 1/4 in target eats the whole sheet thickness and
+  every layer flags. Set `"min_web": 0.125` for sheet parts in the spec and check in-plane webs in 2D at 1/4 in. A tunnel
+  through every layer (a drawer) still flags as a neck in cadcheck's 1 in slabs; cut a section, and if the in-plane webs
+  are 1/4 in or more, put it in `allow` with the reason.
