@@ -24,10 +24,14 @@ wood part on its back in the viewer while the grain check still passed.
 --pose moves parts before export, in source units, Z up, e.g. an open door and a pulled drawer:
   [{"match": "^(Door_|Hinge_|HScrew_D_)", "rotate_deg": -100, "axis": "z", "point": [-8.31, -7.07, 0]},
    {"match": "^Drawer_", "translate": [0, -5.9, 0]}]
+This only lays flat 2D grain, which is right for flat boards and turned parts (straight along their grain). Any part
+that twists, sweeps or bends along its grain, or is glued up (stack lamination, staves, edge-glued panel), must
+then be baked in 3D, or the viewer shows one board bent into shape (Shrine bench plank, 25 Nov 2026):
+  python3 scripts/web_laminate.py OUT.glb BAKED.glb --spec PIECE.cadcheck.json --auto     (spec "lamination" per part)
 Then run, all must pass before the GLB goes on the site:
-  python3 scripts/web_grain_check.py OUT.glb --spec PIECE.cadcheck.json --sheet grain_sheet.jpg
-and look at the sheet. Compress afterwards with `gltfpack -c -kn -km -ke -vtf` (never join meshes:
--kn keeps the parts apart, and never run gltf-transform `join`/`optimize` defaults on it).
+  python3 scripts/web_grain_check.py BAKED.glb --spec PIECE.cadcheck.json --sheet grain_sheet.jpg
+and look at the sheet. Compress afterwards with `gltf-transform prune` then `gltf-transform meshopt` (never gltfpack, which
+merged parts and dropped names, and never `join`/`optimize` defaults).
 Needs the bpy module (pip install bpy) or run inside Blender: blender -b -P web_glb.py -- ARGS
 """
 import sys as _s
