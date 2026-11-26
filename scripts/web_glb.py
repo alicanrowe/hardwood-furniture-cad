@@ -28,6 +28,9 @@ This only lays flat 2D grain, which is right for flat boards and turned parts (s
 that twists, sweeps or bends along its grain, or is glued up (stack lamination, staves, edge-glued panel), must
 then be baked in 3D, or the viewer shows one board bent into shape (Shrine bench plank, 25 Nov 2026):
   python3 scripts/web_laminate.py OUT.glb BAKED.glb --spec PIECE.cadcheck.json --auto     (spec "lamination" per part)
+Then bake every wood part from the wood library (flat-sawn cathedrals on boards, rift frame parts, sapwood, end grain),
+which also stamps each material with extras "woodlib" (woodlib_lint.py and the site gate fail wood without it):
+  python3 scripts/web_laminate.py OUT.glb BAKED.glb --spec PIECE.cadcheck.json --all      (spec per part: cut, grain, sap, seed)
 Then run, all must pass before the GLB goes on the site:
   python3 scripts/web_grain_check.py BAKED.glb --spec PIECE.cadcheck.json --sheet grain_sheet.jpg
 and look at the sheet. Compress afterwards with `gltf-transform prune` then `gltf-transform meshopt` (never gltfpack, which
@@ -40,12 +43,9 @@ import argparse, json, math, os, re, random, tempfile
 import numpy as np
 from PIL import Image
 
-SPECIES = {   # oiled colour (sRGB 0..1), the colour the renders' hero finish lands on
-    "walnut": (0.40, 0.29, 0.22), "cherry": (0.62, 0.38, 0.25), "white oak": (0.70, 0.56, 0.39),
-    "red oak": (0.74, 0.55, 0.40), "ash": (0.80, 0.70, 0.54), "hard maple": (0.85, 0.74, 0.58),
-    "mahogany": (0.55, 0.30, 0.20), "sapele": (0.52, 0.30, 0.20), "pine": (0.82, 0.68, 0.46),
-    "cedar": (0.66, 0.43, 0.30), "baltic birch": (0.84, 0.74, 0.58),
-}
+sys_path = os.path.dirname(os.path.abspath(__file__))
+import sys as _sys; _sys.path.insert(0, sys_path)
+from solid_wood import SPECIES  # noqa: E402  mean oiled colours from the wood library (references/woods.json)
 METAL = re.compile(r"(?i)(screw|bolt|hinge|steel|brass|bronze|stainless|iron|plate|pin\b|_pin|knob|pull|leaf)")
 
 

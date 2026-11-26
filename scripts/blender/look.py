@@ -19,18 +19,13 @@ import math, re
 import bpy
 from mathutils import Vector, Matrix
 
-SPECIES = {   # raw (planed) colour, oiled colour, linear-ish sRGB 0..1
-    "walnut": ((0.47, 0.36, 0.27), (0.31, 0.19, 0.11)),   # oiled lifted from 0.22/0.13/0.08: read as a brown smear (the owner, 26 Nov "muddy")
-    "cherry": ((0.72, 0.48, 0.33), (0.45, 0.20, 0.10)),
-    "white oak": ((0.78, 0.66, 0.48), (0.55, 0.40, 0.24)),
-    "red oak": ((0.80, 0.62, 0.48), (0.58, 0.36, 0.22)),
-    "ash": ((0.85, 0.77, 0.62), (0.66, 0.54, 0.38)),
-    "hard maple": ((0.90, 0.82, 0.68), (0.74, 0.60, 0.40)),
-    "mahogany": ((0.62, 0.36, 0.25), (0.38, 0.16, 0.08)),
-    "sapele": ((0.60, 0.36, 0.24), (0.36, 0.16, 0.08)),
-    "pine": ((0.88, 0.76, 0.56), (0.70, 0.52, 0.30)),
-    "baltic birch": ((0.88, 0.80, 0.64), (0.72, 0.60, 0.42)),
-}
+import os as _os, sys as _sys
+_sys.path[:0] = [_os.path.dirname(_os.path.abspath(__file__)), _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))]
+import woodlib as _W          # noqa: E402  THE wood library: every colour and grain comes from references/woods.json
+import woodlib_bl as _WB      # noqa: E402
+# kept for old callers that read look.SPECIES[sp] = (raw, oiled) sRGB; derived from the library, never edit here
+SPECIES = {k: (tuple(_W.lin2srgb(_W.srgb2lin(v['albedo']['early']) * 1.12)), tuple(v['photo']['median'] if v.get('photo') else v['albedo']['early']))
+           for k, v in _W.LIB['species'].items()}
 CHAR = (0.035, 0.032, 0.030)     # charred / ebonised hero finish (shou sugi ban, ebonised ash)
 HARDWARE = re.compile(r"(screw|bolt|hinge|steel|brass|bronze|stainless|iron|sheet|plate|pin\b|_pin|knob|pull|glass|leaf|grille)", re.I)
 
@@ -121,82 +116,10 @@ def obb_axes(o):
 
 
 def wood_material(name, species="walnut", figure="straight", finish_kind="oil"):
-    """One node tree per species/figure/finish. Grain direction and finish amount come from per-object
-    custom properties: 'g_len' (vector along the grain), 'g_across' (across the face), 'finish' (0..1)."""
-    key = f"WOOD_{species}_{figure}_{finish_kind}"
-    if key in bpy.data.materials:
-        return bpy.data.materials[key]
-    raw, oiled = SPECIES.get(species, SPECIES["walnut"])
-    fin = CHAR if finish_kind == "char" else oiled
-    m = bpy.data.materials.new(key)
-    m.use_nodes = True
-    nt = m.node_tree; N = nt.nodes; Lk = nt.links
-    N.clear()
-    out = N.new("ShaderNodeOutputMaterial")
-    bs = N.new("ShaderNodeBsdfPrincipled")
-    bs.inputs["Specular IOR Level"].default_value = 0.35
-    for k in ("Coat Weight", "Sheen Weight"):
-        if k in bs.inputs:
-            bs.inputs[k].default_value = 0.0
-    Lk.new(bs.outputs[0], out.inputs[0])
-    tc = N.new("ShaderNodeTexCoord")
-    a_len = N.new("ShaderNodeAttribute"); a_len.attribute_type = "OBJECT"; a_len.attribute_name = "g_len"
-    a_acr = N.new("ShaderNodeAttribute"); a_acr.attribute_type = "OBJECT"; a_acr.attribute_name = "g_across"
-    a_ctr = N.new("ShaderNodeAttribute"); a_ctr.attribute_type = "OBJECT"; a_ctr.attribute_name = "g_centre"
-    a_fin = N.new("ShaderNodeAttribute"); a_fin.attribute_type = "OBJECT"; a_fin.attribute_name = "finish"
-    rel = N.new("ShaderNodeVectorMath"); rel.operation = "SUBTRACT"
-    Lk.new(tc.outputs["Object"], rel.inputs[0]); Lk.new(a_ctr.outputs["Vector"], rel.inputs[1])
-    dl = N.new("ShaderNodeVectorMath"); dl.operation = "DOT_PRODUCT"
-    Lk.new(rel.outputs[0], dl.inputs[0]); Lk.new(a_len.outputs["Vector"], dl.inputs[1])
-    da = N.new("ShaderNodeVectorMath"); da.operation = "DOT_PRODUCT"
-    Lk.new(rel.outputs[0], da.inputs[0]); Lk.new(a_acr.outputs["Vector"], da.inputs[1])
-    # band coordinate: straight grain = across distance; cathedral = |x| + k * l * exp(-(x/s)^2)
-    if figure == "cathedral":
-        ab = N.new("ShaderNodeMath"); ab.operation = "ABSOLUTE"; Lk.new(da.outputs["Value"], ab.inputs[0])
-        sq = N.new("ShaderNodeMath"); sq.operation = "DIVIDE"; Lk.new(da.outputs["Value"], sq.inputs[0]); sq.inputs[1].default_value = 0.05
-        p2 = N.new("ShaderNodeMath"); p2.operation = "POWER"; Lk.new(sq.outputs[0], p2.inputs[0]); p2.inputs[1].default_value = 2.0
-        ng = N.new("ShaderNodeMath"); ng.operation = "MULTIPLY"; Lk.new(p2.outputs[0], ng.inputs[0]); ng.inputs[1].default_value = -1.0
-        ex = N.new("ShaderNodeMath"); ex.operation = "EXPONENT"; Lk.new(ng.outputs[0], ex.inputs[0])
-        ml = N.new("ShaderNodeMath"); ml.operation = "MULTIPLY"; Lk.new(ex.outputs[0], ml.inputs[0]); Lk.new(dl.outputs["Value"], ml.inputs[1])
-        ml2 = N.new("ShaderNodeMath"); ml2.operation = "MULTIPLY"; Lk.new(ml.outputs[0], ml2.inputs[0]); ml2.inputs[1].default_value = 0.35
-        band = N.new("ShaderNodeMath"); band.operation = "ADD"; Lk.new(ab.outputs[0], band.inputs[0]); Lk.new(ml2.outputs[0], band.inputs[1])
-        bandv = band.outputs[0]
-    else:
-        bandv = da.outputs["Value"]
-    cmb = N.new("ShaderNodeCombineXYZ")
-    sc1 = N.new("ShaderNodeMath"); sc1.operation = "MULTIPLY"; sc1.inputs[1].default_value = 1.0
-    Lk.new(bandv, sc1.inputs[0]); Lk.new(sc1.outputs[0], cmb.inputs[0])
-    sc2 = N.new("ShaderNodeMath"); sc2.operation = "MULTIPLY"; sc2.inputs[1].default_value = 0.04
-    Lk.new(dl.outputs["Value"], sc2.inputs[0]); Lk.new(sc2.outputs[0], cmb.inputs[1])
-    wave = N.new("ShaderNodeTexWave"); wave.wave_type = "BANDS"; wave.bands_direction = "X"
-    wave.inputs["Scale"].default_value = 45.0; wave.inputs["Distortion"].default_value = 5.0
-    wave.inputs["Detail"].default_value = 3.0; wave.inputs["Detail Scale"].default_value = 1.2
-    Lk.new(cmb.outputs[0], wave.inputs["Vector"])
-    noise = N.new("ShaderNodeTexNoise"); noise.inputs["Scale"].default_value = 60.0
-    Lk.new(cmb.outputs[0], noise.inputs["Vector"])
-    mixg = N.new("ShaderNodeMix"); mixg.data_type = "FLOAT"; mixg.inputs["Factor"].default_value = 0.35
-    Lk.new(wave.outputs["Fac"], mixg.inputs["A"]); Lk.new(noise.outputs["Fac"], mixg.inputs["B"])
-    ramp = N.new("ShaderNodeValToRGB")
-    lr, lf = srgb_to_lin(raw), srgb_to_lin(fin)
-    # raw colour ramp, then a finished one, mixed by the per-object finish value
-    ramp.color_ramp.elements[0].color = (*[x * 0.6 for x in lr], 1)
-    ramp.color_ramp.elements[1].color = (*lr, 1)
-    Lk.new(mixg.outputs[0], ramp.inputs[0])
-    ramp2 = N.new("ShaderNodeValToRGB")
-    ramp2.color_ramp.elements[0].color = (*[x * (0.42 if finish_kind != "char" else 0.8) for x in lf], 1)
-    ramp2.color_ramp.elements[1].color = (*lf, 1)
-    # tighter ramp = visible figure (late/early wood contrast) instead of a flat wash (the owner, 26 Nov "muddy")
-    for r in (ramp, ramp2):
-        r.color_ramp.elements[0].position = 0.28; r.color_ramp.elements[1].position = 0.72
-    Lk.new(mixg.outputs[0], ramp2.inputs[0])
-    mixc = N.new("ShaderNodeMix"); mixc.data_type = "RGBA"
-    Lk.new(a_fin.outputs["Fac"], mixc.inputs["Factor"]); Lk.new(ramp.outputs[0], mixc.inputs[6]); Lk.new(ramp2.outputs[0], mixc.inputs[7])
-    Lk.new(mixc.outputs[2], bs.inputs["Base Color"])
-    rough = N.new("ShaderNodeMapRange"); rough.inputs[3].default_value = 0.65; rough.inputs[4].default_value = 0.72 if finish_kind == "char" else 0.45
-    Lk.new(a_fin.outputs["Fac"], rough.inputs[0]); Lk.new(rough.outputs[0], bs.inputs["Roughness"])
-    bump = N.new("ShaderNodeBump"); bump.inputs["Strength"].default_value = 0.04
-    Lk.new(wave.outputs["Fac"], bump.inputs["Height"]); Lk.new(bump.outputs[0], bs.inputs["Normal"])
-    return m
+    """The wood library's material (scripts/blender/woodlib_bl.py), raw-to-finished by the per-object 'finish' value.
+    The old per-file node tree lived here and gave every project its own walnut (review, 26 Nov 2026). Grain, cut and
+    figure now come from each part's board (woodlib_bl.apply), not from this material."""
+    return _WB.material(species, "char" if finish_kind == "char" else "oil", animated=True)
 
 
 def metal_material(kind="steel"):
@@ -227,7 +150,11 @@ def assign(obs, look):
         if metal:
             o.data.materials.append(metal_material(metal))
         else:
-            o.data.materials.append(wood_material("m", sp, fig, fk))
+            # figure "cathedral" = flat sawn; "straight" = the library's auto cut (rift frame parts, flat boards)
+            cut = {"cathedral": "flat", "flat": "flat", "quarter": "quarter", "rift": "rift"}.get(fig, "auto")
+            L0, W0, T0, c0 = obb_axes(o)
+            g_obj = o.matrix_world.inverted().to_3x3() @ L0
+            _WB.apply(o, sp, cut=cut, grain=list(g_obj.normalized()), finish="char" if fk == "char" else "oil", animated=True)
         L, W, T, c = obb_axes(o)
         inv = o.matrix_world.inverted().to_3x3()
         o["g_len"] = list((inv @ L).normalized())

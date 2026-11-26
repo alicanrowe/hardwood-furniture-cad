@@ -1,5 +1,14 @@
 # Rendering wood so the grain reads right
 
+## The wood library (26 Nov 2026): one walnut, one ash, one oak
+The same walnut came out muddy on one project, pale pink on a site card and grey in a reel, because every pipeline built or copied its own wood shader (seven walnut colours and five ashes were hard-coded). Now:
+- **Data:** `references/woods.json`. Per species: the photo target (median and 10th/90th percentile sRGB of the wood in a neutral studio photo, from reference boards), albedo (earlywood, latewood, sapwood) fitted to it by `scripts/woodlib_fit.py`, ring spacing, porosity, pores, ray fleck, end-grain darkening, roughness, specular, pith depth for flat-sawn stock, and `house` gains per studio. Change numbers there, never in a script.
+- **Model:** `scripts/woodlib.py` (numpy, for web bakes and checks) and `scripts/blender/woodlib_bl.py` (the same maths as plain Cycles/EEVEE nodes, no OSL). A part is a board: its own frame (grain u, wide face v, thickness w) plus where the pith runs. `flat`: pith a few inches under the wide face, tilting slowly, so the face shows a few nested cathedrals, centred, running out to straight grain at both edges. `quarter`: rings at 90 deg to the face. `rift`: about 45 deg, straight lines on all four faces. `auto`: frame members by name (leg, rail, stile, mullion, apron...) and small stock rift, boards flat. Sapwood is the rings beyond the heart radius (`sap: "edge"` puts one along an edge), so its boundary follows a ring. End grain is the same rings end on.
+- **Use:** Blender `WB.apply(obj, species, cut=..., grain=...)` / `WB.apply_all(objs, look)` (look.py, photoreal.py, carving/render.py and laminated_wood.py already do). Web GLBs: `web_laminate.py --all`. Imported library GLBs in a studio: `WB.house_glb(material, studio)`.
+- **Studios:** AgX and the bright soft studio lights lift and grey dark wood (the card studio turned the PM case's correct walnut texture, median 0.39 0.29 0.21, into 0.66 0.52 0.44). Calibrate each studio once per species with `scripts/woodlib_calibrate.py` (renders a card, measures the wood, solves the gain) instead of nudging colours.
+- **Checks:** `scripts/woodlib_lint.py` on scripts, GLBs and blends; the site gate's `WOODLOCAL` (GLB wood without the library stamp) and `WOODTONE` (a wood card more than 0.06 off the photo median).
+- Web bakes keep at least 5 texels per growth ring and fade detail finer than about 3 texels (`lod`), or rings and pores alias into mush and the bake check's correlation drops.
+
 People judge a furniture render by its grain before anything else. Wrong figure makes a correct model look wrong, and a plasticky finish makes it look fake. These rules come from real review passes.
 
 ## Grain direction and figure by part
@@ -89,7 +98,7 @@ The PM case preview on the site went out with swirly contour-map figure on its p
 - `scripts/web_grain_check.py` must pass: per part (merged meshes are split and checked piece by piece), grain along the part, end grain only on ends, and every long-grain texture straight, whatever its name.
 - `curved` (25 Nov 2026, Shrine bench plank: "grain is wrong again"): a 2D texture on a surface that twists, sweeps or bends along its grain follows the surface like one board bent into shape, even when its lines run along the part. Wood is a solid: bake such parts with `scripts/web_laminate.py` (stack / stave / panel / solid, `--auto` for unnamed turned or carved parts) and the check re-evaluates the bake (`bake`). Turning round the grain (dowels, handles, roundovers) is fine as 2D. Only a real steam-bent board or bent lamination is `"bent": true`.
 - Site GLBs are meshopt + quantized: the check decodes and dequantizes them itself (trimesh misreads quantized normals and UVs).
-- No flat-sawn, cathedral or figured image goes in a web GLB. Real figure belongs in the Blender renders, where it's procedural and checked by eye.
+- No wood image of your own goes in a web GLB. Figure comes only from the wood library bake (`web_laminate.py --all`), which puts flat-sawn cathedrals where a board really has them (case sides, tops, panels) and rift grain on frame parts. A flat-sawn case side shown with straight grain reads as missing its cathedral (PM case card, 26 Nov 2026).
 
 ## When laminated_wood.py can't run (25 Nov 2026)
 The pip `bpy` build has no OSL compiler (`No module named 'oslquery'`, then `key "Pos" not found`), so `laminated_wood.py`

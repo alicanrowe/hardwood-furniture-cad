@@ -13,8 +13,10 @@ Materials come from each GLB material name (ss_*, al_*, steel*, gfrc_*, walnut, 
 fall back to brushed stainless. Every metal gets: brushed streaks along the part's long axis, smudge-driven
 roughness variation, and a rolled-edge bevel normal. Nothing in this file changes geometry.
 """
-import sys, os, json, math
+import re, sys, os, json, math
 import bpy
+import os as _os, sys as _sys
+_sys.path[:0] = [_os.path.dirname(_os.path.abspath(__file__)), _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))]
 from mathutils import Vector
 
 # ----------------------------------------------------------------------------------------------- helpers
@@ -185,10 +187,20 @@ GFRC = {"gfrc_ink": (0.045, 0.045, 0.05), "gfrc_black": (0.075, 0.072, 0.07), "g
         "gfrc_pale": (0.52, 0.515, 0.5), "gfrc_bone": (0.7, 0.67, 0.61), "gfrc_oxblood": (0.3, 0.075, 0.065)}
 
 
+WOOD = re.compile(r"(?i)walnut|oak|\bash\b|ash[ _]|maple|cherry|cedar|wood|birch|mahogany|sapele|pine")
+
+
 def dress(obs):
     cache = {}
     for o in obs:
         nm = (o.active_material.name.split(".")[0] if o.active_material else "ss_brushed")
+        if (o.active_material is not None and o.active_material.get("woodlib")) or WOOD.search(nm):
+            # wood comes from the wood library only (woodlib_bl): species from the stamp or the material name
+            import woodlib_bl as WB
+            st = WB.W.parse_stamp(o.active_material.get("woodlib")) if o.active_material is not None else None
+            sp = st[0] if st else next((k for k in sorted(WB.W.LIB["species"], key=len, reverse=True) if k.split()[-1] in nm.lower()), "walnut")
+            WB.apply(o, sp, cut=st[1] if st and st[1] in WB.W.CUTS else "auto", finish=st[2] if st else "oil", studio="photoreal" if WB.W.LIB.get("house", {}).get("photoreal") else None)
+            continue
         ax = long_axis(o)
         key = (nm, ax)
         if key not in cache:
