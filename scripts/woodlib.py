@@ -30,7 +30,9 @@ import hashlib, json, os
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-WOODS = os.environ.get('WOODLIB_JSON') or os.path.join(HERE, '..', 'references', 'woods.json')
+# the table ships with hardwood-furniture-cad; copies of this file in other skills find it there
+WOODS = next(p for p in [os.environ.get('WOODLIB_JSON'), os.path.join(HERE, '..', 'references', 'woods.json'),
+                         os.path.join(HERE, '..', '..', 'hardwood-furniture-cad', 'references', 'woods.json')] if p and os.path.exists(p))
 LIB = json.load(open(WOODS))
 _code = open(os.path.abspath(__file__), 'rb').read()
 VERSION = LIB['version'] + '+' + hashlib.sha256(json.dumps(LIB['species'], sort_keys=True).encode()).hexdigest()[:8]

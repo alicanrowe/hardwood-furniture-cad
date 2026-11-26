@@ -97,10 +97,10 @@ class _G:
         return n.outputs[2]
 
 
-def material(sp='walnut', finish='oil', studio=None):
+def material(sp='walnut', finish='oil', studio=None, animated=False):
     """The library material for a species + finish (shared by every part; the board lives on the object)."""
     sk, S = W.species(sp)
-    key = f'woodlib {sk} {finish}' + (f' [{studio}]' if studio else '')
+    key = f'woodlib {sk} {finish}' + (f' [{studio}]' if studio else '') + (' animated' if animated else '')
     if key in bpy.data.materials: return bpy.data.materials[key]
     m = bpy.data.materials.new(key); m.use_nodes = True
     nt = m.node_tree; nt.nodes.clear(); G = _G(nt)
@@ -169,11 +169,22 @@ def material(sp='walnut', finish='oil', studio=None):
                          G.smooth(0.6, 0.95, tang)), G.sub(1.0, e))
         col = G.cmul(col, G.add(1.0, G.mul(S['rays'] * 0.45, fl)))
     fz = W.LIB['finishes'].get(finish, {})
+    fr = W.LIB['finishes']['raw']
+
+    def raw_of(c):
+        hs = G.N.new('ShaderNodeHueSaturation'); hs.inputs['Saturation'].default_value = 1 - fr.get('desat', 0.25)
+        hs.inputs['Value'].default_value = fr.get('albedo_gain', 1.12); G.L.new(c, hs.inputs['Color']); return hs.outputs['Color']
+    oiled = col
     if finish == 'char':
         col = G.cmul(G.rgb(W.srgb2lin(fz['albedo'])), G.add(0.85, G.mul(0.15, pm)))
     elif finish == 'raw':
-        hs = G.N.new('ShaderNodeHueSaturation'); hs.inputs['Saturation'].default_value = 1 - fz.get('desat', 0.25)
-        hs.inputs['Value'].default_value = fz.get('albedo_gain', 1.12); G.L.new(col, hs.inputs['Color']); col = hs.outputs['Color']
+        col = raw_of(col)
+    if animated:      # per-object "finish" 0..1: raw wood until the finishing step (look.py / animate_build.py)
+        af = G.N.new('ShaderNodeAttribute'); af.attribute_type = 'OBJECT'; af.attribute_name = 'finish'
+        col = G.mix(af.outputs['Fac'], raw_of(oiled), col)
+        rr = G.N.new('ShaderNodeMapRange'); G.L.new(af.outputs['Fac'], rr.inputs['Value'])
+        rr.inputs['To Min'].default_value = W.roughness(sk, 'raw'); rr.inputs['To Max'].default_value = W.roughness(sk, finish)
+        G.L.new(rr.outputs['Result'], bs.inputs['Roughness'])
     if studio:
         gn = G.N.new('ShaderNodeMix'); gn.data_type = 'RGBA'; gn.blend_type = 'MULTIPLY'; gn.inputs['Factor'].default_value = 1.0
         G.L.new(col, gn.inputs[6]); gn.inputs[7].default_value = (*W.house_gain(sk, studio), 1.0); col = gn.outputs[2]
@@ -190,18 +201,18 @@ def _obj_points_in(o, units_in):
     return np.array([v.co[:] for v in o.data.vertices]) * units_in
 
 
-def apply(o, sp='walnut', cut='auto', seed=None, grain=None, finish='oil', sap=None, units='m', studio=None):
+def apply(o, sp='walnut', cut='auto', seed=None, grain=None, finish='oil', sap=None, units='m', studio=None, animated=False):
     """Give one part the library wood. grain is in the object's own axes (or None = longest side)."""
     k = {'m': 1 / M_PER_IN, 'mm': 1 / 25.4, 'in': 1.0}[units] if isinstance(units, str) else float(units)
     k *= max(o.scale)      # object scale: the board is measured in world inches
     P = _obj_points_in(o, k)
     if seed is None: seed = sum(map(ord, o.name)) % 997
-    lam = W.board(P, grain=grain, cut=cut, species_name=sp, seed=seed, sap=sap, finish=finish)
+    lam = W.board(P, grain=grain, cut=cut, species_name=sp, seed=seed, sap=sap, finish=finish, name=o.name)
     o['wl_a'] = [k, lam['u0'], float(lam['seed'])]
     o['wl_o'] = lam['origin']; o['wl_u'] = lam['u']; o['wl_v'] = lam['v']; o['wl_w'] = lam['w']
     o['wl_p'] = [lam['pith'][0], lam['pith'][1], lam['rh']]; o['wl_t'] = [lam['tilt'][0], lam['tilt'][1], 0.0]
     o['woodlib_board'] = json.dumps(lam)
-    mat = material(sp, finish, studio)
+    mat = material(sp, finish, studio, animated)
     if o.data.materials:
         for i in range(len(o.data.materials)): o.data.materials[i] = mat
     else: o.data.materials.append(mat)

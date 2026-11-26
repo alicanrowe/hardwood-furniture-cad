@@ -127,3 +127,28 @@ real one, not a stand-in. The target is a model you could not tell from the make
 - Sheet-metal parts (ferrules): loft one closed section per x station (circle blended into a superellipse), outer minus
   inner (radius minus wall), so the solid is watertight by construction. Re-read the profile off the maker's side view
   (crimp grooves, shoulder length) instead of trusting the first pass.
+
+## Second pass on turned/ground tools (bench chisel set, 26 Nov 2026)
+- Score against the owner's own photos with a matched camera: fit pose (Rodrigues) per tool plus one focal length
+  shared by the whole photo (median of per-tool fits), Powell then Nelder-Mead, initialised from the mask's PCA
+  (handle end = wide end). Oblique photos need a multistart over camera tilt or the fit lands in a mirror minimum.
+- Rasterise the model silhouette as convex hulls of consecutive station rings, per part (hulling across parts drops
+  thin parts like a ferrule). Full triangle rasterisation inside an optimiser is far too slow.
+- Masks: BiRefNet (rembg birefnet-general) beats GrabCut on wood/brass/steel on a bench, but it is memory heavy: run
+  one image at a time at ~2000 px, and resize any mask saved at a different size before scoring.
+- Measure along the tool axis in the fitted camera frame and classify colour along it (brass / wood / black) to find
+  the washer and cap. Mask edges add ~+0.3 mm per side; subtract it. Published "handle length" may not be the wood
+  barrel; measure the barrel (it was the same ~84 mm on all six sizes).
+- IoU 0.97 against a phone photo is near the floor set by 1-2 px mask error and unmodelled lens distortion on thin
+  parts; report the number honestly instead of tuning the scorer.
+- Ferrule swell: outer radius = cone + s*sin(pi*t) (s ~0.45 mm), inner bore stays a cone so the wall stays valid.
+- Hollow grind: sag the primary bevel by (x-x0)(xe-x)/(2R), R ~100 mm (a bench wheel radius). Give the bevel its own
+  rough, coarse lengthwise scratch texture; a glossy bevel blows out to white.
+- Blade facets: give every edge of the section a fixed vertex budget so facet corners are vertices on every ring;
+  resampling by arc length makes a sawtooth along the corners. Clamp the land and top so no edge is zero length.
+- Labels/decals must be closed thin solids (outer skin + inner skin 0.02 mm off the wood + rim), not open sheets.
+- Lathe UVs: make the loop UV seam-aware (if a face spans u > 0.5, add 1 to the small u's) or the handle opens.
+- Wood from photos: direct unwraps, patch and strip quilting all showed glare, seams and repeats on lacquered handles.
+  What worked: synthesise per handle (periodic noise, domain-warped lengthwise grain, the handle's own figure type:
+  arches, ribbon, curl, fleck), quantile-match to that handle's lightness histogram, colour ramp = median Lab per
+  lightness quantile from the photo, then calibrate a BGR gain on the render vs photo means (two passes got dE 2-5).

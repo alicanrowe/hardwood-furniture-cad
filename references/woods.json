@@ -616,5 +616,50 @@
   "rift": "rift sawn: rings about 45 deg in the section, straight lines on all four faces. Legs, rails, stiles, aprons, frame members.",
   "auto": "flat when the part is a board (thickness under a third of its width and width over 2.5 in), else rift"
  },
- "house": {}
+ "house": {
+  "card": {
+   "walnut": {
+    "gain": [
+     0.4036,
+     0.399,
+     0.3828
+    ],
+    "median": [
+     0.412,
+     0.278,
+     0.18
+    ],
+    "err": 0.0118,
+    "card": "hardwood-furniture-cad"
+   },
+   "ash": {
+    "gain": [
+     0.4273,
+     0.3658,
+     0.1927
+    ],
+    "median": [
+     0.796,
+     0.639,
+     0.439
+    ],
+    "err": 0.0261,
+    "card": "hardwood-furniture-cad"
+   },
+   "white oak": {
+    "gain": [
+     0.349,
+     0.3391,
+     0.268
+    ],
+    "median": [
+     0.671,
+     0.533,
+     0.361
+    ],
+    "err": 0.0106,
+    "card": "hardwood-furniture-cad"
+   }
+  }
+ }
 }
