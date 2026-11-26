@@ -4,13 +4,16 @@ People judge a furniture render by its grain before anything else. Wrong figure 
 
 ## Grain direction and figure by part
 - **Rift stock** (legs, posts, rails, stiles, muntins, aprons, stretchers, frame members, box sides): straight parallel lines on **all four faces**, with growth rings on the end grain running about 45° across the section. That's the reason rift is chosen for square parts. Flame or cathedral figure on two faces of a leg reads as wrong grain, even though it's real for flat-sawn stock.
-- **Flat-sawn stock** (raised panels, roof and lid panels, gables, case tops, drawer bottoms, glued-up blocks): cathedral figure is fine and expected, running along the panel's long dimension.
+- **Flat-sawn stock** (raised panels, roof and lid panels, gables, case tops, glued-up blocks): cathedral figure is fine and expected, running along the panel's long dimension, centred, with straight grain at both edges.
+- **Drawer bottoms** run side to side, parallel to the drawer front, whatever their proportions, so the bottom moves front to back in its groove and can be screwed through a slot at the back. A rip-and-flip bottom is strips running across the drawer, every other one turned over. Never front to back (PM case reel, 26 Nov 2026: "It's rip and flip, remember?").
 - **Grain direction:** along the longest dimension for every frame member. Wall panels run vertical, roof panels along the ridge, and gables horizontal. Box sides follow the joinery: finger-jointed or dovetailed corners mean the grain runs around the box.
 - **End grain** shows only on real ends: leg tops and feet, post tops, tenon ends and shoulders, finger and tail ends, through-tenon ends. Never on a long face.
 - **Plywood** parts show face veneer only.
 - **Mirrored or instanced parts** must not flip their grain frames.
 
 ## Grain audit before final renders
+**Run `scripts/blender/render_grain_check.py` first** (`blender -b scene.blend -P scripts/blender/render_grain_check.py -- --frame F --spec piece.grain.json --sheet grain.jpg`). It renders every wood part alone and flat, measures the grain angle from the pixels (structure tensor), and fails any part more than 20 degrees off where its grain must run, or with no readable figure. It doesn't read the node graph, so a stray image layer or a mapping on the wrong axis can't hide: the PM case drawer bottom passed a node-level read and still rendered front to back, because a scanned-grain image layer was laid along the other axis. Spec only the exceptions (`{"parts": {"Side_*": "z"}}` for case sides whose grain wraps down from a mitered top); drawer bottoms are built in. Exit 1 blocks the stills.
+
 For each wood part, list its bounding-box dims, the world direction of its grain axis, its end-grain faces, and its cut (rift or flat). Flag:
 - any frame member whose grain isn't along its longest side;
 - any end grain on a long face;
@@ -19,6 +22,12 @@ For each wood part, list its bounding-box dims, the world direction of its grain
 - any mirrored frame.
 
 Fix the flagged parts, then render a check sheet before re-rendering finals: the whole piece from two 3/4 angles, plus close-ups of a leg top, a post top, a case corner, a gable or panel and a drawer or box corner.
+
+## Figure that reads as real flat-sawn walnut (26 Nov 2026, PM case)
+- **Cathedrals run out to straight grain.** The ring height across a flat-sawn face is `sqrt(across^2 + D^2)` (D = the pith's depth under the face), not a straight V: a rounded arch over the middle, then the face turns towards the radius and the rings cross it at about one ring per inch, so the legs become straight lines along the board near both edges. A shallow linear V (0.25 ring/in across) gives nested chevrons that "radiate out fully" right to the edges. Keep the taper slope (rings per inch along the board) well under the across rate at the edges, so a door leaf shows a few arches, not a stack of nine.
+- **Sapwood follows a ring.** Its edge is a growth ring meeting the face: it wanders gently along the board and feathers over a ring or so, and the figure (rings, pores, streaks) runs straight through it. Colour it pale tan (warm, like the heartwood around it after oil), never a flat grey bar, and never let its edge be the seam between two mesh pieces: put the boundary inside the sap piece and make the seam bevel tiny so heart meets heart without a groove.
+- **End grain comes from the same rings as the face.** An end cap or end face is shaded with its own part's wood, in the part's coordinates (map the cap's space into the part's, rotation included), so the rings on the end are the ones the face shows, continuous round the corner, with crisper latewood lines and duller, darker oil. Never a separate ring image on the end: it reads a step down in quality from the face beside it.
+- **Bark (black walnut):** the ridges interlace as a dark grey-brown network and the furrows are deep, near-black diamonds between them. Displace outward only from the bark's base surface, or whatever sits under it (the pale sapwood) shows through every furrow as a light net. Ridges about 1 to 1.5 in wide on a 30 in log, matte (roughness 1, no specular).
 
 ## Wood shader that reads as real ash or oak
 - Give each part its own grain frame from PCA of its vertices (long axis = grain), not world axes, or tilted roof

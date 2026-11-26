@@ -20,7 +20,7 @@ import bpy
 from mathutils import Vector, Matrix
 
 SPECIES = {   # raw (planed) colour, oiled colour, linear-ish sRGB 0..1
-    "walnut": ((0.47, 0.36, 0.27), (0.22, 0.13, 0.08)),
+    "walnut": ((0.47, 0.36, 0.27), (0.31, 0.19, 0.11)),   # oiled lifted from 0.22/0.13/0.08: read as a brown smear (the owner, 26 Nov "muddy")
     "cherry": ((0.72, 0.48, 0.33), (0.45, 0.20, 0.10)),
     "white oak": ((0.78, 0.66, 0.48), (0.55, 0.40, 0.24)),
     "red oak": ((0.80, 0.62, 0.48), (0.58, 0.36, 0.22)),
@@ -106,9 +106,17 @@ def obb_axes(o):
     vs = np.array([tuple(mw @ v.co) for v in o.data.vertices])
     if len(vs) < 4:
         return Vector((1, 0, 0)), Vector((0, 1, 0)), Vector((0, 0, 1)), Vector(vs.mean(0)) if len(vs) else Vector()
+    # PCA of the vertices tilts toward dense detail (bolt holes, dog holes, chamfers) and gave diagonal grain on
+    # square stock (the owner, 26 Nov: "grain direction bro"). Use whichever box is smaller: the PCA box or the
+    # world-axis box, so axis-aligned stock always gets its true length.
     c = vs.mean(0)
     w, V = np.linalg.eigh(np.cov((vs - c).T))
-    ax = [Vector(V[:, i]) for i in np.argsort(w)[::-1]]
+    order = np.argsort(w)[::-1]; P = V[:, order]
+    ext_p = np.ptp((vs - c) @ P, axis=0); ext_a = np.ptp(vs, axis=0)
+    if np.prod(ext_a + 1e-6) <= np.prod(ext_p + 1e-6) * 1.02:
+        ia = np.argsort(ext_a)[::-1]; P = np.eye(3)[:, ia]
+        c = (vs.min(0) + vs.max(0)) / 2
+    ax = [Vector(P[:, i]) for i in range(3)]
     return ax[0], ax[1], ax[2], Vector(c)
 
 
@@ -175,8 +183,11 @@ def wood_material(name, species="walnut", figure="straight", finish_kind="oil"):
     ramp.color_ramp.elements[1].color = (*lr, 1)
     Lk.new(mixg.outputs[0], ramp.inputs[0])
     ramp2 = N.new("ShaderNodeValToRGB")
-    ramp2.color_ramp.elements[0].color = (*[x * (0.55 if finish_kind != "char" else 0.8) for x in lf], 1)
+    ramp2.color_ramp.elements[0].color = (*[x * (0.42 if finish_kind != "char" else 0.8) for x in lf], 1)
     ramp2.color_ramp.elements[1].color = (*lf, 1)
+    # tighter ramp = visible figure (late/early wood contrast) instead of a flat wash (the owner, 26 Nov "muddy")
+    for r in (ramp, ramp2):
+        r.color_ramp.elements[0].position = 0.28; r.color_ramp.elements[1].position = 0.72
     Lk.new(mixg.outputs[0], ramp2.inputs[0])
     mixc = N.new("ShaderNodeMix"); mixc.data_type = "RGBA"
     Lk.new(a_fin.outputs["Fac"], mixc.inputs["Factor"]); Lk.new(ramp.outputs[0], mixc.inputs[6]); Lk.new(ramp2.outputs[0], mixc.inputs[7])
