@@ -36,7 +36,7 @@ def lint_py(path):
     fails = []
     src = open(path, encoding='utf-8', errors='replace').read()
     if os.path.basename(path) in EXEMPT: return fails
-    uses_lib = 'woodlib' in src
+    uses_lib = 'woodlib' in src or 'laminated_wood' in src
     for i, line in enumerate(src.splitlines(), 1):
         s = line.split('#', 1)[0]
         if COLOR_LINE.search(s):
