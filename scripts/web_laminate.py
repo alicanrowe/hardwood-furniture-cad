@@ -35,6 +35,7 @@ import xatlas
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from solid_wood import wood_color  # noqa: E402
+import woodlib as W  # noqa: E402
 
 CT = {5120: np.int8, 5121: np.uint8, 5122: np.int16, 5123: np.uint16, 5125: np.uint32, 5126: np.float32}
 NC = {'SCALAR': 1, 'VEC2': 2, 'VEC3': 3, 'VEC4': 4}
@@ -192,6 +193,9 @@ def main():
     ap.add_argument('src'); ap.add_argument('dst'); ap.add_argument('--spec')
     ap.add_argument('--auto', action='store_true', help='also bake, as one solid board along its long axis, every textured wood part '
                     'that bends along its grain and has no lamination in the spec (unnamed parts, turned handles, carved feet)')
+    ap.add_argument('--all', action='store_true', help='bake EVERY wood part from the wood library (woodlib boards: '
+                    'flat-sawn cathedrals on panels, rift on frame parts, sapwood, end grain from the same rings). Spec per part: '
+                    '"cut": flat|quarter|rift|auto, "grain": x|y|z, "sap": "edge", "seed". This is the default way to build a viewer GLB.')
     ap.add_argument('--units-in', type=float, default=0.0254, help='GLB metres per model unit (inch)')
     ap.add_argument('--texel', type=float, default=0.045, help='inches per texel when --res is 0')
     ap.add_argument('--max-res', type=int, default=2048)
@@ -227,6 +231,8 @@ def main():
         if not lam and a.auto:
             lam = auto_solid(g, blob, ni, woodp, a.units_in, force=(node.name or str(ni)) in flagged, a_rings=a.rings)
             if lam: lam['seed'] = 100 + ni
+        if not lam and a.all:
+            lam = {'mode': 'board_pending'}
         if not lam: continue
         if not node.name: node.name = f'wood_{ni}'; name = node.name
         if len(users[node.mesh]) > 1:     # instanced mesh: give this node its own copy before baking it in place
@@ -253,13 +259,22 @@ def main():
         Pm = to_model((np.c_[P, np.ones(len(P))] @ M.T)[:, :3], a.units_in)
         Nw = Nl @ np.linalg.inv(M[:3, :3])
         Nm = np.stack([Nw[:, 0], -Nw[:, 2], Nw[:, 1]], 1); Nm /= np.linalg.norm(Nm, axis=1, keepdims=True) + 1e-12
-        vmap, faces, uv, img, texel = bake_part(Pm, Nm, F, lam, species, a.max_res, a.texel)
+        if lam.get('mode') == 'board_pending':     # woodlib board from the part's own geometry (model frame inches)
+            seed = ps.get('seed', sum(map(ord, name)) % 997)
+            lam = W.board(Pm, grain=ps.get('grain'), cut=ps.get('cut', 'auto'), species_name=species, seed=seed,
+                          sap=ps.get('sap'), finish=ps.get('finish', spec.get('finish', 'oil')), lod=a.texel, name=name)
+        texel0 = a.texel
+        if lam.get('mode') == 'board':     # at least 5 texels per growth ring, or the rings alias into mush
+            texel0 = min(a.texel, 1.0 / (5.0 * W.species(species)[1]['rings_per_in'])); lam['lod'] = texel0
+        vmap, faces, uv, img, texel = bake_part(Pm, Nm, F, lam, species, a.max_res, texel0)
         bio = io.BytesIO(); img.save(bio, 'JPEG', quality=a.quality); bv = out.add(bio.getvalue())
         g.images.append(gl.Image(bufferView=bv, mimeType='image/jpeg', name=f'{name}_solid'))
         if not g.samplers: g.samplers.append(gl.Sampler(magFilter=9729, minFilter=9987, wrapS=33071, wrapT=33071))
         g.textures.append(gl.Texture(source=len(g.images) - 1, sampler=0))
+        sk = W.species(species)[0]
         g.materials.append(gl.Material(name=f'{species} solid {name}', doubleSided=False, pbrMetallicRoughness=gl.PbrMetallicRoughness(
-            baseColorTexture=gl.TextureInfo(index=len(g.textures) - 1), metallicFactor=0.0, roughnessFactor=0.5)))
+            baseColorTexture=gl.TextureInfo(index=len(g.textures) - 1), metallicFactor=0.0, roughnessFactor=W.roughness(sk, lam.get('finish', 'oil'))),
+            extras={'woodlib': W.stamp(sk, lam.get('cut', lam.get('mode')), lam.get('finish', 'oil'))}))
         prim = gl.Primitive(attributes=gl.Attributes(
             POSITION=out.acc(P[vmap].astype(np.float32), 'VEC3', 34962),
             NORMAL=out.acc(Nl[vmap].astype(np.float32), 'VEC3', 34962),

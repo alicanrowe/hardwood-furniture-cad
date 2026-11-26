@@ -24,8 +24,20 @@ tone and figure (about +-10 % value, never two-tone), and the figure must break 
 """
 import bpy, os, tempfile
 
-WALNUT_TUNG = dict(dark=(0.016, 0.0065, 0.004), light=(0.058, 0.024, 0.012), tone=0.2, rough=0.42, spec=0.35,
-                   rings=2.2, glue=0.04)
+import sys as _sys
+_sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.dirname(os.path.dirname(os.path.abspath(__file__)))]
+import woodlib as _W  # noqa: E402  colours come from the wood library (references/woods.json), never from here
+
+
+def library_look(sp='walnut'):
+    """laminated_wood look dict for a species, from the wood library: latewood -> dark, earlywood -> light (linear)."""
+    k, S = _W.species(sp); A = S['albedo']
+    return dict(dark=tuple(float(x) for x in _W.srgb2lin(A['late'])), light=tuple(float(x) for x in _W.srgb2lin(A['early'])),
+                tone=0.2, rough=S['roughness'], spec=S['specular'], rings=S['rings_per_in'] / 2.3, glue=0.04, woodlib=_W.stamp(k, 'laminated'))
+
+
+WALNUT_TUNG = library_look('walnut')
+ASH_OIL = library_look('ash')
 
 OSL = r'''
 // laminated_wood.osl (hardwood-furniture-cad). Positions in inches.
@@ -128,6 +140,7 @@ def material(name, mode, t=0.875, z0=0.0, n=16, cx=0.0, cy=0.0, rm=0.0, axis='x'
     sc = bpy.context.scene
     sc.render.engine = 'CYCLES'; sc.cycles.shading_system = True
     m = bpy.data.materials.new(name); m.use_nodes = True
+    m['woodlib'] = look.get('woodlib') or _W.stamp('walnut', 'laminated')
     nt = m.node_tree; N = nt.nodes; Lk = nt.links.new
     b = N['Principled BSDF']
     sn = N.new('ShaderNodeScript'); sn.mode = 'EXTERNAL'; sn.filepath = _osl(); sn.update()

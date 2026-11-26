@@ -1,6 +1,8 @@
 import os
 # blender -b -P render.py -- scene.json out.png
 import bpy, json, sys, math, mathutils
+sys.path[:0] = [os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'), os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'blender')]
+import woodlib_bl as WB  # THE wood library
 argv = sys.argv[sys.argv.index('--')+1:]
 sc = json.load(open(argv[0])); outp = argv[1]
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -17,46 +19,8 @@ def nodes_mat(name):
     out = nt.nodes.new('ShaderNodeOutputMaterial'); return m, nt, out
 
 def walnut(name, dark=1.0, rough=0.32, ringscale=40.0, axis='X', carved=False):
-    m, nt, out = nodes_mat(name); N = nt.nodes; Lk = nt.links.new
-    bsdf = N.new('ShaderNodeBsdfPrincipled'); Lk(bsdf.outputs[0], out.inputs[0])
-    tc = N.new('ShaderNodeTexCoord'); mp = N.new('ShaderNodeMapping')
-    Lk(tc.outputs['Object'], mp.inputs[0])
-    # stretch along grain axis
-    s = {'X': (0.08, 1, 1), 'Y': (1, 0.08, 1), 'Z': (1, 1, 0.08)}[axis]
-    mp.inputs['Scale'].default_value = s
-    nz = N.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 3; nz.inputs['Detail'].default_value = 6
-    Lk(mp.outputs[0], nz.inputs[0])
-    wv = N.new('ShaderNodeTexWave'); wv.wave_type = 'RINGS'; wv.inputs['Scale'].default_value = ringscale
-    wv.inputs['Distortion'].default_value = 10; wv.inputs['Detail'].default_value = 3
-    mix = N.new('ShaderNodeMix'); mix.data_type = 'VECTOR'; mix.inputs[0].default_value = 0.15
-    Lk(mp.outputs[0], mix.inputs[4]); Lk(nz.outputs['Color'], mix.inputs[5]); Lk(mix.outputs[1], wv.inputs[0])
-    ramp = N.new('ShaderNodeValToRGB'); Lk(wv.outputs['Fac'], ramp.inputs[0])
-    c1 = [0.058*dark, 0.025*dark, 0.012*dark, 1]; c2 = [0.080*dark, 0.036*dark, 0.018*dark, 1]
-    ramp.color_ramp.elements[0].color = c1; ramp.color_ramp.elements[1].color = c2
-    ramp.color_ramp.elements[0].position = 0.25; ramp.color_ramp.elements[1].position = 0.85
-    # large scale tone variation
-    nz2 = N.new('ShaderNodeTexNoise'); nz2.inputs['Scale'].default_value = 1.2; Lk(tc.outputs['Object'], nz2.inputs[0])
-    mul = N.new('ShaderNodeMix'); mul.data_type = 'RGBA'; mul.blend_type = 'MULTIPLY'; mul.inputs[0].default_value = 0.35
-    Lk(ramp.outputs[0], mul.inputs[6]); Lk(nz2.outputs['Color'], mul.inputs[7])
-    col = mul.outputs[2]
-    if carved:
-        geo = N.new('ShaderNodeNewGeometry'); pr = N.new('ShaderNodeMapRange')
-        Lk(geo.outputs['Pointiness'], pr.inputs[0]); pr.inputs[1].default_value = 0.48; pr.inputs[2].default_value = 0.53
-        pr.inputs[3].default_value = 0.8; pr.inputs[4].default_value = 1.6
-        hm = N.new('ShaderNodeMix'); hm.data_type = 'RGBA'; hm.blend_type = 'MULTIPLY'; hm.inputs[0].default_value = 1
-        Lk(col, hm.inputs[6]); Lk(pr.outputs[0], hm.inputs[7]); col = hm.outputs[2]
-        # cavities darker: ambient occlusion
-        ao = N.new('ShaderNodeAmbientOcclusion'); ao.inputs['Distance'].default_value = 0.02
-        mm = N.new('ShaderNodeMix'); mm.data_type = 'RGBA'; mm.blend_type = 'MULTIPLY'; mm.inputs[0].default_value = 1
-        aor = N.new('ShaderNodeMapRange'); Lk(ao.outputs['AO'], aor.inputs[0]); aor.inputs[3].default_value = 0.35
-        Lk(col, mm.inputs[6]); Lk(aor.outputs[0], mm.inputs[7]); col = mm.outputs[2]
-    Lk(col, bsdf.inputs['Base Color'])
-    bsdf.inputs['Roughness'].default_value = rough
-    bsdf.inputs['Specular IOR Level'].default_value = 0.55
-    bsdf.inputs['Coat Weight'].default_value = sc.get('coat', 0.12); bsdf.inputs['Coat Roughness'].default_value = 0.12
-    bmp = N.new('ShaderNodeBump'); bmp.inputs['Strength'].default_value = 0.05; bmp.inputs['Distance'].default_value = 0.001
-    Lk(wv.outputs['Fac'], bmp.inputs['Height']); Lk(bmp.outputs[0], bsdf.inputs['Normal'])
-    return m
+    """The wood library's walnut (scripts/blender/woodlib_bl.py). The board itself is set per object in the scene loop."""
+    return WB.material('walnut', 'oil')
 
 def simple(name, rgb, rough=0.6, spec=0.5, coat=0):
     m, nt, out = nodes_mat(name); b = nt.nodes.new('ShaderNodeBsdfPrincipled'); nt.links.new(b.outputs[0], out.inputs[0])
@@ -108,6 +72,9 @@ for o in sc['objects']:
     ob.location = o.get('loc', [0, 0, 0]); ob.rotation_euler = [math.radians(a) for a in o.get('rot', [0, 0, 0])]
     ob.scale = [o.get('scale', 1)]*3 if not isinstance(o.get('scale', 1), list) else o['scale']
     ob.data.materials.append(getmat(o['mat']))
+    if o['mat'].get('type', o['mat'].get('kind')) == 'walnut' or o['mat'] == 'walnut':
+        WB.apply(ob, 'walnut', cut=o['mat'].get('cut', 'auto') if isinstance(o['mat'], dict) else 'auto',
+                 grain=(o['mat'].get('axis', 'X') if isinstance(o['mat'], dict) else 'X').lower())
 
 # lighting
 w = bpy.data.worlds.new('w'); scene.world = w; w.use_nodes = True
