@@ -24,7 +24,7 @@ _sys.path[:0] = [_os.path.dirname(_os.path.abspath(__file__)), _os.path.dirname(
 import woodlib as _W          # noqa: E402  THE wood library: every colour and grain comes from references/woods.json
 import woodlib_bl as _WB      # noqa: E402
 # kept for old callers that read look.SPECIES[sp] = (raw, oiled) sRGB; derived from the library, never edit here
-SPECIES = {k: (tuple(_W.lin2srgb(_W.srgb2lin(v['albedo']['early']) * 1.12)), tuple(v['photo']['median'] if v.get('photo') else v['albedo']['early']))
+SPECIES = {k: (tuple(_W.lin2srgb(_W.srgb2lin(v['albedo']['early']) * 1.12)), tuple((v.get('look') or v['photo'])['median'] if (v.get('look') or v.get('photo')) else v['albedo']['early']))
            for k, v in _W.LIB['species'].items()}
 CHAR = (0.035, 0.032, 0.030)     # charred / ebonised hero finish (shou sugi ban, ebonised ash)
 HARDWARE = re.compile(r"(screw|bolt|hinge|steel|brass|bronze|stainless|iron|sheet|plate|pin\b|_pin|knob|pull|glass|leaf|grille)", re.I)
