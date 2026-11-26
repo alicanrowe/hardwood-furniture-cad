@@ -81,18 +81,6 @@ def reshade(V, F, crease):
     acc = np.zeros((lab.max() + 1, 3))
     np.add.at(acc, lab, fn[cf] * w[:, None])
     out = acc[lab]
-    # a fan that wraps round a sharp point (needle tip, cone apex) joins faces far apart through its neighbours; there
-    # each corner keeps only the faces of its fan within crease of its own face
-    on = out / np.maximum(np.linalg.norm(out, axis=1), 1e-30)[:, None]
-    far = np.nonzero(np.einsum('ij,ij->i', on, fn[cf]) < np.cos(np.radians(crease)))[0]
-    if len(far):
-        order_l = np.argsort(lab, kind='stable'); sl = lab[order_l]
-        st = np.searchsorted(sl, lab[far]); en = np.searchsorted(sl, lab[far], side='right')
-        cosc = np.cos(np.radians(crease))
-        for c, a0, a1 in zip(far.tolist(), st.tolist(), en.tolist()):
-            mem = order_l[a0:a1]; fm = fn[cf[mem]]
-            sel = fm @ fn[cf[c]] >= cosc
-            out[c] = (fm[sel] * w[mem][sel][:, None]).sum(0)
     nl = np.linalg.norm(out, axis=1); bad = nl < 1e-12
     out[bad] = fn[cf[bad]]
     out /= np.maximum(np.linalg.norm(out, axis=1), 1e-30)[:, None]
@@ -148,6 +136,10 @@ def main():
     ap.add_argument('--flat', default=r'(?i)gem|stone|crystal|facet',
                     help='materials/nodes cut as facets (gems): every face flat-shaded (crease 1 deg)')
     ap.add_argument('--no-compress', action='store_true')
+    ap.add_argument('--force-refine', metavar='REGEX',
+                    help='always split the matching parts (material or node name) --passes times, e.g. one part whose '
+                         'flat triangles sit in a curve, without growing the rest of the model')
+    ap.add_argument('--passes', type=int, default=3, help='most refinement passes per part (default 3)')
     ap.add_argument('--refine', type=float, default=0.30,
                     help='split a part 1-to-4 (PN midpoints, up to twice) while glb_shading_check calls more than this '
                          'share of it coarse (default 0.30, the fail line; 0 = never)')
@@ -211,8 +203,11 @@ def main():
                 Fn = inv.reshape(-1, 3)
                 mat = j['materials'][p['material']] if 'material' in p else {}
                 cd = 15.0 if glossy(mat) else 20.0
-                for _ in range(3 if (a.refine and not flat) else 0):
+                forced = bool(a.force_refine) and re.search(a.force_refine, label)
+                for _ in range(a.passes if ((a.refine or forced) and not flat) else 0):
                     r = check_prim(Vn, newN, Fn, 40.0, cd)[0]
+                    if forced:
+                        r = dict(r, smeared=1.0)
                     # wood/finish curves too coarse, or (any material) big flat triangles sitting in a curve, which
                     # shade as smeared panels: split them so the curve can carry the light
                     if not ((WOODISH.search(mname) and r['coarse'] > a.refine) or r['smeared'] > 0.005 or r['facets'] > 0.005):
