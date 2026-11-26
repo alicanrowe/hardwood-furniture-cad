@@ -14,6 +14,8 @@ texture. One library only works if nothing else can make wood. Rules:
   WOODGLB     a GLB wood material (named for a species or grain) without extras "woodlib", or stamped by an
               older library table (re-bake with web_laminate.py --all)
   WOODBLEND   a .blend wood material without the "woodlib" custom property
+  WOODAPEX    an upright flat-sawn part (side, door, panel) whose cathedral arches point down (GLB extras or .blend boards)
+  WOODMATCH   a ..._L/_R door or panel pair, both flat sawn, that isn't bookmatched
 
 The library's own files are exempt. A script that only *names* a species (to pass to woodlib) is fine.
 """
@@ -36,7 +38,7 @@ def lint_py(path):
     fails = []
     src = open(path, encoding='utf-8', errors='replace').read()
     if os.path.basename(path) in EXEMPT: return fails
-    uses_lib = 'woodlib' in src
+    uses_lib = 'woodlib' in src or 'laminated_wood' in src
     for i, line in enumerate(src.splitlines(), 1):
         s = line.split('#', 1)[0]
         if COLOR_LINE.search(s):
@@ -73,14 +75,30 @@ def lint_glb(path, strict_version=False):
         lib_table = W.VERSION.split('+')[0]
         if p[3].split('+')[0] != lib_table or (strict_version and p[3] != W.VERSION):
             fails.append(('WOODGLB', f'{path} [{nm}]', f'stamped by library {p[3]}, current is {W.VERSION}: re-bake'))
+    parts = {}
+    for m in j.get('materials', []):
+        ex = m.get('extras') or {}
+        if ex.get('woodlib'): parts[ex.get('woodlib_part') or m.get('name', '')] = ex
+    fails += [(k, f'{path} [{n}]', why) for k, n, why in W.check_boards(parts)]
     return fails
 
 
 def lint_blend(path):
     import bpy
     bpy.ops.wm.open_mainfile(filepath=path)
-    return [('WOODBLEND', f'{path} [{m.name}]', 'wood material without the woodlib property: use woodlib_bl.apply')
-            for m in bpy.data.materials if WOODNAME.search(m.name) and not m.get('woodlib') and m.users]
+    fails = [('WOODBLEND', f'{path} [{m.name}]', 'wood material without the woodlib property: use woodlib_bl.apply')
+             for m in bpy.data.materials if WOODNAME.search(m.name) and not m.get('woodlib') and m.users]
+    import mathutils
+    boards = {}
+    for o in bpy.data.objects:
+        if o.get('woodlib_board'):
+            b = json.loads(o['woodlib_board'])
+            ap = W.apex(b)
+            if ap is not None:     # apex in world axes
+                b['woodlib_apex'] = list((o.matrix_world.to_3x3() @ mathutils.Vector(ap)).normalized())
+            boards[o.name] = b
+    fails += [(k, f'{path} [{n}]', why) for k, n, why in W.check_boards(boards)]
+    return fails
 
 
 def walk(paths):

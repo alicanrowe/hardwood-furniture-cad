@@ -47,7 +47,7 @@ def main():
     cards = json.load(open(a.cards)); glbname = cards['cards'][a.card]['items'][0]['glb']
     for sp in a.species:
         sk, S = W.species(sp)
-        target = np.array(S['photo']['median'])
+        target = np.array(W.target(sk)['median'])
         spec = json.loads(json.dumps(spec0)); spec['species'] = sk
         for rx, d in spec.get('parts', {}).items(): d.pop('species', None)
         sf = os.path.join(work, f'{sk}.spec.json'); json.dump(spec, open(sf, 'w'))

@@ -29,10 +29,13 @@ _sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)), os.path.dirname(os.
 import woodlib as _W  # noqa: E402  colours come from the wood library (references/woods.json), never from here
 
 
-def library_look(sp='walnut'):
-    """laminated_wood look dict for a species, from the wood library: latewood -> dark, earlywood -> light (linear)."""
+def library_look(sp='walnut', studio='card'):
+    """laminated_wood look dict for a species, from the wood library: latewood -> dark, earlywood -> light (linear),
+    times the studio's calibrated gain (house AgX white studios share the card studio's until they have their own;
+    studio=None for neutral light)."""
     k, S = _W.species(sp); A = S['albedo']
-    return dict(dark=tuple(float(x) for x in _W.srgb2lin(A['late'])), light=tuple(float(x) for x in _W.srgb2lin(A['early'])),
+    g = _W.np.array(_W.house_gain(k, studio)) if studio else 1.0
+    return dict(dark=tuple(float(x) for x in _W.srgb2lin(A['late']) * g), light=tuple(float(x) for x in _W.srgb2lin(A['early']) * g),
                 tone=0.2, rough=S['roughness'], spec=S['specular'], rings=S['rings_per_in'] / 2.3, glue=0.04, woodlib=_W.stamp(k, 'laminated'))
 
 
