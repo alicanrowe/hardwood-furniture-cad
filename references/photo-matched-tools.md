@@ -70,3 +70,23 @@ real one, not a stand-in. The target is a model you could not tell from the make
 - Turn on sharp-by-angle (mesh.set_sharp_from_angle(30 deg)) for lofted and revolved parts or smooth shading smears
   facets and leaves slivers at steps (cap to handle).
 - Revolved domes pinch the texture to a point at the pole: give the dome planar UVs.
+
+## Back saws and other flat tools from catalog side shots (learned on two Lie-Nielsen back saws)
+- A clean side shot on white is a free orthographic view: segment by HSV (background = bright + low saturation,
+  steel = low saturation, brass = hue 38-65 deg bright, wood = the rest), keep the largest component, keep enclosed
+  holes that are background (closed hand holes), fill those that are brass (bolt heads).
+- When two official lengths (overall vs blade) disagree in the maker's own photo, use the geometric mean of the two
+  px/mm scales: both land within 1 % instead of one exact and one 2 % off. Say so in SPECS.
+- Rounded handles from a 2-D mask: upsample x6 bicubic + blur for a sub-pixel outline, distance-transform it, map
+  distance to a round-over half-thickness, Gaussian-smooth that field (~0.35 mm) or the edges terrace, pad the volume,
+  marching cubes, then let manifold3d merge + simplify; that gives a watertight mesh trimesh alone calls open.
+- Photo-matched look: planar UVs straight into the photo; a 2x-wide atlas whose right half is the photo with etches
+  median-filled away, for faces whose normal points away from the camera. Pad the photo outward from 2 px inside the
+  silhouette (EDT nearest index) or rounded edges streak white from background-blended pixels.
+- trimesh PBRMaterial treats integer baseColorFactor as uint8: [1,1,1,1] exports as near-black. Use [255,255,255,255].
+- Blender's default camera clip_start is 0.1 m: close-ups of small parts render empty. Set 0.002.
+- Calibrate exposure by comparing the mean colour inside the handle mask of the match render with the photo.
+- Saw teeth for push saws: the near-vertical cutting face faces the toe. Bend set into alternate teeth by moving
+  the vertices below the tooth root in z, scaled by depth below the root.
+- Validate on the maker's other catalog shots too: handmade handles drift between batches (2-3 % here), so match
+  the current primary product image and report the others.
