@@ -152,3 +152,26 @@ real one, not a stand-in. The target is a model you could not tell from the make
   What worked: synthesise per handle (periodic noise, domain-warped lengthwise grain, the handle's own figure type:
   arches, ribbon, curl, fleck), quantile-match to that handle's lightness histogram, colour ramp = median Lab per
   lightness quantile from the photo, then calibrate a BGR gain on the render vs photo means (two passes got dE 2-5).
+
+## Second pass on sculpted saw handles (back saws, 26 Nov 2026)
+- Round-overs from a traced outline: never mesh a height field `|z - zc| - zh(x,y)` with marching cubes. Where the edge
+  goes vertical the crossing jumps cell to cell per z level and the wall reads as stacked terraces. Mesh an approximate
+  signed distance of the section instead: wall `-d`, elliptical corner `(q - 1) * min(Rh, Rz)`, flat face `w - half`.
+- Build the marching-cubes mesh with `process=False`: merging coincident MC vertices creates non-manifold edges, and
+  every decimator then throws long spikes. Smooth (Taubin) and decimate with Blender's Decimate (collapse) modifier.
+- Trace the wood from the whole silhouette minus only the metal that is connected to the blade/back, not "wood colour":
+  low-saturation highlights on the wood otherwise dent the outline. Blur the upsampled mask by ~1 mm (in mm, not px),
+  then open by 0.5 mm to kill hair-thin JPEG leaks (one ran from the cheek to the lower horn).
+- Section by region: crisp R ~2.5-3 mm round-over on the cheek and horns, full oval on the grip (horizontal semi-axis
+  ~11 mm), horns thinning to ~72 % at the tips. Local thickness (largest inscribed disc) via thresholded EDTs.
+- Projected photo texture on a rounded handle smears into stripes on every edge. Unwrap (xatlas), bake texel positions
+  with Cycles (EMIT of Geometry Position into a float image, margin EXTEND), then evaluate a solid 3D wood there.
+  Relax xatlas chart options (normal_deviation_weight ~0.3, max_cost ~10): defaults on a decimated MC mesh gave ~3,800
+  tiny charts and a fine hatch pattern in close-ups. Cache the unwrap: it takes ~7 min for 320k triangles.
+- Solid wood: rings = (n0 . p + kz (z - zc)) / ring + warp, n0 from the photo's median line direction (band-pass
+  structure tensor so shading is ignored). A Poisson stream function of the full field does not keep unit gradient:
+  ring spacing ran wide and the cheek figure turned vertical. Add long streaks (fbm along/across grain) for cherry.
+- Calibrate the light on the parts whose albedo comes straight from the photo (plate, brass) first, then tune the wood
+  albedo to the photo mean in that light (got dE 1.4-2.2).
+- Etch letters: fit font, cap height, x-scale and position per word by NCC (correlate2d, sub-pixel offsets); at a
+  ~6 px cap the stroke weight is not resolvable, so take the measured fit and un-mix the ink colour from the brass.
