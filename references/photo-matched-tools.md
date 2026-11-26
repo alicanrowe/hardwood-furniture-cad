@@ -106,3 +106,24 @@ real one, not a stand-in. The target is a model you could not tell from the make
   these shapes fail or self-intersect. Assert watertight after each.
 - Clash fixing order that converged: cap screw taps into the frog (shorten), knob/tote seated exactly on the pads,
   tote nut hole coaxial with the rod, lever start clear of the cap screw, lateral lever offset off the blade.
+
+## Second pass to "exact" (squares, rule, pencil, 26 Nov 2026)
+- Measure every width from the tool's own graduations: an FFT of a 1-px band along the ticks gives the px/mm to
+  0.05 %, then alpha-sum across the blade gives the width to ~0.1 mm. This beat both "nominal" guesses (a 3/4 in blade
+  measured 18.84 mm, a 6 in rule 18.72 mm) and the first pass's trace. Check the method on a part of known size first.
+- Score with an honest IoU (no fill_holes on the reference, same closing on both) and p95 edge distance in mm; when a
+  part slides (a square's head), align it before scoring and say so.
+- Machined faces: build the slab, then planar cuts per facet (crease line + slope), and a Minkowski bicone for the
+  45 deg edge break. Heightfield caps give noisy shading. Weld manifold output (union-find, eps ~1.5 um) before export,
+  or a 1 um GLB merge splits seams. Keep a slot face a few um off any other face to avoid pinches.
+- Re-register an etch texture by fitting the major ticks (n x 25.4 mm) and cropping, not by stretching to the part.
+- Black patches in close-ups that stay black with a diffuse override are the camera's near clip, not normals.
+- Colours: render with Standard view transform, a white floor and a world that is white above and dark below the
+  horizon; then compare the same patches with the maker's photo (eraser, wood, plating). AgX plus a uniform white world
+  washes metals and makes wood read pink. Take the albedo where a lit face sits next to the white backdrop.
+- Wood grain for small parts: rectify a clean band of the maker's close-up, flatten shading, take its mean and first
+  colour axis, then make procedural lines + flecks + pores at the part's UV scale, histogram-matched to the band.
+  Random-phase synthesis of a thin band loses the streaks.
+- Sheet-metal parts (ferrules): loft one closed section per x station (circle blended into a superellipse), outer minus
+  inner (radius minus wall), so the solid is watertight by construction. Re-read the profile off the maker's side view
+  (crimp grooves, shoulder length) instead of trusting the first pass.
