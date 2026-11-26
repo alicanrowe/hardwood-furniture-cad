@@ -215,6 +215,7 @@ def main():
         if os.path.exists(jf): flagged = {f['node'] for f in json.load(open(jf)) if f['kind'] == 'curved'}
     out = Out(g, g.binary_blob()); blob = bytes(out.buf); done = []
     users = {}
+    BOARDS = {}
     for ni, node in enumerate(g.nodes):
         if node.mesh is not None: users.setdefault(node.mesh, []).append(ni)
     for ni, node in enumerate(g.nodes):
@@ -263,6 +264,10 @@ def main():
             seed = ps.get('seed', sum(map(ord, name)) % 997)
             lam = W.board(Pm, grain=ps.get('grain'), cut=ps.get('cut', 'auto'), species_name=species, seed=seed,
                           sap=ps.get('sap'), finish=ps.get('finish', spec.get('finish', 'oil')), lod=a.texel, name=name)
+            mate = W.pair_name(name)      # bookmatched pair (Door_Board_L / _R): the second leaf mirrors the first
+            if mate in BOARDS and BOARDS[mate][0].get('cut') == 'flat' == lam.get('cut') and spec.get('bookmatch', True):
+                lam = W.bookmatch(BOARDS[mate][0], BOARDS[mate][1], Pm, name=name) or lam
+            BOARDS[name] = (lam, Pm)
         texel0 = a.texel
         if lam.get('mode') == 'board':     # at least 5 texels per growth ring, or the rings alias into mush
             texel0 = min(a.texel, 1.0 / (5.0 * W.species(species)[1]['rings_per_in'])); lam['lod'] = texel0
@@ -274,7 +279,7 @@ def main():
         sk = W.species(species)[0]
         g.materials.append(gl.Material(name=f'{species} solid {name}', doubleSided=False, pbrMetallicRoughness=gl.PbrMetallicRoughness(
             baseColorTexture=gl.TextureInfo(index=len(g.textures) - 1), metallicFactor=0.0, roughnessFactor=W.roughness(sk, lam.get('finish', 'oil'))),
-            extras={'woodlib': W.stamp(sk, lam.get('cut', lam.get('mode')), lam.get('finish', 'oil'))}))
+            extras=W.board_extras(lam, sk)))
         prim = gl.Primitive(attributes=gl.Attributes(
             POSITION=out.acc(P[vmap].astype(np.float32), 'VEC3', 34962),
             NORMAL=out.acc(Nl[vmap].astype(np.float32), 'VEC3', 34962),

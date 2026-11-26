@@ -107,3 +107,23 @@ node shader whose ring coordinate is offset by a per-object `seed` property: eve
 parts cut out of a layer (a drawer front) can share its seed so the figure runs on. Add the glue line from world position
 (pingpong of y / layer thickness). Keep bump Distance tiny (about 0.00015 m); the default 1 m turns pores into ridges.
 Worked example: a `mat_cherry()` node tree built this way (TexCoord Object x 39.37, ring distance from a pith offset by the seed, noise wander, stretched pore noise, per-seed tone).
+
+
+### Arches up, bookmatched doors, approved looks (26 Nov 2026)
+
+- **Arches point up.** Where the pith lies deepest under the face, the arch apex points: `apex = -sign(tilt_w) * u`.
+  `woodlib.board(..., up=(0, 0, 1))` sets the sign so every upright flat-sawn part has its apexes up; `woodlib.apex(lam)`
+  reports it and `check_boards` fails WOODAPEX. Baked GLB materials carry `woodlib_apex` (model frame, Z up).
+- **Bookmatch.** `woodlib.bookmatch(lam_a, P_a, P_b)` mirrors leaf a's board across the joint (plane normal = a's width
+  axis) and matches the show faces' depth and height: the flat-sawn figure moves about 1/taper inches along the grain
+  per inch of depth, so a leaf 2 mm proud of its partner put the arches 2 in apart until that was matched. Pairs are
+  found by name (`woodlib.pair_name`: `..._L`/`..._R` with door, panel, leaf, lid or front in the name). Both leaves
+  must be flat sawn; a door spec that says `"cut": "rift"` gets no visible match.
+- **Approved looks.** `woods.json` species may carry `"look"` (median / p10 / p90, sRGB, with its source); `woodlib.target()`
+  returns it before `"photo"`, and `woodlib_fit.py` and `woodlib_calibrate.py` aim for it. Walnut's look is measured on the
+  milled boards of the PM case reel (median 0.427 0.329 0.259); ash's on the client's own boards (0.82 0.78 0.725).
+- **Figure knobs** (per species, both the numpy model and the Blender nodes read them): `fibre` (fine fibre streaks),
+  `streak_fine` (narrow colour bands), `ring_break` + `ring_fade` (ring lines fading in and out along the board),
+  `ring_jag` (fine wobble of a ring edge: high values give toothed apexes), `apex_soft` (lightens the broad dark flame
+  where the face runs tangent to a ring), `wander` (how far the rings meander), `late_floor` (darkest latewood as a
+  fraction of earlywood; lower = more grain contrast), `late_hue` (keep a latewood hue, e.g. ash's tan lines on cream).

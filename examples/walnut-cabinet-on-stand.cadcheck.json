@@ -7,7 +7,8 @@
   },
   "^Door_Board_": {
    "grain": "z",
-   "cut": "rift"
+   "cut": "flat",
+   "why": "bookmatched pair (client, 26 Nov 2026: \"where are the bookmatched doors\"): flat sawn, the R leaf mirrors the L leaf, cathedrals up"
   },
   "^Door_Breadboard_": {
    "grain": "x"

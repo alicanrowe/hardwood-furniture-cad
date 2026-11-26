@@ -26,9 +26,9 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--species', nargs='*'); ap.add_argument('--write', action='store_true')
     a = ap.parse_args()
     lib = json.load(open(W.WOODS))
-    names = a.species or [k for k, v in lib['species'].items() if v.get('photo')]
+    names = a.species or [k for k, v in lib['species'].items() if v.get('photo') or v.get('look')]
     for sp in names:
-        S = W.LIB['species'][sp]; ph = S['photo']
+        S = W.LIB['species'][sp]; ph = W.target(sp)
         for it in range(4):
             med, p10, p90 = measure(sp)
             # median follows mostly the earlywood, the 10th percentile the latewood
@@ -38,7 +38,11 @@ def main():
             A['early'] = [round(float(x), 4) for x in W.lin2srgb(np.clip(W.srgb2lin(A['early']) * ge, 0, 1))]
             # latewood never darker than half the earlywood (linear): past that the rings read as painted stripes and
             # flat-sawn apexes as dark flames (PM case card, 26 Nov); the rest of the spread comes from figure and streaks
-            lt = np.maximum(W.srgb2lin(A['late']) * gl, 0.5 * W.srgb2lin(A['early']))
+            if S.get('late_hue'):   # keep the latewood hue (ash's tan lines on cream), fit only its depth
+                hue = W.srgb2lin(S['late_hue']); A['late'] = list(W.lin2srgb(hue * (W.srgb2lin(A['late']).mean() / hue.mean()))); gl = np.full(3, float(np.mean(gl)))
+            fl = S.get('late_floor', 0.5) * W.srgb2lin(A['early'])
+            if S.get('late_hue'): fl = hue * (fl.mean() / hue.mean())
+            lt = np.maximum(W.srgb2lin(A['late']) * gl, fl)
             A['late'] = [round(float(x), 4) for x in W.lin2srgb(np.clip(lt, 0, 1))]
         med, p10, p90 = measure(sp)
         dE = float(np.abs(med - ph['median']).max())
