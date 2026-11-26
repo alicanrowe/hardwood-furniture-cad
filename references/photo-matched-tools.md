@@ -152,3 +152,22 @@ real one, not a stand-in. The target is a model you could not tell from the make
   What worked: synthesise per handle (periodic noise, domain-warped lengthwise grain, the handle's own figure type:
   arches, ribbon, curl, fleck), quantile-match to that handle's lightness histogram, colour ramp = median Lab per
   lightness quantile from the photo, then calibrate a BGR gain on the render vs photo means (two passes got dE 2-5).
+
+## Cast and machined bench planes (LN No.4 Bronze + No.7, v2, 26 Nov 2026)
+- Score honestly: no fill_holes on the photo mask (it lifted v1 No.4 from 0.877 to "0.95"). Boundary p95 as % of length.
+- Check camera elevation before tuning parts: catalogue "side" shots are often ~15 deg up, not ~7. Fit it from the
+  far-wall offset and the knob-nut ellipse; most v1 drift was the camera, not the CAD.
+- If the whole silhouette is ~1-2 % short, rescale the focal length and retrace. Don't stretch parts.
+- Far wall trace: take the bottom of the lowest white gap above the near edge. Reject far points above the near edge
+  (they land on the knob/tote) and repair spikes before back-projecting.
+- Totes: build the roundover as an SDF that keeps the traced outline exactly (edge radius R inset from the width),
+  low-pass it, then marching cubes at a small non-zero level inside a padded grid (avoids coincident verts).
+  Decimate with manifold3d simplify. Taubin smoothing exploded verts and fast_simplification broke the manifold.
+- Cheek chamfer: sort and median-filter the traced cheek profile before sweeping the triangular cutter; a non-monotonic
+  profile makes the boolean fail. Retry at sizes c x 0.93-1.07.
+- Knurl: V-grooves subtracted from the wheel (No.4 40 x 0.45 mm). Keep a clearance list of part pairs to subtract.
+- Second views: a shadowed rear photo needs a GrabCut mask seeded by the projected model (save as <photo>.mask.png).
+- Colour: fit metal base colours in linear space against the photo (CIEDE2000). Raise exposure if fitted colours
+  clip at 1.0. Wood comes only from the shared woodlib (cherry target in woods.json), never a local shader.
+- GLBs keep bronze/iron/brass distinct: export, web_laminate --all --texel 0.02, reshade all at 30 deg, then the frog
+  alone at crease 12. A global crease 12 made 13-21 MB files.
