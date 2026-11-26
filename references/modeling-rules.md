@@ -8,7 +8,7 @@
 - When a design change removes a feature (dowels, lid, pins), remove its cuts from **every** mating part too.
 - When a joint changes, trim the old part back to the new seat (an old tenon or foot left running into solid wood shows up as `interference`). Never dismiss an overlap on an open mesh as an artefact: close the part first, then measure.
 - After a boolean rebuild (trimesh, manifold3d), copy each part's material back from the source file before export, and list materials per part in the version diff.
-- Export GLBs with split normals (`scripts/split_normals.py`) so flat faces don't streak in viewers.
+- Viewer GLBs: rebuild normals with `scripts/web_reshade.py` (real edges split, flat panels locked flat) and pass `scripts/web_shading_check.py`, so flat faces never streak or bulge in viewers. `split_normals.py` is the old, weaker fix (it averages a panel into its roundover).
 - **Clearing old cuts with a convex hull:** hull only the run of the part that is prismatic (for example the tapered length of a leg below its apron joints), then union it back with the untouched part. Hulling the whole leg bridges from a plumb top block to the taper and silently adds wood. Afterwards, diff section areas at several heights outside the cleared zone; they must match the old part exactly.
 - **A rail that ends on a leg:** cut its ends to the leg face over the whole rail section. Trimming only by the leg solid (`rail - leg`) leaves an ear wherever the rail is deeper than the leg, behind or in front of it, and that ear runs into runners and kickers.
 - **Drawer side grooves** run through the front tails; the half-blind lap hides them. A groove that stops at the tail baseline makes the bottom crash into the tails.

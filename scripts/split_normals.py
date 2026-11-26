@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Re-export a GLB with split normals so flat CAD faces don't streak in web viewers and renderers.
+SUPERSEDED for viewer GLBs by web_reshade.py (locks flat panels, refines coarse curves, 12-bit normals); always
+finish with web_shading_check.py.
 
   python3 scripts/split_normals.py in.glb out.glb [--angle 30]
 
