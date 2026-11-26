@@ -35,6 +35,7 @@ Modelling an existing carved or sculpted piece from photos (no cut list, "make t
 - Decorative parts that only look like joinery (a cosmetic spline, a faux peg) get `"role": "ignore"` in the spec, or a `Deco_` name.
 - Hinges: pick a real hinge from `references/hinges.md` / `hinges.json`, model its leaves at the catalogue size (better: measured off the hinge in hand), and cut the mortises to `python3 scripts/hinge.py MODEL --door T --gap G`. Keep about 1/2 in of wood behind every screw, check the full swing, and order by how they're sold (Brusso: by the pair, so 4 hinges = 2 pairs).
 - Figure: side and door panels plain-sawn with the cathedral centred and straight grain at both edges; rails, stiles, aprons and legs straight grain.
+- **Context objects are real CAD too** (a truck, a tool, a bought fixture the piece sits in or holds): model them from front, side, rear and 3/4 photos with curved panels, real glazing in rubber frames, grilles, mirrors on arms, lamp units, seams, tyres with tread, badges, and check photoreal renders against the photos. Correct overall dimensions on a box-and-prism stand-in is still a stand-in (client, 26 Nov: "what the fuck is that low poly CAD shit ... Photoreal CAD").
 - Name parts so the checker knows their role: `Panel`, `Drawer_Bottom`, `Back_Board`, `Slat` (floating); `Button`, `Clip`, `Figure8` (fasteners that allow movement); `Tenon`, `Dowel`, `Spline`, `Tongue`, `Peg` (loose joinery); `Bolt`, `Screw`, `Hinge` (hardware); `Ply` (plywood).
 
 ## Before saying it's done
