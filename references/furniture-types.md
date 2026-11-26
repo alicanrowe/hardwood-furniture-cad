@@ -17,6 +17,9 @@ Numbers here are standard practice. A drawing you've approved beats this page.
 - **Joinery:** chairs rack hard. Mortise and tenon everywhere (tenons at least 1 in long, drawbored or with a long glue line), angled joints cut to the actual leg angle, stretchers low. Windsor/stick chairs: round tenons, wedged at right angles to the seat grain. Never dowels alone or butt joints with screws.
 - **Goes wrong:** shoulders that don't follow the angled leg (drawn as a taper down to the tenon instead of cut to the leg angle); short tenons; legs too thin where two mortises meet; seat glued across the grain of the rails.
 
+## Workbenches
+Woodworking benches have their own reference: `references/workbenches.md` (from *The Anarchist's Workbench* and the Lie-Nielsen bench).
+
 ## Casework (chests of drawers, cabinets, sideboards, bookcases)
 - **Sizes:** dresser 30 to 36 in tall, 18 to 22 deep; sideboard 32 to 36 tall, 16 to 20 deep; bookcase shelves 10 to 12 in deep, 9 to 13 in apart.
 - **Box:** sides vertical grain; top and bottom side to side; half-blind or through dovetails, or a dado with a rabbet. Back in a rabbet: shiplap, a frame and panel, or ply.
