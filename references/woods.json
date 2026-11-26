@@ -1,0 +1,620 @@
+{
+ "_about": "THE wood library (one source for every render, reel, card and web GLB). Read by scripts/woodlib.py and scripts/blender/woodlib_bl.py. Colours are sRGB 0..1. 'photo' is what the wood must look like in a neutral, correctly exposed studio photo (white paper about 0.92): median and 10th/90th percentile of the wood pixels, measured from the reference boards listed in 'refs'. 'albedo' is the base colour that gives that photo under neutral light (glTF viewers, model-viewer). 'house' is the gain each house studio needs so its tonemapper lands on 'photo' (set by scripts/woodlib_calibrate.py, never by hand). Change a number here, never in a pipeline.",
+ "version": "2026-11-26.1",
+ "species": {
+  "walnut": {
+   "name": "black walnut (Juglans nigra), oiled",
+   "photo": {
+    "median": [
+     0.4,
+     0.28,
+     0.19
+    ],
+    "p10": [
+     0.27,
+     0.18,
+     0.11
+    ],
+    "p90": [
+     0.52,
+     0.39,
+     0.29
+    ],
+    "sap": [
+     0.66,
+     0.5,
+     0.33
+    ]
+   },
+   "refs": [
+    "wood-database.com black walnut: finished full board (median 0.443 0.318 0.227) and sealed sample (0.204 0.114 0.047), averaged toward the board; measured 26 Nov 2026"
+   ],
+   "albedo": {
+    "early": [
+     0.4178,
+     0.2951,
+     0.2
+    ],
+    "late": [
+     0.2992,
+     0.2073,
+     0.136
+    ],
+    "sap": [
+     0.68,
+     0.52,
+     0.35
+    ],
+    "sap_late": [
+     0.56,
+     0.41,
+     0.26
+    ]
+   },
+   "rings_per_in": 5.0,
+   "late_frac": 0.3,
+   "late_soft": 0.25,
+   "porosity": "semi",
+   "pores": 0.22,
+   "pore_scale": 1.0,
+   "rays": 0.0,
+   "end_dark": 0.3,
+   "streak": 0.14,
+   "board_tone": 0.05,
+   "roughness": 0.48,
+   "specular": 0.15,
+   "flat_depth_in": 4.5,
+   "taper": 0.035,
+   "heart_radius_in": 7.5,
+   "fit": {
+    "median": [
+     0.4,
+     0.282,
+     0.188
+    ],
+    "p10": [
+     0.325,
+     0.227,
+     0.149
+    ],
+    "p90": [
+     0.427,
+     0.302,
+     0.204
+    ],
+    "max_err": 0.0024
+   }
+  },
+  "ash": {
+   "name": "white ash (Fraxinus americana), oiled",
+   "photo": {
+    "median": [
+     0.77,
+     0.63,
+     0.45
+    ],
+    "p10": [
+     0.69,
+     0.55,
+     0.37
+    ],
+    "p90": [
+     0.86,
+     0.74,
+     0.56
+    ],
+    "sap": [
+     0.79,
+     0.65,
+     0.47
+    ]
+   },
+   "refs": [
+    "wood-database.com white ash: sealed sample (median 0.773 0.627 0.439), sanded sample (0.812 0.690 0.553); measured 26 Nov 2026"
+   ],
+   "albedo": {
+    "early": [
+     0.7947,
+     0.6536,
+     0.4693
+    ],
+    "late": [
+     0.6704,
+     0.5305,
+     0.3445
+    ],
+    "sap": [
+     0.82,
+     0.69,
+     0.51
+    ],
+    "sap_late": [
+     0.69,
+     0.55,
+     0.37
+    ]
+   },
+   "rings_per_in": 6.0,
+   "late_frac": 0.45,
+   "late_soft": 0.18,
+   "porosity": "ring",
+   "pores": 0.3,
+   "pore_scale": 1.0,
+   "rays": 0.0,
+   "end_dark": 0.22,
+   "streak": 0.06,
+   "board_tone": 0.04,
+   "roughness": 0.52,
+   "specular": 0.2,
+   "flat_depth_in": 3.5,
+   "taper": 0.03,
+   "heart_radius_in": 30.0,
+   "fit": {
+    "median": [
+     0.769,
+     0.631,
+     0.451
+    ],
+    "p10": [
+     0.69,
+     0.553,
+     0.369
+    ],
+    "p90": [
+     0.808,
+     0.663,
+     0.475
+    ],
+    "max_err": 0.0014
+   }
+  },
+  "white oak": {
+   "name": "white oak (Quercus alba), oiled",
+   "photo": {
+    "median": [
+     0.66,
+     0.53,
+     0.37
+    ],
+    "p10": [
+     0.57,
+     0.44,
+     0.29
+    ],
+    "p90": [
+     0.73,
+     0.61,
+     0.46
+    ],
+    "sap": [
+     0.74,
+     0.63,
+     0.48
+    ]
+   },
+   "refs": [
+    "wood-database.com white oak: flat-sawn (median 0.698 0.569 0.424) and quarter-sawn (0.624 0.490 0.329) samples; measured 26 Nov 2026"
+   ],
+   "albedo": {
+    "early": [
+     0.6844,
+     0.5523,
+     0.3857
+    ],
+    "late": [
+     0.5343,
+     0.4041,
+     0.2752
+    ],
+    "sap": [
+     0.76,
+     0.65,
+     0.5
+    ],
+    "sap_late": [
+     0.64,
+     0.53,
+     0.39
+    ]
+   },
+   "rings_per_in": 8.0,
+   "late_frac": 0.5,
+   "late_soft": 0.15,
+   "porosity": "ring",
+   "pores": 0.25,
+   "pore_scale": 0.8,
+   "rays": 0.35,
+   "end_dark": 0.25,
+   "streak": 0.06,
+   "board_tone": 0.04,
+   "roughness": 0.5,
+   "specular": 0.2,
+   "flat_depth_in": 4.0,
+   "taper": 0.03,
+   "heart_radius_in": 9.0,
+   "fit": {
+    "median": [
+     0.659,
+     0.529,
+     0.369
+    ],
+    "p10": [
+     0.569,
+     0.439,
+     0.302
+    ],
+    "p90": [
+     0.694,
+     0.561,
+     0.392
+    ],
+    "max_err": 0.0014
+   }
+  },
+  "red oak": {
+   "name": "red oak (Quercus rubra), oiled (colour not yet photo-measured)",
+   "photo": null,
+   "albedo": {
+    "early": [
+     0.76,
+     0.57,
+     0.42
+    ],
+    "late": [
+     0.6,
+     0.41,
+     0.28
+    ],
+    "sap": [
+     0.8,
+     0.66,
+     0.5
+    ],
+    "sap_late": [
+     0.68,
+     0.53,
+     0.39
+    ]
+   },
+   "rings_per_in": 7.0,
+   "late_frac": 0.6,
+   "late_soft": 0.15,
+   "porosity": "ring",
+   "pores": 0.3,
+   "pore_scale": 0.9,
+   "rays": 0.25,
+   "end_dark": 0.25,
+   "streak": 0.06,
+   "board_tone": 0.04,
+   "roughness": 0.5,
+   "specular": 0.2,
+   "flat_depth_in": 4.0,
+   "taper": 0.03,
+   "heart_radius_in": 9.0
+  },
+  "cherry": {
+   "name": "black cherry (Prunus serotina), oiled (not yet photo-measured)",
+   "photo": null,
+   "albedo": {
+    "early": [
+     0.66,
+     0.41,
+     0.27
+    ],
+    "late": [
+     0.52,
+     0.3,
+     0.19
+    ],
+    "sap": [
+     0.8,
+     0.66,
+     0.5
+    ],
+    "sap_late": [
+     0.7,
+     0.55,
+     0.4
+    ]
+   },
+   "rings_per_in": 7.0,
+   "late_frac": 0.35,
+   "late_soft": 0.3,
+   "porosity": "diffuse",
+   "pores": 0.06,
+   "pore_scale": 1.5,
+   "rays": 0.0,
+   "end_dark": 0.25,
+   "streak": 0.06,
+   "board_tone": 0.05,
+   "roughness": 0.45,
+   "specular": 0.2,
+   "flat_depth_in": 3.0,
+   "taper": 0.03,
+   "heart_radius_in": 6.0
+  },
+  "hard maple": {
+   "name": "hard maple (Acer saccharum), oiled (not yet photo-measured)",
+   "photo": null,
+   "albedo": {
+    "early": [
+     0.88,
+     0.77,
+     0.61
+    ],
+    "late": [
+     0.78,
+     0.66,
+     0.5
+    ],
+    "sap": [
+     0.89,
+     0.79,
+     0.63
+    ],
+    "sap_late": [
+     0.8,
+     0.69,
+     0.53
+    ]
+   },
+   "rings_per_in": 9.0,
+   "late_frac": 0.3,
+   "late_soft": 0.3,
+   "porosity": "diffuse",
+   "pores": 0.03,
+   "pore_scale": 1.5,
+   "rays": 0.0,
+   "end_dark": 0.2,
+   "streak": 0.04,
+   "board_tone": 0.03,
+   "roughness": 0.45,
+   "specular": 0.2,
+   "flat_depth_in": 3.5,
+   "taper": 0.03,
+   "heart_radius_in": 30.0
+  },
+  "mahogany": {
+   "name": "mahogany, oiled (not yet photo-measured)",
+   "photo": null,
+   "albedo": {
+    "early": [
+     0.58,
+     0.33,
+     0.22
+    ],
+    "late": [
+     0.46,
+     0.25,
+     0.16
+    ],
+    "sap": [
+     0.7,
+     0.5,
+     0.36
+    ],
+    "sap_late": [
+     0.6,
+     0.42,
+     0.3
+    ]
+   },
+   "rings_per_in": 4.0,
+   "late_frac": 0.3,
+   "late_soft": 0.35,
+   "porosity": "diffuse",
+   "pores": 0.12,
+   "pore_scale": 1.0,
+   "rays": 0.0,
+   "end_dark": 0.25,
+   "streak": 0.08,
+   "board_tone": 0.05,
+   "roughness": 0.45,
+   "specular": 0.2,
+   "flat_depth_in": 5.0,
+   "taper": 0.03,
+   "heart_radius_in": 30.0
+  },
+  "sapele": {
+   "name": "sapele, oiled (not yet photo-measured)",
+   "photo": null,
+   "albedo": {
+    "early": [
+     0.56,
+     0.32,
+     0.21
+    ],
+    "late": [
+     0.44,
+     0.24,
+     0.15
+    ],
+    "sap": [
+     0.7,
+     0.5,
+     0.36
+    ],
+    "sap_late": [
+     0.6,
+     0.42,
+     0.3
+    ]
+   },
+   "rings_per_in": 5.0,
+   "late_frac": 0.3,
+   "late_soft": 0.35,
+   "porosity": "diffuse",
+   "pores": 0.1,
+   "pore_scale": 1.0,
+   "rays": 0.0,
+   "end_dark": 0.25,
+   "streak": 0.12,
+   "board_tone": 0.05,
+   "roughness": 0.45,
+   "specular": 0.2,
+   "flat_depth_in": 5.0,
+   "taper": 0.03,
+   "heart_radius_in": 30.0
+  },
+  "pine": {
+   "name": "eastern white pine, oiled (not yet photo-measured)",
+   "photo": null,
+   "albedo": {
+    "early": [
+     0.86,
+     0.72,
+     0.5
+    ],
+    "late": [
+     0.7,
+     0.52,
+     0.32
+    ],
+    "sap": [
+     0.87,
+     0.74,
+     0.53
+    ],
+    "sap_late": [
+     0.72,
+     0.55,
+     0.35
+    ]
+   },
+   "rings_per_in": 6.0,
+   "late_frac": 0.3,
+   "late_soft": 0.25,
+   "porosity": "conifer",
+   "pores": 0.0,
+   "pore_scale": 1.0,
+   "rays": 0.0,
+   "end_dark": 0.2,
+   "streak": 0.04,
+   "board_tone": 0.05,
+   "roughness": 0.55,
+   "specular": 0.2,
+   "flat_depth_in": 3.0,
+   "taper": 0.03,
+   "heart_radius_in": 6.0
+  },
+  "cedar": {
+   "name": "aromatic red cedar, oiled (not yet photo-measured)",
+   "photo": null,
+   "albedo": {
+    "early": [
+     0.7,
+     0.46,
+     0.33
+    ],
+    "late": [
+     0.56,
+     0.34,
+     0.23
+    ],
+    "sap": [
+     0.84,
+     0.72,
+     0.52
+    ],
+    "sap_late": [
+     0.74,
+     0.6,
+     0.42
+    ]
+   },
+   "rings_per_in": 8.0,
+   "late_frac": 0.3,
+   "late_soft": 0.25,
+   "porosity": "conifer",
+   "pores": 0.0,
+   "pore_scale": 1.0,
+   "rays": 0.0,
+   "end_dark": 0.2,
+   "streak": 0.08,
+   "board_tone": 0.06,
+   "roughness": 0.55,
+   "specular": 0.2,
+   "flat_depth_in": 3.0,
+   "taper": 0.03,
+   "heart_radius_in": 4.0
+  },
+  "baltic birch": {
+   "name": "baltic birch plywood face veneer (rotary cut), oiled (not yet photo-measured)",
+   "photo": null,
+   "albedo": {
+    "early": [
+     0.86,
+     0.76,
+     0.6
+    ],
+    "late": [
+     0.78,
+     0.67,
+     0.51
+    ],
+    "sap": [
+     0.86,
+     0.76,
+     0.6
+    ],
+    "sap_late": [
+     0.78,
+     0.67,
+     0.51
+    ]
+   },
+   "rings_per_in": 6.0,
+   "late_frac": 0.3,
+   "late_soft": 0.35,
+   "porosity": "diffuse",
+   "pores": 0.02,
+   "pore_scale": 1.5,
+   "rays": 0.0,
+   "end_dark": 0.15,
+   "streak": 0.05,
+   "board_tone": 0.03,
+   "roughness": 0.55,
+   "specular": 0.2,
+   "flat_depth_in": 2.0,
+   "taper": 0.05,
+   "heart_radius_in": 40.0
+  }
+ },
+ "aliases": {
+  "black walnut": "walnut",
+  "white ash": "ash",
+  "oak": "white oak",
+  "maple": "hard maple",
+  "birch": "baltic birch",
+  "ply": "baltic birch"
+ },
+ "finishes": {
+  "oil": {
+   "albedo_gain": 1.0,
+   "roughness": null,
+   "note": "tung or Danish oil; the species colours above are oiled"
+  },
+  "raw": {
+   "albedo_gain": 1.12,
+   "desat": 0.25,
+   "roughness_add": 0.12,
+   "note": "planed, unfinished: paler and less saturated"
+  },
+  "char": {
+   "albedo": [
+    0.035,
+    0.032,
+    0.03
+   ],
+   "roughness": 0.72,
+   "note": "shou sugi ban / ebonised: the figure shows only in the bump"
+  }
+ },
+ "cuts": {
+  "flat": "plain/flat sawn: pith a few inches under the wide face. Cathedrals along the board, centred, running out to straight grain at both edges. Panels, case sides, tops, door leaves, drawer bottoms.",
+  "quarter": "quarter sawn: rings at 90 deg to the wide face, straight stripes (oak shows ray fleck). Drawer sides, quartered panels.",
+  "rift": "rift sawn: rings about 45 deg in the section, straight lines on all four faces. Legs, rails, stiles, aprons, frame members.",
+  "auto": "flat when the part is a board (thickness under a third of its width and width over 2.5 in), else rift"
+ },
+ "house": {}
+}
