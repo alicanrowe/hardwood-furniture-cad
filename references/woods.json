@@ -704,6 +704,30 @@
     "err": 0.0051,
     "studio": "reels/one-studio white room, finished frame"
    }
+  },
+  "reel-white": {
+   "walnut": {
+    "gain": [
+     0.479,
+     0.5714,
+     0.6726
+    ],
+    "median": [
+     0.392,
+     0.278,
+     0.196
+    ],
+    "err": 0.008,
+    "card": "pm case reel (one-studio white room + reel finish grade)"
+   },
+   "baltic birch": {
+    "gain": [
+     0.479,
+     0.5714,
+     0.6726
+    ],
+    "note": "walnut gain reused (birch keys are small); not measured"
+   }
   }
  }
 }
