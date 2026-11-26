@@ -171,6 +171,7 @@ real one, not a stand-in. The target is a model you could not tell from the make
   clip at 1.0. Wood comes only from the shared woodlib (cherry target in woods.json), never a local shader.
 - GLBs keep bronze/iron/brass distinct: export, web_laminate --all --texel 0.02, reshade all at 30 deg, then the frog
   alone at crease 12. A global crease 12 made 13-21 MB files.
+
 ## Second pass on sculpted saw handles (back saws, 26 Nov 2026)
 - Round-overs from a traced outline: never mesh a height field `|z - zc| - zh(x,y)` with marching cubes. Where the edge
   goes vertical the crossing jumps cell to cell per z level and the wall reads as stacked terraces. Mesh an approximate
