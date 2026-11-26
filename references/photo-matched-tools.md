@@ -90,3 +90,19 @@ real one, not a stand-in. The target is a model you could not tell from the make
   the vertices below the tooth root in z, scaled by depth below the root.
 - Validate on the maker's other catalog shots too: handmade handles drift between batches (2-3 % here), so match
   the current primary product image and report the others.
+
+## Bench planes (learned on a bronze smoother and an iron jointer, 22 parts each)
+- Model the blade stack in a bed frame: s along the bed (up), n normal to it (n>0 frog side, n<0 cap side), mapped
+  as x = xm - s*cos45 - n*cos45, z = s*sin45 - n*sin45. Blade, chipbreaker, cap, screws and frog all become simple
+  (s, n) prisms and clearances are just offsets in n.
+- Catalog side shots are not orthographic for long tools: a 22 in jointer needed a perspective camera (D ~1.1 m)
+  and a lens calibrated at the near sole edge, or the toe and heel drift 2-3 %. A 9 in plane was fine ortho.
+- Photo pixels are on the near cheek, the model centre plane is W/2 behind it: convert every measured point
+  (near vs centre plane) using the camera elevation, or features above the sole climb a few mm.
+- Sole width and casting thicknesses are not published; say "assumed" in SPECS and keep them in one place.
+- Tote and knob: digitise the side profile from the wood mask, buffer it 1-2 px with shapely to get a valid polygon,
+  then SDF-round (R ~9.5 mm) and marching-cube it; the knob is a revolve of a measured radius table.
+- Do the frog cut-outs, lever hook union and tote-nut holes as manifold3d mesh booleans after meshing; OCC fillets on
+  these shapes fail or self-intersect. Assert watertight after each.
+- Clash fixing order that converged: cap screw taps into the frog (shorten), knob/tote seated exactly on the pads,
+  tote nut hole coaxial with the rod, lever start clear of the cap screw, lateral lever offset off the blade.
