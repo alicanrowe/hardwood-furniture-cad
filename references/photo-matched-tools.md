@@ -44,3 +44,29 @@ real one, not a stand-in. The target is a model you could not tell from the make
 - Gold-plated or polished parts in a white world read white; give them dark cards too.
 - A ferrule or tube built by subtracting lofts can leave an open window; check the shell's volume against
   wall x area before export.
+
+## Turned tools from bench photos (chisels, awls, files; learned on a six-chisel set)
+- No orthographic shots? Straighten each tool out of the photo first: rotate the image about the tool's midpoint so
+  its axis is vertical, crop a strip, then measure rows. GrabCut and colour masks fail on a wood handle over a wood
+  bench (they swallow the bench or lose glossy edges); read the strip with a grid by eye, it is faster and right.
+- Perspective in a tilted bench photo: model the scale as linear along the strip, s(y) = s0 (1 + k (y - y0)), fixed by
+  two known widths at different rows (blade width, official handle diameter). Lengths are then integral dy / s(y).
+- That still leaves axis foreshortening (the camera is not square to the tool): widths are right, lengths come out
+  short (10% on a 45-degree phone shot). Calibrate lengths with the official overall length, then check one other
+  official length (handle) as an independent test. Different tools in the same photo need their own factor.
+- A second photo shot from the other end reverses the perspective: ratios that agree in both (ferrule back / handle
+  max) are trustworthy; absolute ratios that disagree by the perspective factor are not.
+- Overlay check: draw the model's top-view half-width envelope (max |y| per x over all parts, windowed so bores
+  don't drag it in) back onto each straightened strip with that strip's scale model.
+- Bevel-edge blade section: fixed side-bevel angle from the full-thickness top flat; at the cutting bevel the thinner
+  section gets a wider top, which reproduces the trapezoid facet seen end-on.
+- Maker's sticker: overlapping glare stripes make tracing unreliable; set it in matched fonts at measured radii and
+  compare against several copies. Old English capitals: Cloister Black (1001fonts, free commercial) is the closest
+  free match to Old English Text.
+- Rendering polished steel: on a white set the flat facets go pure white. Three causes, all hit here: a shadow-catcher
+  floor turns into transparent pixels in reflections; a big key light in the mirror direction of a flat facet; and
+  anisotropic BSDF without tangents. Use a floor that is white to camera rays and dark grey otherwise (Light Path
+  Is Camera Ray), the same trick for the world, a key light in front of the tool, and plain roughness ~0.3.
+- Turn on sharp-by-angle (mesh.set_sharp_from_angle(30 deg)) for lofted and revolved parts or smooth shading smears
+  facets and leaves slivers at steps (cap to handle).
+- Revolved domes pinch the texture to a point at the pole: give the dome planar UVs.
