@@ -18,6 +18,7 @@ Design solid-wood furniture that can actually be built and won't crack, then che
 Hardware and ornament (handles, pulls, feet, hinges, inlay motifs) are design work: build them from motifs already on the piece, and check them against the shared `design-taste` skill (`../design-taste/` next to this skill: principles, banned moves, and the rubric every render is scored with before it is shown). A taste remark from the client goes into its `critique-log.md` the same day, then into its principles, and the skill is published with `_publish/sync.sh design-taste`.
 
 Modelling an existing carved or sculpted piece from photos (no cut list, "make the CAD match the pictures"): follow `references/photo-matched-carving.md` instead of the joinery steps; its make-and-check loop renders from cameras solved from the photos and compares side by side.
+Modelling a real hand tool that a piece must hold (square, rule, pencil, plane, saw, chisel): follow `references/photo-matched-tools.md` (sources, scale from graduations, matched-camera overlay, etch textures).
 
 ## While modelling
 - Plain boxes with box cuts; one part = one closed solid; never fill an old hole, rebuild the part.
